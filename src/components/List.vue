@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <template v-if="mold === 'thumbnail'" v-for="item in items">
+    <!-- <template v-if="mold === 'thumbnail'" v-for="item in items">
       <router-link
         class="thumbnail"
         :to="{name: 'DetailView', params: { id: item.id }}">
@@ -16,10 +16,10 @@
           </span>
         </div>
       </router-link>
-    </template>
-    <template v-if="mold === 'basic'">
+    </template> -->
+    <template>
       <ul class="basic">
-        <li v-for="item in items">
+        <li v-for="item in items" :key="item.id">
           <a href="#">
             <h3>{{item.title}}</h3>
             <div class="info">{{item.comments}}</div>
@@ -34,23 +34,10 @@
 export default {
   name: 'list',
   props: {
-    mold: {
-      type: String,
-      default: 'basic'
-    },
-    items: {
-      type: Array,
-      required: true
-    }
+    items: ''
   },
   data () {
     return {
-    }
-  },
-  filters: {
-    subStr: function (value) {
-      let newVal = value.replace(/<.*?>/g, '')
-      return newVal.slice(0, 30)
     }
   }
 }

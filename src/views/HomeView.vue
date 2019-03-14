@@ -1,24 +1,24 @@
 <template>
   <div class="home-view has-header">
-    <list mold="thumbnail" :items="events"></list>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
-      <loading slot="spinner"></loading>
-    </infinite-loading>
+    <list mold="thumbnail" :items="items"></list>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 
-import InfiniteLoading from 'vue-infinite-loading'
 import List from '../components/List'
 import Loading from '../components/Loading'
+import axios from 'axios'
 
 export default {
   name: 'home-view',
-  components: { List, InfiniteLoading, Loading },
+  components: { List, Loading },
   data () {
-    return {}
+    return {
+      title: '',
+      items: []
+    }
   },
   computed: {
     // Getting Vuex State from store/modules/activities
@@ -37,7 +37,21 @@ export default {
     // Dispatching Actions
     ...mapActions([
       'loadMore'
-    ])
+    ]),
+    // MY testdata
+    getHomeInfo () {
+      axios.get('/api/list.json')
+        .then(this.getHomeInfoSucc)
+    },
+    getHomeInfoSucc (res) {
+      if (res) {
+        this.items = res
+        console.log(res)
+      }
+    }
+  },
+  mounted () {
+    this.getHomeInfo()
   }
 }
 </script>
