@@ -3,7 +3,7 @@
     <template v-if="mold === 'thumbnail'" v-for="item in items">
       <router-link
         class="thumbnail"
-        :to="{name: 'DetailView', params: { id: item.id }}">
+        :to="{name: 'DetailView', params: { id: item.id }}" :key="item.id">
         <div class="content">
           <img :src="item.image_hlarge" alt="cover">
           <h3>{{item.title}}</h3>
@@ -19,7 +19,7 @@
     </template>
     <template v-if="mold === 'basic'">
       <ul class="basic">
-        <li v-for="item in items">
+        <li v-for="item in items" :key="item.id">
           <a href="#">
             <h3>{{item.title}}</h3>
             <div class="info">{{item.comments}}</div>
