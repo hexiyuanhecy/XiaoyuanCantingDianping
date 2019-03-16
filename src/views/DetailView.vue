@@ -1,7 +1,7 @@
 <template>
   <div class="detail-view has-header">
-    <banner title="每天看点好内容"></banner>
     <template v-if="!showLoading">
+      <br>
       <div class="info">
         <h2>
           {{eventItem.title}}
@@ -55,14 +55,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import Banner from '../components/Banner'
 import Tags from '../components/Tags'
 import DownloadApp from '../components/DownloadApp'
 import Loading from '../components/Loading'
 
 export default {
   name: 'detail-view',
-  components: { Banner, Tags, DownloadApp, Loading },
+  components: { Tags, DownloadApp, Loading },
   data () {
     return {
       showLoading: true
