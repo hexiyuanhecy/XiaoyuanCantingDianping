@@ -87,6 +87,7 @@ export default {
   created () {
     // Getting route params
     const id = this.$route.params.id
+    // console.log('这是屏幕的第几个==传递给activity.js的参数' + id)
 
     // Dispatching getSingleEvent
     this.$store.dispatch({

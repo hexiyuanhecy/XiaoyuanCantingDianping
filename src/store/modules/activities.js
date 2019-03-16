@@ -1,5 +1,5 @@
 import request from 'superagent'
-import jsonp from 'superagent-jsonp'
+// import jsonp from 'superagent-jsonp'
 
 const state = {
   events: [],
@@ -26,10 +26,9 @@ const actions = {
    */
   loadMore ({commit, state}) {
     request
-      .get('https://api.douban.com/v2/event/list?loc=108288&start=' +
-        state.skip + '&count=3')
-      .use(jsonp)
+      .get('/static/mock/list.json')
       .end((err, res) => {
+        console.log('====' + res.body.events[0])
         if (!err) {
           commit({
             type: 'loadMore',
@@ -41,17 +40,20 @@ const actions = {
   /**
    * Getting single event
    * id: event id
+   * payload.id 就是点击屏幕第几个后list传给detail的参数--index
    */
   getSingleEvent ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get('https://api.douban.com/v2/event/' + payload.id)
-        .use(jsonp)
+        .get('/static/mock/list.json')
         .end((err, res) => {
+          // var myid = payload
+          // console.log('接收到的list传给detail的index' + payload.id)
           if (!err) {
+            let id = payload.id % 10
             commit({
               type: 'getSingleEvent',
-              res: res.body
+              res: res.body.events[id]
             })
             resolve(res)
           }
