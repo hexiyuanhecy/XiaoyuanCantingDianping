@@ -26,7 +26,7 @@ const actions = {
    */
   loadMore ({commit, state}) {
     request
-      .get('/static/mock/list.json')
+      .get('/api/list.json')
       .end((err, res) => {
         console.log('====' + res.body.events[0])
         if (!err) {
@@ -45,7 +45,7 @@ const actions = {
   getSingleEvent ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get('/static/mock/list.json')
+        .get('/api/list.json')
         .end((err, res) => {
           // var myid = payload
           // console.log('接收到的list传给detail的index' + payload.id)

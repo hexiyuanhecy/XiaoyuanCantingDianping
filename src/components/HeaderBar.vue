@@ -1,8 +1,8 @@
 <template>
   <div class="header-bar">
-    <h1 class="title">
-        浙江理工大学
-    </h1>
+    <router-link tag="h1" class="title" :to="{ name: 'School'}">
+      浙江理工大学
+    </router-link>
     <span class="talion" @click="showTalion">搜索</span>
   </div>
 </template>
