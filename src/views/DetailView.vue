@@ -1,6 +1,5 @@
 <template>
   <div class="detail-view has-header">
-    <banner title="每天看点好内容"></banner>
     <template v-if="!showLoading">
       <div class="info">
         <h2>
@@ -55,14 +54,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import Banner from '../components/Banner'
 import Tags from '../components/Tags'
 import DownloadApp from '../components/DownloadApp'
 import Loading from '../components/Loading'
 
 export default {
   name: 'detail-view',
-  components: { Banner, Tags, DownloadApp, Loading },
+  components: { Tags, DownloadApp, Loading },
   data () {
     return {
       showLoading: true
@@ -87,6 +85,7 @@ export default {
   created () {
     // Getting route params
     const id = this.$route.params.id
+    console.log(id)
 
     // Dispatching getSingleEvent
     this.$store.dispatch({

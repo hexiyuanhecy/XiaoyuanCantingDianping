@@ -78,14 +78,14 @@ const actions = {
    */
   getMovie ({ commit }) {
     request
-      .get('https://api.douban.com/v2/movie/in_theaters?count=8')
+      .get('https://api.douban.com/v2/movie/coming_soon?count=8')
       .use(jsonp)
       .end((err, res) => {
         if (!err) {
           commit({
             type: 'getMovie',
             tag: 'hotMovies',
-            res: res.body.subjects
+            res: res.data.popularRes
           })
         }
       })

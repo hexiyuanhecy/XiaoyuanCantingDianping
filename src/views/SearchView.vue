@@ -69,45 +69,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-view {
-  .search {
-    padding: 0.7rem 2rem;
-    border-bottom: 0.1rem solid #F2F2F2;
-    overflow: hidden;
+.header-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  height: 4.8rem;
+  padding: 0 4rem;
+  background: #fff;
+  border-top: 0.1rem solid #79a560;
+  .search-view {
+    .search {
+      padding: 0.7rem 2rem;
+      border-bottom: 0.1rem solid #F2F2F2;
+      overflow: hidden;
 
-    input {
-      width: 85%;
-      height: 3rem;
-      padding: 0.5rem 0.8rem;
-      box-sizing: border-box;
-      font-size: 1.4rem;
-      color: #111;
-      background: #f5f5f5;
-      border-radius: 0.3rem;
-      border: 0;
-      outline: 0;
+      input {
+        width: 85%;
+        height: 3rem;
+        padding: 0.5rem 0.8rem;
+        box-sizing: border-box;
+        font-size: 1.4rem;
+        color: #111;
+        background: #f5f5f5;
+        border-radius: 0.3rem;
+        border: 0;
+        outline: 0;
+      }
+
+      a {
+        display: inline-block;
+        float: right;
+        width: 10%;
+        height: 3rem;
+        padding-left: 5%;
+        line-height: 3rem;
+        font-size: 1.4rem;
+        color: #333;
+        text-decoration: none;
+      }
     }
 
-    a {
-      display: inline-block;
-      float: right;
-      width: 10%;
-      height: 3rem;
-      padding-left: 5%;
-      line-height: 3rem;
-      font-size: 1.4rem;
-      color: #333;
-      text-decoration: none;
+    .list-link {
+      display: block;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem 0 1.5rem 5rem;
+      font-size: 1.6rem;
+      line-height: 1.8rem;
+      color: #42bd56;
     }
-  }
-
-  .list-link {
-    display: block;
-    margin-bottom: 1.5rem;
-    padding: 1.5rem 0 1.5rem 5rem;
-    font-size: 1.6rem;
-    line-height: 1.8rem;
-    color: #42bd56;
   }
 }
 </style>

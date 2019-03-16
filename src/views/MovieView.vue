@@ -25,7 +25,7 @@ export default {
   computed: {
     // Getting Vuex State from store/modules/movie
     ...mapState({
-      hotMovies: state => state.movie.hotMovies,
+      hotMovies: state => state,
       topMovies: state => state.movie.topMovies,
       newMovies: state => state.movie.newMovies,
       movieTags: state => state.movie.movieTags

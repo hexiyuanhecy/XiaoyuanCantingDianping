@@ -3,22 +3,22 @@
     <ul class="nav">
       <li>
         <router-link :to="{ name: 'HomeView'}">
-          豆瓣
+          热门
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'MovieView'}">
-          电影
+          菜淘
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'StatusView'}">
-          广播
+          动态
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'GroupView'}">
-          小组
+          我的
         </router-link>
       </li>
     </ul>
@@ -60,6 +60,9 @@ $heme-color: #9AD57F;
     font-size: 1.6rem;
     a{ 
     color: #00b600;
+    }
+    :hover{
+      color: #79a560;
     }
   }
 }

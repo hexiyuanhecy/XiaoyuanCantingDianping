@@ -1,32 +1,36 @@
 <template>
   <div class="list">
-    <template v-if="mold === 'thumbnail'" v-for="item in items">
+    <template v-for="item in items">
       <router-link
         class="thumbnail"
         :to="{name: 'DetailView', params: { id: item.id }}" :key="item.id">
         <div class="content">
-          <img :src="item.image_hlarge" alt="cover">
+          <img :src="item.image" alt="cover">
           <h3>{{item.title}}</h3>
-          <p>{{item.content | subStr}}</p>
+          <p>{{item.content}}123132123</p>
         </div>
-        <div class="author">
-          <span class="name">{{item.category_name}}</span>
-          <span class="label" v-if="item.subcategory_name">
-            本活动来自栏目 {{item.subcategory_name}}
-          </span>
+        <div class="info">
+          <span class="btn like"><i>4</i></span>
+          <span class="btn comment"><i>0</i></span>
+          <span class="btn retweet"><i>1</i></span>
+          <span class="btn more"></span>
         </div>
       </router-link>
     </template>
-    <template v-if="mold === 'basic'">
+    <template>
       <ul class="basic">
         <li v-for="item in items" :key="item.id">
           <a href="#">
             <h3>{{item.title}}</h3>
-            <div class="info">{{item.comments}}</div>
+            <div class="infomation">{{item.comments}}789789</div>
           </a>
         </li>
       </ul>
+      
     </template>
+    <template>
+      
+    </template> 
   </div>
 </template>
 
@@ -34,10 +38,6 @@
 export default {
   name: 'list',
   props: {
-    mold: {
-      type: String,
-      default: 'basic'
-    },
     items: {
       type: Array,
       required: true
@@ -45,12 +45,6 @@ export default {
   },
   data () {
     return {
-    }
-  },
-  filters: {
-    subStr: function (value) {
-      let newVal = value.replace(/<.*?>/g, '')
-      return newVal.slice(0, 30)
     }
   }
 }
@@ -125,11 +119,68 @@ export default {
       color: #494949;
     }
 
-    .info {
+    .infomation {
       margin-top: 0.5rem;
       font-size: 1.4rem;
       color: #42bd56;
     }
   }
+}
+.info {
+  span {
+    margin-right: 2rem;
+    font-size: 1.4rem;
+  }
+
+  .like::before {
+    background: url(https://img3.doubanio.com/f/talion/7a0756b3b6e67b59ea88653bc0cfa14f61ff219d/pics/card/ic_like_gray.svg);
+  }
+
+  .comment::before {
+    background: url(https://img3.doubanio.com/f/talion/ac8a7e0d5f471480549c7abf45fc0fa4c3b4184f/pics/card/ic_comment.svg);
+  }
+
+  .retweet::before {
+    background: url(https://img3.doubanio.com/f/talion/8604ef3950b947d55406e2a6f5cf6ca7f0b934e3/pics/card/ic_retweet_gray.svg);
+  }
+
+  .more::before {
+    background: url(https://img3.doubanio.com/f/talion/be268c0a1adb577c8dfdcfbe48c818af3983ed62/pics/card/more.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: -0.2rem;
+  }
+
+  .more {
+    float: right;
+    margin-right: 0;
+  }
+
+  i {
+    font-style: normal;
+    color: #ccc;
+    margin-left: 0.3rem;
+    margin-top: -0.3rem;
+  }
+}
+
+.btn::before {
+  content: '';
+  width: 2rem;
+  height: 2rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin-bottom: -0.4rem;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.1rem;
+  background: #E8E8E8;
 }
 </style>
