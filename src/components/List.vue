@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <template v-if="mold === 'thumbnail'" v-for="(item , index) in items">
+    <template v-for="(item , index) in items">
       <router-link
         class="thumbnail"
         :to="{name: 'DetailView', params: { id: index }}"
@@ -9,12 +9,14 @@
           <img :src="item.image_hlarge" alt="cover">
           <h3>{{item.title}}</h3>
           <p>{{item.content | subStr}}</p>
-        </div>
-        <div class="author">
-          <span class="name">{{item.category_name}}</span>
-          <span class="label" v-if="item.subcategory_name">
-            本活动来自栏目 {{item.subcategory_name}}
-          </span>
+          <!-- <div class="author"> -->
+            <div class="icons">
+              <span class="btn like"></span>
+              <span class="btn comment"><i>0</i></span>
+              <span class="btn retweet"><i>1</i></span>
+              <span class="btn more"></span>
+            </div>
+          <!-- </div> -->
         </div>
       </router-link>
     </template>
@@ -98,6 +100,24 @@ export default {
     .author {
       font-size: 1.2rem;
       color: #ccc;
+      .like{
+        background: url(https://img3.doubanio.com/f/talion/7a0756b3b6e67b59ea88653bc0cfa14f61ff219d/pics/card/ic_like_gray.svg);
+      }
+
+      .comment::before {
+        background: url(https://img3.doubanio.com/f/talion/ac8a7e0d5f471480549c7abf45fc0fa4c3b4184f/pics/card/ic_comment.svg);
+      }
+
+      .retweet::before {
+        background: url(https://img3.doubanio.com/f/talion/8604ef3950b947d55406e2a6f5cf6ca7f0b934e3/pics/card/ic_retweet_gray.svg);
+      }
+
+      .more::before {
+        background: url(https://img3.doubanio.com/f/talion/be268c0a1adb577c8dfdcfbe48c818af3983ed62/pics/card/more.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-bottom: -0.2rem;
+      }
     }
 
     .label {
@@ -126,11 +146,18 @@ export default {
       color: #494949;
     }
 
-    .info {
-      margin-top: 0.5rem;
-      font-size: 1.4rem;
-      color: #42bd56;
+    .more {
+      float: right;
+      margin-right: 0;
+    }
+
+    i {
+      font-style: normal;
+      color: #ccc;
+      margin-left: 0.3rem;
+      margin-top: -0.3rem;
     }
   }
 }
+
 </style>

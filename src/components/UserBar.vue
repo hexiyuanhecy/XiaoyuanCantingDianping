@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .user-bar {
   position: relative;
-  padding: 1rem 1.8rem;
+  padding: 5rem 1.8rem;
   overflow: hidden;
 
   .avatar {

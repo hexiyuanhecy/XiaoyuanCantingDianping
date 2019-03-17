@@ -1,16 +1,36 @@
 <template>
   <div class="group-view has-header">
     <user-bar></user-bar>
-    <group title="租房找室友" :items="group_a">
-      <a class="list-link" href="#" slot="more">更多相关小组</a>
-    </group>
-    <group title="来聊五块钱" :items="group_b">
-      <a class="list-link" href="#" slot="more">来聊五块钱</a>
-    </group>
-    <group title="买买买" :items="group_c">
-      <a class="list-link" href="#" slot="more">更多相关小组</a>
-    </group>
-    <download-app></download-app>
+    <div class="my-tool">
+      <ul>
+        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我的收藏</p></li>
+        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我的收藏</p></li>
+        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我要开店</p></li>
+        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我要开店</p></li>
+      </ul>
+    </div>
+    <div class="tool-list-box">
+      <div class="tool-list">
+        <div>我的收藏
+          <span class="right-icon">></span>
+        </div>
+      </div>
+      <div class="tool-list">
+        <div>我的收藏
+          <span class="right-icon">></span>
+        </div>
+      </div>
+      <div class="tool-list">
+        <div>我要开店
+          <span class="right-icon">></span>
+        </div>
+      </div>
+      <div class="tool-list">
+        <div>设置
+          <span class="right-icon">></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,12 +38,10 @@
 import { mapState } from 'vuex'
 
 import UserBar from '../components/UserBar'
-import Group from '../components/Group'
-import DownloadApp from '../components/DownloadApp'
 
 export default {
   name: 'group-view',
-  components: { UserBar, Group, DownloadApp },
+  components: { UserBar },
   data () {
     return {}
   },
@@ -55,5 +73,36 @@ export default {
 
 .user-bar {
   margin-bottom: 1.5rem;
+}
+
+.my-tool{
+  padding: 10px;
+  margin: 0 10px;
+  text-align: center;
+  box-shadow:2px 2px 5px #ccc;
+  overflow: hidden;
+  border-radius: 20px;
+  
+  ul {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    li{
+      width: 25%;
+    }
+  }
+}
+.tool-list-box{
+  padding: 2rem;
+  font-size: 12px;
+  .tool-list{
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    .right-icon{
+      color: #ccc;
+      float: right;
+    }
+  }
 }
 </style>

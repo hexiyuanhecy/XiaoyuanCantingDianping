@@ -49,19 +49,19 @@
       </div>
       <download-app></download-app>
     </template>
-    <loading v-show="showLoading"></loading>
+    <detail-tab></detail-tab>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Tags from '../components/Tags'
+import DetailTab from '../components/DetailTab'
 import DownloadApp from '../components/DownloadApp'
 import Loading from '../components/Loading'
 
 export default {
   name: 'detail-view',
-  components: { Tags, DownloadApp, Loading },
+  components: { DetailTab, DownloadApp, Loading },
   data () {
     return {
       showLoading: true
