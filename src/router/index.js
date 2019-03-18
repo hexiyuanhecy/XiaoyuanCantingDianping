@@ -54,13 +54,13 @@ export default new Router({
           path: 'group',
           name: 'GroupView',
           component: GroupView
-        },
-        {
-          path: 'detail/:id',
-          name: 'DetailView',
-          component: DetailView
         }
       ]
+    },
+    {
+      path: 'detail/:id',
+      name: 'DetailView',
+      component: DetailView
     },
     {
       path: '/pages/:classify/subject/:id',
