@@ -123,6 +123,7 @@ export default {
   box-sizing: content-box;
 
   ul {
+    width: 100%;
     padding: 1rem 0;
     border-bottom: 1px solid rgb(236, 236, 236);
   }

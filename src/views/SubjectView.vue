@@ -1,45 +1,37 @@
 <template>
   <div class="subject-view has-header">
+    <return-bar :title="title"></return-bar>
     <template >
       <div class="subject-card">
-        <h1 class="title">{{subject.title}}</h1>
-        <div class="subject-info">
-          <div class="right">
-            <a href="#">
-              <img :src="subject.images" alt="cover">
-            </a>
-          </div>
-          <div class="left" v-if="subject.rating">
-            <rating :rating="subject.rating">
-              <span slot="ratingsCount">{{subject.ratings_count}}人评价</span>
-            </rating>
-            <template v-if="subject.genres && subjectMeta">
-              <p class="meta">{{subjectMeta}}</p>
-              <a href="#" class="open-app">用App查看影人资料</a>
-            </template>
-            <template v-if="subject.author && subjectMeta">
-              <p class="meta">{{subjectMeta}}</p>
-              <a href="#" class="buy">在豆瓣购买</a>
-            </template>
-          </div>
+        <div class="subject-pics">
+          <ul>
+            <li class="pic-one">
+              <a href="#">
+                <img src="/api/images/pen.jpg" alt="poster">
+              </a>
+            </li>
+            <li class="pic-one">
+              <a href="#">
+                <img src="/api/images/pen.jpg" alt="poster">
+              </a>
+            </li>
+            <li class="pic-one">
+              <a href="#">
+                <img src="/api/images/pen.jpg" alt="poster">
+              </a>
+            </li>
+            <li class="pic-one">
+              <a href="#">
+                <img src="/api/images/pen.jpg" alt="poster">
+              </a>
+            </li>
+          </ul>
         </div>
-        <div v-if="subject.author" class="vendors-link">
-          <a class="link">
-            在哪儿买这本书？
-            <span class="info">
-              豆瓣阅读电子书 66.00元起
-            </span>
-          </a>
-        </div>
-        <marking>
-          <template slot="book" v-if="subject.author">
-            <router-link :to="{ name: 'LoginView'}">想读</router-link>
-            <router-link :to="{ name: 'LoginView'}">在读</router-link>
-            <router-link :to="{ name: 'LoginView'}">读过</router-link>
-          </template>
-        </marking>
         <div class="subject-intro">
-          <h2>店铺简介</h2>
+          <h1 class="title">{{subject.title}}</h1>
+          <rating :rating="subject.rating">
+            <span slot="ratingsCount">{{subject.ratings_count}}人评价</span>
+          </rating>
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;{{subject.summary}}
           </p>
@@ -73,36 +65,36 @@
         </div>
       </div>
     </template>
+    <detail-tab></detail-tab>
   </div>
 </template>
 
 <script>
 
-import Banner from '../components/Banner'
+import ReturnBar from '../components/ReturnBar'
 import Rating from '../components/Rating'
 import Marking from '../components/Marking'
 import Card from '../components/Card'
 import List from '../components/List'
 import Scroller from '../components/Scroller'
-import Tags from '../components/Tags'
-import DownloadApp from '../components/DownloadApp'
+import DetailTab from '../components/DetailTab'
 import Loading from '../components/Loading'
 
 export default {
   name: 'subject-view',
   components: {
-    Banner,
+    ReturnBar,
     Rating,
     Marking,
     Card,
     List,
     Scroller,
-    Tags,
-    DownloadApp,
+    DetailTab,
     Loading
   },
   data () {
     return {
+      title: '店铺详情',
       showLoading: true,
       isExpand: true,
       items: new Array(5),
@@ -111,8 +103,8 @@ export default {
         images: '/api/images/kaorou.jpg',
         rating: {
           'max': 10,
-          'average': 0,
-          'stars': '00',
+          'average': 4.7,
+          'stars': '1',
           'min': 0
         },
         ratings_count: 103,
@@ -287,6 +279,18 @@ h2 {
     margin-right: -1.8rem;
     overflow-x: auto;
     white-space: nowrap;
+  }
+
+  .pic-one{
+    height: 18rem;
+    width: 95%;
+    overflow: hidden;
+    display: inline-block;
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
   }
 
   li {

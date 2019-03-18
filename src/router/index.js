@@ -14,6 +14,7 @@ import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import School from '../views/SchoolView'
 import Estimate from '../views/Estimate'
+import Swiper from '../components/Swiper'
 
 Vue.use(Router)
 
@@ -67,7 +68,6 @@ export default new Router({
       path: '/pages/:classify/subject/:id',
       name: 'SubjectView',
       components: {
-        default: PagesView,
         subject: SubjectView
       }
     },
@@ -102,6 +102,11 @@ export default new Router({
     {
       path: '*',
       redirect: '/pages/'
+    },
+    {
+      path: '/swiper',
+      name: 'Swiper',
+      component: Swiper
     }
   ]
 })

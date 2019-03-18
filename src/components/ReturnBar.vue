@@ -3,7 +3,7 @@
     <a href="javascript:history.go(-1);">
       <span class="icon">&#xe8b5;</span>
     </a>
-    <div v-if="show">评论详情</div>
+    <div class="title" >{{title}}</div>
   </div>
 </template>
 
@@ -12,8 +12,11 @@ export default {
   name: 'return-bar',
   data () {
     return {
-      show: false
+      show: true
     }
+  },
+  props: {
+    title: String
   },
   methods: {
     showTalion: function () {
@@ -38,11 +41,18 @@ export default {
   padding: 0 2rem;
   background: #00b600;
   border-bottom: 0.1rem solid #ccc;
+  vertical-align: middle;
   .icon{
     color: #fff;
     font-size: 2rem;
   }
-
-
+  .title{
+    height: 4rem;
+    width: 100%;
+    font-size: 1.6rem;
+    color: white;
+    line-height: 4rem;
+    text-align: center;
+  }
 }
 </style>

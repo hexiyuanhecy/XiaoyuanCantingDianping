@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="title"><p>评价详情</p></div>
-    <return-bar></return-bar>
+    <return-bar title="评论详情"></return-bar>
     <div class="header-bar">
       <ul class="nav">
         <li>
@@ -61,15 +60,4 @@ $heme-color: #9AD57F;
   }
 }
 
-.title{
-  height: 4rem;
-  width: 80%;
-  position: fixed;
-  top: 0;
-  z-index: 999;
-  font-size: 1.6rem;
-  color: white;
-  text-align: center;
-  margin: 0 10%;
-}
 </style>
