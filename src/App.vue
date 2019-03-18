@@ -13,7 +13,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+@import '~css/iconfont.css';
+@import '~css/sass/mysass';
 // Base setting and rest
 html {
   font-size: 62.5%;

@@ -1,7 +1,12 @@
 <template>
   <div class="talion-view">
     <div class="header-bar">
-      <span class="close-talion" @click="closeTalion">关闭</span>
+      <div class="topbar">
+        <div class="close-talion icon" @click="closeTalion">
+          &#xe8b5;
+        <div calss="mytitle">搜索</div>
+        </div>
+      </div>
       <form class="search" onsubmit="return false">
         <input
           type="search"
@@ -12,76 +17,27 @@
     </div>
     <ul class="has-header">
       <li>
-        <div>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(35, 132, 232);">电影</strong>
-            <span>影院热映</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(230, 70, 126);">同城</strong>
-            <span>周末活动</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(159, 120, 96);">阅读</strong>
-            <span>电子书</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(225, 100, 77);">东西</strong>
-            <span>心爱之物</span>
-          </a>
-        </div>
+        <span>热门餐厅</span>
       </li>
       <li>
-        <div>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(122, 106, 219);">电视</strong>
-            <span>正在热播</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(42, 184, 204);">小组</strong>
-            <span>志趣相投</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(87, 116, 197);">游戏</strong>
-            <span>虚拟世界</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(64, 207, 169);">FM</strong>
-            <span>红心歌单</span>
-          </a>
-        </div>
+        <span>热门评论</span>
       </li>
       <li>
-        <div>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(159, 120, 96);">图书</strong>
-            <span>畅销排行</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(244, 143, 46);">音乐</strong>
-            <span>新碟榜</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(89, 108, 221);">应用</strong>
-            <span>玩手机</span>
-          </a>
-          <a href="#" target="_blank">
-            <strong style="color: rgb(66, 189, 86);">市集</strong>
-            <span>购买原创</span>
-          </a>
-        </div>
+        <span>韩式料理</span>
+      </li>
+      <li>
+        <span>杭帮菜系</span>
       </li>
     </ul>
-    <sub-nav mold="navBottom"></sub-nav>
   </div>
 </template>
 
 <script>
-import SubNav from '../components/SubNav'
+import ReturnBar from '../components/ReturnBar'
 
 export default {
   name: 'talion-view',
-  components: { SubNav },
+  components: { ReturnBar },
   data () {
     return {
       queryStr: ''
@@ -116,6 +72,22 @@ export default {
   height: 100%;
   background-color: #fff;
   z-index: 999;
+  .topbar{
+    width: 100%;
+    height: 4rem;
+    background:  #00b600;
+    div{
+      color: #fff;
+      font-size: 2rem;
+      padding: 1rem 0 0 2rem;
+      .mytitle{
+        color: #fff;
+        font-size: 1.6rem;
+        padding: 0;
+      }
+    }
+    
+  }
 }
 
 .close-talion {
@@ -125,8 +97,9 @@ export default {
 
 .search {
   flex: 1;
-  width: 100%;
-  padding-left: 1rem;
+  margin-top: 2rem;
+  width: 88%;
+  padding: 0 2rem;
 }
 
 input[type=search] {
@@ -146,42 +119,19 @@ input[type=search]:focus {
 
 ul {
   display: flex;
-  justify-content: space-around;
-  padding-top: 2.5rem;
+  margin-top: 1rem;
 
   li {
-    width: 33.33%;
-  }
-
-  div {
-    position: relative;
-    float: left;
-    left: 50%;
-    top: 0;
-  }
-
-  a {
-    position: relative;
-    left: -50%;
-    top: 0;
-    display: block;
-    margin-bottom: 2.5rem;
-    text-align: center;
-  }
-
-  strong {
-    display: block;
-    font-weight: 400;
-    font-size: 2.4rem;
-    line-height: 2.8rem;
-  }
-
-  span {
-    display: block;
-    color: #999;
-    height: 1.7rem;
-    font-size: 1.2rem;
-    letter-spacing: 0.1rem;
+    width: 90%;
+    margin: 2rem 2rem;
+    border-bottom: 1px solid rgb(235, 234, 234);
+    span {
+      display: block;
+      color: #999;
+      height: 1.7rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.1rem;
+    }
   }
 }
 

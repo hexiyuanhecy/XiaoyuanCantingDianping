@@ -13,6 +13,7 @@ import SearchView from '../views/SearchView'
 import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import School from '../views/SchoolView'
+import Estimate from '../views/Estimate'
 
 Vue.use(Router)
 
@@ -92,6 +93,11 @@ export default new Router({
       path: '/school',
       name: 'School',
       component: School
+    },
+    {
+      path: '/estimate',
+      name: 'Estimate',
+      component: Estimate
     },
     {
       path: '*',

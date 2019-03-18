@@ -43,6 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~css/sass/mysass';
 .sub-nav {
   margin: 0 1.8rem;
   padding-top: 0.2rem;

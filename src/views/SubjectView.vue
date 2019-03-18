@@ -1,13 +1,12 @@
 <template>
   <div class="subject-view has-header">
-    <banner title="聊聊你的观影感受"></banner>
-    <template v-if="!showLoading">
+    <template >
       <div class="subject-card">
         <h1 class="title">{{subject.title}}</h1>
         <div class="subject-info">
           <div class="right">
             <a href="#">
-              <img v-if="subject.images" :src="subject.images.large" alt="cover">
+              <img :src="subject.images" alt="cover">
             </a>
           </div>
           <div class="left" v-if="subject.rating">
@@ -38,44 +37,29 @@
             <router-link :to="{ name: 'LoginView'}">在读</router-link>
             <router-link :to="{ name: 'LoginView'}">读过</router-link>
           </template>
-          <template slot="movie" v-else>
-            <router-link :to="{ name: 'LoginView'}">想看</router-link>
-            <router-link :to="{ name: 'LoginView'}">看过</router-link>
-          </template>
         </marking>
         <div class="subject-intro">
-          <h2>{{subject.title}}的简介</h2>
+          <h2>店铺简介</h2>
           <p>
-            <template v-if="summary && subject.summary">
-              {{isExpand ? summary : subject.summary}}……
-            </template>
-            <a href="javascript:;" v-show="isExpand" v-on:click="expand">
-              (展开)
-            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{subject.summary}}
           </p>
-        </div>
-        <div class="genres">
-          <h2>查看更多相关分类</h2>
-          <template v-if="genres">
-            <tags :items="genres"></tags>
-          </template>
         </div>
         <div class="subject-pics">
           <h2>{{subject.title}}的图片</h2>
-          <ul v-if="subject.images">
+          <ul>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images.large" alt="poster">
+                <img :src="subject.images" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images.large" alt="poster">
+                <img :src="subject.images" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images.large" alt="poster">
+                <img :src="subject.images" alt="poster">
               </a>
             </li>
           </ul>
@@ -85,26 +69,14 @@
         <h2>{{subject.title}}的短评</h2>
         <div class="content-list">
           <card mold="comment" v-for="item in items" :key="item"></card>
-          <a class="list-link" href="javascript:;">显示更多评论</a>
+          <a class="list-link" href="javascript:;">显示更多评论<i class="icon">&#xe87e;</i></a>
         </div>
       </div>
-      <div class="ad">
-        <banner :adImg="adImgUrl"></banner>
-      </div>
-      <div class="subject-question">
-        <h2>关于{{subject.title}}的问答</h2>
-        <list :items="questions"></list>
-        <a class="list-link" href="javascript:;">显示更多问答</a>
-      </div>
-      <scroller title="推荐的豆列" type="onlyString" :items="movieTags"></scroller>
-      <download-app></download-app>
     </template>
-    <loading v-show="showLoading"></loading>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 
 import Banner from '../components/Banner'
 import Rating from '../components/Rating'
@@ -133,13 +105,25 @@ export default {
     return {
       showLoading: true,
       isExpand: true,
-      items: new Array(5)
+      items: new Array(5),
+      subject: {
+        title: '韩式烤肉拌饭',
+        images: '/api/images/kaorou.jpg',
+        rating: {
+          'max': 10,
+          'average': 0,
+          'stars': '00',
+          'min': 0
+        },
+        ratings_count: 103,
+        summary: '韩式烤肉拌饭，以韩式烤肉的手法精制烤肉，再结合传统盖浇饭特点，独创韩式烤肉拌饭，菜式多样，价优味美，是深受广大年轻人爱好的新型快餐。'
+      }
     }
-  },
-  computed: {
+  }
+ /* computed: {
     // Getting Vuex State from store/modules/subject
     ...mapState({
-      subject: state => state.subject.subject,
+      // subject: state => state.subject.subject,
       adImgUrl: state => state.subject.adImgUrl,
       questions: state => state.subject.questions,
       movieTags: state => state.movie.movieTags
@@ -171,7 +155,7 @@ export default {
       // Success handle
       this.showLoading = false
     })
-  }
+  } */
 }
 </script>
 
@@ -334,5 +318,8 @@ h2 {
 .ad {
   margin: 3rem 1.8rem;
   margin-top: -2rem;
+}
+.subject-view{
+  margin-bottom: 5rem;
 }
 </style>

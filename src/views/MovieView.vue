@@ -1,11 +1,12 @@
 <template>
-  <div class="movie-view has-header">
-    <scroller title="影院热映" type="hasCover" :items="hotMovies"></scroller>
-    <scroller title="免费在线观影" type="hasCover" :items="topMovies"></scroller>
-    <scroller title="新片速递" type="hasCover" :items="newMovies"></scroller>
-    <scroller title="发现好电影" type="onlyString" :items="movieTags"></scroller>
-    <types></types>
-    <download-app></download-app>
+  <div class="movie-view has-header mybox">
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
+    <scroller title="热门餐厅"></scroller>
   </div>
 </template>
 
@@ -45,5 +46,8 @@ export default {
 </script>
 
 <style scoped>
-
+.mybox{
+  margin-bottom: 5.5rem;
+}
 </style>
+

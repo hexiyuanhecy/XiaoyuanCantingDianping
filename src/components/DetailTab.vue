@@ -1,24 +1,30 @@
 <template>
-  <div class="header-bar">
-    <ul class="nav">
-      <li>
-          点赞
-      </li>
-      <li>
-          收藏
-      </li>
-      <li>
-        <router-link :to="{ name: 'PinglunView'}">
-          评论
+  <div>
+    <div class="title"><p>评价详情</p></div>
+    <return-bar></return-bar>
+    <div class="header-bar">
+      <ul class="nav">
+        <li>
+          <span class="icon">&#xe873;</span>
+        </li>
+        <li>
+          <span class="icon">&#xe86f;</span>
+        </li>
+        <router-link tag="li" :to="{ name: 'Estimate'}">
+          <span class="icon">&#xe8b9;</span>
         </router-link>
-      </li>
-    </ul>
+      </ul>
+    </div>
   </div>
+
 </template>
 
 <script>
+import ReturnBar from '../components/ReturnBar'
+
 export default {
   name: 'tab',
+  components: { ReturnBar },
   data () {
     return {}
   }
@@ -48,10 +54,22 @@ $heme-color: #9AD57F;
 
   li {
     display: inline-block;
-    font-size: 1.6rem;
-    a{ 
-    color: #00b600;
+    .icon{
+      font-size: 21px;
+      color: 2E2A29;
     }
   }
+}
+
+.title{
+  height: 4rem;
+  width: 80%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  font-size: 1.6rem;
+  color: white;
+  text-align: center;
+  margin: 0 10%;
 }
 </style>

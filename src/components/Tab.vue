@@ -2,23 +2,27 @@
   <div class="header-bar">
     <ul class="nav">
       <li>
-        <router-link :to="{ name: 'HomeView'}">
-          豆瓣
+        <router-link tag="div" class="index" :to="{ name: 'HomeView'}">
+          <p class="icon">&#xe620;</p>
+          热门
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'MovieView'}">
-          电影
+        <router-link tag="div" class="tao" :to="{ name: 'MovieView'}">
+          <p class="icon">&#xe602;</p>
+          菜淘
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'StatusView'}">
-          广播
+        <router-link tag="div" class="estimate" :to="{ name: 'StatusView'}">
+          <p class="icon">&#xe752;</p>
+          动态
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'GroupView'}">
-          小组
+        <router-link tag="div" class="mine" :to="{ name: 'GroupView'}">
+          <p class="icon">&#xe603;</p>
+          我的
         </router-link>
       </li>
     </ul>
@@ -58,8 +62,15 @@ $heme-color: #9AD57F;
   li {
     display: inline-block;
     font-size: 1.6rem;
-    a{ 
-    color: #00b600;
+    
+    div{ 
+    color: #2b2a2a;
+    font-size: 12px;
+    text-align: center;
+      p{
+        margin:0 0 2px 0;
+        font-size: 24px;
+      }
     }
   }
 }

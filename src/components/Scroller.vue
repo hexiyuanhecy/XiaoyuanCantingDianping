@@ -1,5 +1,5 @@
 <template>
-  <div class="scroller">
+  <!-- <div class="scroller">
     <div class="header">
       <h2>{{title}}</h2>
       <a href="#">更多</a>
@@ -7,7 +7,7 @@
     <div class="content">
       <slot name="promItem"></slot>
       <ul class="hasCover" v-if="type === 'hasCover'">
-        <li v-for="item in items">
+        <li v-for="item in myitems" :key="item.id">
           <router-link :to="'subject/' + item.id" append>
             <img v-if="item.images" :src="item.images.large" alt="">
             <span class="title">{{item.title}}</span>
@@ -16,8 +16,26 @@
         </li>
       </ul>
       <ul class="onlyString" v-if="type === 'onlyString'">
-        <li v-for="item in items" style="border-color: #FFAC2D;">
+        <li v-for="item in myitems" style="border-color: #FFAC2D;" :key="item.id">
           <a :href="item.href" v-if="!item.line" :style="{color: item.color}">{{item.title}}</a>
+        </li>
+      </ul>
+    </div>
+  </div> -->
+  <div class="scroller">
+    <div class="header">
+      <h2>{{title}}</h2>
+      <a href="#">更多<i class="icon">></i></a>
+    </div>
+    <div class="content">
+      <slot name="promItem"></slot>
+      <ul class="hasCover">
+        <li v-for="item in myitems" :key="item.id">
+          <router-link :to="'subject/' + item.id" append>
+            <img v-if="item.images" :src="item.images" alt="">
+            <span class="title">{{item.title}}</span>
+            <rating v-if="item.rating" :rating="item.rating"></rating>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -29,11 +47,50 @@ import Rating from './Rating'
 
 export default {
   name: 'scroller',
-  props: ['title', 'type', 'items'],
   components: { Rating },
   data () {
     return {
-
+      title: '热门餐厅',
+      myitems: [{
+        images: '/api/images/kaorou.jpg',
+        title: '韩式烤肉拌饭',
+        rating: {
+          'max': 10,
+          'average': 5.1,
+          'stars': '25',
+          'min': 0
+        }
+      },
+      {
+        images: '/api/images/kaorou.jpg',
+        title: '韩式烤肉拌饭',
+        rating: {
+          'max': 10,
+          'average': 5.1,
+          'stars': '25',
+          'min': 0
+        }
+      },
+      {
+        images: '/api/images/kaorou.jpg',
+        title: '韩式烤肉拌饭',
+        rating: {
+          'max': 10,
+          'average': 5.1,
+          'stars': '25',
+          'min': 0
+        }
+      },
+      {
+        images: '/api/images/kaorou.jpg',
+        title: '韩式烤肉拌饭',
+        rating: {
+          'max': 10,
+          'average': 5.1,
+          'stars': '25',
+          'min': 0
+        }
+      }]
     }
   }
 }
@@ -66,7 +123,8 @@ export default {
   box-sizing: content-box;
 
   ul {
-    padding: 0.8rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgb(236, 236, 236);
   }
 }
 
@@ -90,13 +148,18 @@ export default {
 
   li {
     display: inline-block;
-    width: 10rem;
-    margin-left: 1rem;
+    width: 60%;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+    img{
+      width: 100%;
+      height: 80%;
+    }
+    &:first-child {
+      padding-left: 0.5rem;
+    }
   }
 
-  li:first-child {
-    padding-left: 0.8rem;
-  }
 
   img {
     height: 15rem;

@@ -1,17 +1,16 @@
 <template>
   <div class="login-view">
-    <h1>
-      <a href="javascript:history.go(-1);">返回</a>
-    </h1>
-    <div><h1>选择学校</h1></div>
+    <div class="title"><p>选择学校</p></div>
+    <return-bar></return-bar>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import ReturnBar from '../components/ReturnBar'
 
 export default {
   name: 'school',
+  components: { ReturnBar },
   data () {
     return {
     }
@@ -20,16 +19,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-view {
-  h1 {
-    a {
-      position: absolute;
-      left: 1.8rem;
-      top: 0;
-      color: #42bd56;
-      font-size: 1.5rem;
-      font-weight: normal;
-    }
-  }
+.title{
+  height: 4rem;
+  width: 80%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  font-size: 1.6rem;
+  color: white;
+  text-align: center;
+  margin: 0 10%;
 }
 </style>
