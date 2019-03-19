@@ -1,9 +1,6 @@
 <template>
   <div class="status has-header">
-    <div v-if="show">
-      <banner></banner>
-    </div>
-    <div class="content-list" v-else>
+    <div class="content-list">
       <card mold="quote" v-for="item in items" :key="item"></card>
       <a class="list-link" href="#">显示更多广播</a>
     </div>

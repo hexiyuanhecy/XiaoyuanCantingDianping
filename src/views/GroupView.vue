@@ -3,30 +3,36 @@
     <user-bar></user-bar>
     <div class="my-tool">
       <ul>
-        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我的收藏</p></li>
-        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我的收藏</p></li>
-        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我要开店</p></li>
-        <li><img src="../assets/user_normal.jpg" alt="未登陆"><p>我要开店</p></li>
+        <li><i class="icon">&#xe86d;</i><p>我的收藏</p></li>
+        <li><i class="icon">&#xe86d;</i><p>我的收藏</p></li>
+        <li><i class="icon">&#xe61e;</i><p>我要开店</p></li>
       </ul>
     </div>
     <div class="tool-list-box">
       <div class="tool-list">
-        <div>我的收藏
+        <div>
+        <i class="icon">&#xe86d;</i>我的收藏
           <span class="right-icon">></span>
         </div>
       </div>
       <div class="tool-list">
-        <div>我的收藏
+        <div>
+          <i class="icon">&#xe86d;</i>
+          我的收藏
           <span class="right-icon">></span>
         </div>
       </div>
       <div class="tool-list">
-        <div>我要开店
+        <div>
+          <i class="icon">&#xe61e;</i>
+          我要开店
           <span class="right-icon">></span>
         </div>
       </div>
       <div class="tool-list">
-        <div>设置
+        <div>
+          <i class="icon">&#xe892;</i>
+          设置
           <span class="right-icon">></span>
         </div>
       </div>
@@ -88,7 +94,7 @@ export default {
     justify-content: space-around;
     text-align: center;
     li{
-      width: 25%;
+      width: 33.3%;
     }
   }
 }

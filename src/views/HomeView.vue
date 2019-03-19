@@ -2,7 +2,7 @@
   <div class="home-view has-header">
     <list mold="thumbnail" :items="events"></list>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
-      <loading slot="spinner"></loading>
+      <!-- <loading slot="spinner"></loading> -->
     </infinite-loading>
   </div>
 </template>

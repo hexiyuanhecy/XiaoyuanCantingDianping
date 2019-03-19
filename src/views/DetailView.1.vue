@@ -1,6 +1,6 @@
 <template>
   <div class="detail-view has-header">
-    <template v-if="!showLoading">
+    <template>
       <br>
       <div class="info">
         <h2>
@@ -16,11 +16,17 @@
             <li>{{eventItem.address}}</li>
           </ul>
         </div>
+        <div class="user-info">
+          <div class="user-pic">
+            <img src="../assets/douban-app-logo.png" alt="">
+          </div>
+          <div class="use-name">
+            <strong>刘一一</strong>
+            <p>一个资深吃货的自我修养。。。。</p>
+          </div>
+        </div>
         <div class="describe">
-           <a href="#">
-          <img src="../assets/douban-app-logo.png" alt="">
-        </a>
-          <div v-if="eventItem.content" class="content" v-html="content"></div>
+          <div v-if="eventItem.content" class="content">{{eventItem.content}}</div>
         </div>
       </div>
     </template>
@@ -29,48 +35,25 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import DetailTab from '../components/DetailTab'
 import DownloadApp from '../components/DownloadApp'
 import Loading from '../components/Loading'
 
 export default {
-  name: 'detail-view',
+  name: 'detail_1',
   components: { DetailTab, DownloadApp, Loading },
   data () {
     return {
-      showLoading: true
+      showLoading: true,
+      eventItem: {
+        title: '海苔烤肉拌饭---韩式烤肉拌饭',
+        loc_name: '22',
+        image_hlarge: '/api/images/kaorou.jpg',
+        address: '玫瑰园二楼',
+        content: '昨天吃的糖醋里脊太好吃啦！鲜嫩可口，酸甜合适。商家拼盘也特别好看，颜值特别高！用的餐具也超级精美···昨天吃的糖醋里脊太好吃啦！鲜嫩可口，酸甜合适。商家拼盘也特别好看，颜值特别高！用的餐具也超级精美昨天吃的糖醋里脊太好吃啦！鲜嫩可口，酸甜合适。商家拼盘也特别好看，颜值特别高！用的餐具也超级精美'
+      }
     }
-  },
-  filters: {
-    toArray (value) {
-      return value.split(',')
-    }
-  },
-  computed: {
-    content: function () {
-      // Careful XSS
-      // Remove copyright imgs
-      return this.eventItem.content.replace(/<img.+?>/ig, '')
-    },
-    // Getting Vuex State from store/modules/activities
-    ...mapState({
-      eventItem: state => state.activities.eventItem
-    })
-  },
-  created () {
-    // Getting route params
-    const id = this.$route.params.id
-    // console.log('这是屏幕的第几个==传递给activity.js的参数' + id)
-
-    // Dispatching getSingleEvent
-    this.$store.dispatch({
-      type: 'getSingleEvent',
-      id: id
-    }).then(res => {
-      // Success handle
-      this.showLoading = false
-    })
   }
 }
 </script>
@@ -137,6 +120,29 @@ export default {
   .content {
     overflow: hidden;
     font-size: 1.4rem;
+  }
+}
+.user-info{
+  width: 100%;
+  height: 5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgb(240, 239, 239);
+  .user-pic{
+    width: 4rem;
+    height: 4rem; 
+    border: 4rem;
+    float: left;
+    background: #072;
+    
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .use-name{
+    padding-top: 1.3rem;
+    vertical-align:middle;
+    line-height: 0.3rem;
   }
 }
 

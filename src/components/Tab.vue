@@ -16,7 +16,7 @@
       <li>
         <router-link tag="div" class="estimate" :to="{ name: 'StatusView'}">
           <p class="icon">&#xe752;</p>
-          动态
+          评论
         </router-link>
       </li>
       <li>

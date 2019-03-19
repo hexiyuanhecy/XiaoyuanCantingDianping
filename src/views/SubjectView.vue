@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="subject-comments">
-        <h2>{{subject.title}}的短评</h2>
+        <h2>{{subject.title}}的评论</h2>
         <div class="content-list">
           <card mold="comment" v-for="item in items" :key="item"></card>
           <a class="list-link" href="javascript:;">显示更多评论<i class="icon">&#xe87e;</i></a>

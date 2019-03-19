@@ -4,7 +4,7 @@
       <span class="icon location">&#xe8ba;</span>
       浙江理工大学
     </router-link>
-    <span class="icon" @click="showTalion">&#xe870;</span>
+    <span v-if="show" class="icon" @click="showTalion">&#xe870;</span>
   </div>
 </template>
 
@@ -12,7 +12,9 @@
 export default {
   name: 'header-bar',
   data () {
-    return {}
+    return {
+      show: false
+    }
   },
   methods: {
     showTalion: function () {

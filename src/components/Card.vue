@@ -1,36 +1,39 @@
 <template>
-  <div class="card">
-    <div class="desc">
-      <a href="#">
-        <img src="../assets/douban-app-logo.png" alt="">
-      </a>
-      <a href="#">
-        <div class="user-info">
-          <strong>
-            豆瓣<span v-if="mold === 'quote'">写了日记</span>
-          </strong>
-          <div class="timestamp">2017-03-01 19:30:41</div>
+  <router-link :to="{ name: 'DetailDetail'}">
+    <div class="card">
+      <div class="desc">
+        <a href="#">
+          <img src="../assets/douban-app-logo.png" alt="">
+        </a>
+        <a href="#">
+          <div class="user-info">
+            <strong>
+              刘一一
+            </strong>
+            <div class="timestamp">2017-03-01 19:30:41</div>
+          </div>
+        </a>
+      </div>
+      <div v-if="mold === 'quote'" class="article-card">
+        <div class="detail">
+          昨天吃的糖醋里脊太好吃啦！鲜嫩可口，酸甜合适。商家拼盘也特别好看，颜值特别高！用的餐具也超级精美···
         </div>
-      </a>
-    </div>
-    <div v-if="mold === 'quote'" class="article-card">
-      <div class="title">
-        豆瓣App 4.12.0 主要更新
+        <div class="detail-img">
+          <ul>
+            <li><img src="/api/images/kaorou.jpg" alt=""></li>
+            <li><img src="/api/images/kaorou.jpg" alt=""></li>
+            <li><img src="/api/images/kaorou.jpg" alt=""></li>
+          </ul>
+        </div>
       </div>
-      <div class="detail">
-        - 可以写读书笔记了，同时支持编辑。随时随地，摘录怦然心动的段落，写下阅读时的随感。来写笔记吧，你...
+      <div class="info">
+        <span class="btn"><i class="icon">&#xe872;4</i></span>
+        <span v-if="mold === 'quote'" class="btn comment"><i>0</i></span>
+        <span class="btn more"></span>
       </div>
     </div>
-    <p v-if="mold === 'comment'" class="comment">
-      可以写读书笔记了，同时支持编辑。随时随地，摘录怦然心动的段落，写下阅读时的随感。来写笔记吧，你
-    </p>
-    <div class="info">
-      <span class="btn like"><i>4</i></span>
-      <span v-if="mold === 'quote'" class="btn comment"><i>0</i></span>
-      <span v-if="mold === 'quote'" class="btn retweet"><i>1</i></span>
-      <span class="btn more"></span>
-    </div>
-  </div>
+    </router-link>
+
 </template>
 
 <script>
@@ -90,19 +93,8 @@ export default {
 
 .article-card {
   margin: 1rem 0 2rem 0;
-  padding: 1.5rem;
   border-radius: 0.2rem;
-  border: solid 0.1rem #d8d8d8;
-
-  .title {
-    font-size: 1.7rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: #494949;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  text-align: left;
 
   .detail {
     font-size: 1.2rem;
@@ -110,6 +102,18 @@ export default {
     color: #aaa;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .detail-img{
+    margin: 0.15rem 0;
+    ul li{
+      float: left;
+      width: 30%;
+      margin: 0 0.2rem;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
 

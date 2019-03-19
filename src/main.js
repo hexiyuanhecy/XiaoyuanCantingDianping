@@ -5,12 +5,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 import vueScrollBehavior from 'vue-scroll-behavior'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'normalize.css'
 import 'swiper/dist/css/swiper.css'
 
 Vue.use(vueScrollBehavior, { router: router })
-Vue.use(VueAwesomeSwiper, /* { default global options } */)
+// Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
 /* eslint-disable no-new */
 new Vue({

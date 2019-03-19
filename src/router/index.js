@@ -15,6 +15,7 @@ import RegisterView from '../views/RegisterView'
 import School from '../views/SchoolView'
 import Estimate from '../views/Estimate'
 import Swiper from '../components/Swiper'
+import DetailDetail from '../views/DetailView.1'
 
 Vue.use(Router)
 
@@ -63,6 +64,10 @@ export default new Router({
       path: 'detail/:id',
       name: 'DetailView',
       component: DetailView
+    }, {
+      path: 'detail-1',
+      name: 'DetailDetail',
+      component: DetailDetail
     },
     {
       path: '/pages/:classify/subject/:id',
