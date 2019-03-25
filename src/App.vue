@@ -25,10 +25,6 @@ html {
   margin: 0 auto;
 }
 
-.has-header {
-  margin-top: 4.8rem;
-}
-
 h2 {
   font-size: 1.68rem;
   font-weight: normal;
