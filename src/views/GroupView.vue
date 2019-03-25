@@ -5,7 +5,7 @@
       <ul>
         <li><i class="icon">&#xe86d;</i><p>我的收藏</p></li>
         <li><i class="icon">&#xe86d;</i><p>我的收藏</p></li>
-        <li><i class="icon">&#xe61e;</i><p>我要开店</p></li>
+        <li><i class="icon">&#xe61e;</i><p>我要收藏</p></li>
       </ul>
     </div>
     <div class="tool-list-box">
@@ -25,7 +25,7 @@
       <div class="tool-list">
         <div>
           <i class="icon">&#xe61e;</i>
-          我要开店
+          我的收藏
           <span class="right-icon">></span>
         </div>
       </div>

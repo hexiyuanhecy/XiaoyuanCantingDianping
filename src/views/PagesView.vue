@@ -1,6 +1,6 @@
 <template>
   <div class="pages-view">
-    <header-bar @showTalion="open"></header-bar>
+    <header-bar z></header-bar>
     <tab @showTalion="open"></tab>
     <router-view></router-view>
     <talion-view v-show="talion" @closeTalion="close"></talion-view>

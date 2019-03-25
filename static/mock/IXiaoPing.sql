@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v8.71 
-MySQL - 5.5.5-10.1.38-MariaDB : Database - ixiaoping
+MySQL _ 5.5.5_10.1.38_MariaDB : Database _ ixiaoping
 *********************************************************************
 */
 
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `dining_hall`;
 CREATE TABLE `dining_hall` (
   `dh_id` int(11) NOT NULL AUTO_INCREMENT,
   `sc_id` int(11) DEFAULT NULL,
-  `us_id` int(11) DEFAULT NULL,
+  `dining` varchar(32) DEFAULT NULL,
   `dh_name` varchar(32) DEFAULT NULL,
   `dh_add` varchar(32) DEFAULT NULL,
   `dh_info` varchar(128) DEFAULT NULL,
@@ -33,11 +33,12 @@ CREATE TABLE `dining_hall` (
   `dh_score` int(11) DEFAULT NULL,
   `dh_main_img` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`dh_id`),
-  KEY `dh-sc` (`sc_id`),
-  CONSTRAINT `dh-sc` FOREIGN KEY (`sc_id`) REFERENCES `school` (`sc_id`),
-  CONSTRAINT `dh-us` FOREIGN KEY (`dh_id`) REFERENCES `user` (`dh_id`)
+  KEY `dh_sc` (`sc_id`),
+  CONSTRAINT `dh_sc` FOREIGN KEY (`sc_id`) REFERENCES `school` (`sc_id`),
+  CONSTRAINT `dh_us` FOREIGN KEY (`dh_id`) REFERENCES `user` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert  into `dining_hall`(`dh_id`,`sc_id`,`dining`,`dh_name`,`dh_add`,`dh_info`,`dh_kind`) values (1,1,'玫瑰园','韩式烤肉拌饭','玫瑰园二楼','正宗的韩式烤肉拌饭，你值得拥有！','韩式料理');
 /*Data for the table `dining_hall` */
 
 /*Table structure for table `dining_hall_img` */
@@ -49,8 +50,8 @@ CREATE TABLE `dining_hall_img` (
   `dh_id` int(11) DEFAULT NULL,
   `dg_img_path` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`dh_img_id`),
-  KEY `img-dh` (`dh_id`),
-  CONSTRAINT `img-dh` FOREIGN KEY (`dh_id`) REFERENCES `dining_hall` (`dh_id`)
+  KEY `img_dh` (`dh_id`),
+  CONSTRAINT `img_dh` FOREIGN KEY (`dh_id`) REFERENCES `dining_hall` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `dining_hall_img` */
@@ -65,8 +66,8 @@ CREATE TABLE `dish` (
   `ds_name` varchar(64) DEFAULT NULL,
   `ds_img_path` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ds_id`),
-  KEY `ds-sh` (`dh_id`),
-  CONSTRAINT `ds-sh` FOREIGN KEY (`dh_id`) REFERENCES `dining_hall` (`dh_id`)
+  KEY `ds_sh` (`dh_id`),
+  CONSTRAINT `ds_sh` FOREIGN KEY (`dh_id`) REFERENCES `dining_hall` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `dish` */
@@ -86,12 +87,17 @@ CREATE TABLE `estimate` (
   `es_main_img` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`es_id`),
   KEY `es_dh` (`dh_id`),
-  KEY `es-us` (`us_id`),
-  CONSTRAINT `es-us` FOREIGN KEY (`us_id`) REFERENCES `user` (`us-id`),
+  KEY `es_us` (`us_id`),
+  CONSTRAINT `es_us` FOREIGN KEY (`us_id`) REFERENCES `user` (`us_id`),
   CONSTRAINT `es_dh` FOREIGN KEY (`dh_id`) REFERENCES `dining_hall` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `estimate` */
+insert  into `estimate`(`es_id`,`dh_id`,`us_id`,`es_content`,`es_score`,`es_star`,`es_main_img`) values (1,1,1,'太好吃了！从未吃过如此美味的食物','4.6','96','es.jpg');
+insert  into `estimate`(`dh_id`,`us_id`,`es_content`,`es_score`,`es_star`,`es_main_img`) values (1,1,'颜值太高了，必须先拍照再吃！','4.7','89','es2.jpg');
+insert  into `estimate`(`dh_id`,`us_id`,`es_content`,`es_score`,`es_star`,`es_main_img`) values (1,1,'装修非常棒，我们吃的超开心的','4.6','103','es3.jpg');
+insert  into `estimate`(`dh_id`,`us_id`,`es_content`,`es_score`,`es_star`,`es_main_img`) values (1,1,'物美价廉，非常喜欢他们家的菜啊', '4.8','92','es4.jpg');
+
 
 /*Table structure for table `estimate_img` */
 
@@ -102,8 +108,8 @@ CREATE TABLE `estimate_img` (
   `es_id` int(11) DEFAULT NULL,
   `es_img_path` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`es_img_id`),
-  KEY `img-es` (`es_id`),
-  CONSTRAINT `img-es` FOREIGN KEY (`es_id`) REFERENCES `estimate` (`es_id`)
+  KEY `img_es` (`es_id`),
+  CONSTRAINT `img_es` FOREIGN KEY (`es_id`) REFERENCES `estimate` (`es_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `estimate_img` */
@@ -116,30 +122,38 @@ CREATE TABLE `school` (
   `sc_id` int(11) NOT NULL AUTO_INCREMENT,
   `sc_name` varchar(64) DEFAULT NULL,
   `sc_add` varchar(32) DEFAULT NULL,
+  `sc_img` varchar(128) DEFAULT NULL,
+  `sc_img1` varchar(128) DEFAULT NULL,
+  `sc_img2` varchar(128) DEFAULT NULL,
+  `sc_img3` varchar(128) DEFAULT NULL,
+  `sc_img4` varchar(128) DEFAULT NULL,
+  `sc_img5` varchar(128) DEFAULT NULL,
   UNIQUE KEY `sc_id` (`sc_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `school` */
 
-insert  into `school`(`sc_id`,`sc_name`,`sc_add`) values (1,'浙江理工大学','杭州');
+insert  into `school`(`sc_id`,`sc_name`,`sc_add`,`sc_img`,`sc_img1`,`sc_img2`,`sc_img3`,`sc_img4`,`sc_img5`) values (1,'浙江理工大学','杭州','zstu.jpg','zstu1.jpg','zstu2.jpg','zstu3.jpg','zstu4.jpg','zstu5.jpg');
 
 /*Table structure for table `user` */
 
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `us-id` int(11) NOT NULL,
+  `us_id` int(11) NOT NULL,
   `dh_id` int(11) DEFAULT NULL,
-  `us-ph` varchar(11) DEFAULT NULL,
+  `us_ph` varchar(11) DEFAULT NULL,
   `us_name` varchar(32) DEFAULT NULL,
   `us_pwd` varchar(32) DEFAULT NULL,
   `us_pic` varchar(128) DEFAULT NULL,
-  `us-sign` varchar(520) DEFAULT NULL,
-  `us-birh` date DEFAULT NULL,
-  `us-email` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`us-id`),
+  `us_sign` varchar(520) DEFAULT NULL,
+  `us_birh` date DEFAULT NULL,
+  `us_email` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`us_id`),
   KEY `FK_user` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert  into `user`(`us_id`,`dh_id`,`us_ph`,`us_name`,`us_pwd`,`us_sign`,`us_email`) values (1,1,'18177310581','Admin','Admin','我就是我，不一样的烟火','153769507@qq.com');
 
 /*Data for the table `user` */
 

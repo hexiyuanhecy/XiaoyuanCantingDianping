@@ -22,7 +22,7 @@
       </form>
     </template>
     <template v-else>
-      <h1 class="title">欢迎加入豆瓣</h1>
+      <h1 class="title">欢迎加入爱笑评</h1>
       <form method="post" @submit.prevent="onSubmit()">
         <p v-if="error" class="tip error">{{error}}</p>
         <div class="form-alias">
@@ -75,12 +75,9 @@
           </button>
         </div>
       </form>
-      <div class="footer">
+      <!-- <div class="footer">
         <div class="agreement">点击「注册」代表你已阅读并同意用户使用协议</div>
-        <div class="btns">
-          <a href="#">下载豆瓣App</a>
-        </div>
-      </div>
+      </div> -->
     </template>
   </div>
 </template>
