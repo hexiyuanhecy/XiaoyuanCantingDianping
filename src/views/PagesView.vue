@@ -1,8 +1,8 @@
 <template>
   <div class="pages-view">
     <header-bar z></header-bar>
-    <tab @showTalion="open"></tab>
     <router-view></router-view>
+    <tab @showTalion="open" class="tab"></tab>
     <talion-view v-show="talion" @closeTalion="close"></talion-view>
   </div>
 </template>
@@ -32,5 +32,8 @@ export default {
 </script>
 
 <style scoped>
-
+.tab{
+  position: fixed;
+  bottom: 0;
+}
 </style>

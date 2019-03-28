@@ -39,7 +39,7 @@ export default new Router({
           component: HomeView
         },
         {
-          path: 'movie',
+          path: 'hall',
           name: 'MovieView',
           component: MovieView
         },
@@ -49,12 +49,12 @@ export default new Router({
           component: BookView
         },
         {
-          path: 'status',
+          path: 'gonglue',
           name: 'StatusView',
           component: StatusView
         },
         {
-          path: 'group',
+          path: 'personal',
           name: 'GroupView',
           component: GroupView
         }

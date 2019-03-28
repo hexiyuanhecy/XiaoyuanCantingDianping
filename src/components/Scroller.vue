@@ -24,7 +24,7 @@
   </div> -->
   <div class="scroller">
     <div class="header">
-      <h2>{{title}}</h2>
+      <p>{{title}}</p>
       <a href="#">更多<i class="icon">></i></a>
     </div>
     <div class="content">
@@ -34,7 +34,7 @@
           <router-link :to="'subject/' + item.id" append>
             <img v-if="item.images" :src="item.images" alt="">
             <span class="title">{{item.title}}</span>
-            <rating v-if="item.rating" :rating="item.rating"></rating>
+            <v-rating v-model="rating"></v-rating>
           </router-link>
         </li>
       </ul>
@@ -52,7 +52,7 @@ export default {
     return {
       title: '热门餐厅',
       myitems: [{
-        images: '/api/images/kaorou.jpg',
+        images: '/api/images/4.jpg',
         title: '韩式烤肉拌饭',
         rating: {
           'max': 10,
@@ -62,7 +62,7 @@ export default {
         }
       },
       {
-        images: '/api/images/kaorou.jpg',
+        images: '/api/images/5.jpg',
         title: '韩式烤肉拌饭',
         rating: {
           'max': 10,
@@ -72,7 +72,7 @@ export default {
         }
       },
       {
-        images: '/api/images/kaorou.jpg',
+        images: '/api/images/5.jpg',
         title: '韩式烤肉拌饭',
         rating: {
           'max': 10,
@@ -82,7 +82,7 @@ export default {
         }
       },
       {
-        images: '/api/images/kaorou.jpg',
+        images: '/api/images/3.jpg',
         title: '韩式烤肉拌饭',
         rating: {
           'max': 10,
@@ -108,13 +108,13 @@ export default {
 
   a {
     float: right;
-    font-size: 1.44rem;
+    font-size: 0.8rem;
     &:last-child {
       color: #42bd56;
     }
   }
 
-  h2 {
+  p {
     display: inline-block;
   }
 }
@@ -138,8 +138,8 @@ export default {
     display: block;
     max-width: 100%;
     margin-top: 1rem;
-    line-height: 1.6rem;
-    font-size: 1.6rem;
+    line-height: 0.8rem;
+    font-size: 0.8rem;
     color: #111;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -197,5 +197,8 @@ export default {
     border: 0;
     margin: 0;
   }
+}
+span{
+  font-size: 1rem;
 }
 </style>

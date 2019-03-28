@@ -18,16 +18,6 @@
         </div>
       </router-link>
     </template>
-    <!-- <template v-if="mold === 'basic'">
-      <ul class="basic">
-        <li v-for="(item , index) in items" :key="index">
-          <a href="#">
-            <h3>{{item.title}}</h3>
-            <div class="info">{{item.comments}}</div>
-          </a>
-        </li>
-      </ul>
-    </template> -->
   </div>
 </template>
 
