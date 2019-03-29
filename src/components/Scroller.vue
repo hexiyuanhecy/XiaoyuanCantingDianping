@@ -34,7 +34,7 @@
           <router-link :to="'subject/' + item.id" append>
             <img v-if="item.images" :src="item.images" alt="">
             <span class="title">{{item.title}}</span>
-            <v-rating v-model="rating"></v-rating>
+            <v-rating v-model="rating" small></v-rating>
           </router-link>
         </li>
       </ul>
@@ -139,7 +139,7 @@ export default {
     max-width: 100%;
     margin-top: 1rem;
     line-height: 0.8rem;
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
     color: #111;
     overflow: hidden;
     text-overflow: ellipsis;

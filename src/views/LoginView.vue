@@ -1,48 +1,64 @@
 <template>
-  <v-container fluid>
-    <v-slider v-model="width" min="200" max="500" step="1"></v-slider>
-    <v-navigation-drawer
-      :width="width"
-      :value="true"
-      stateless
-    >
-      <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
-        <v-layout pa-2 column fill-height class="lightbox white--text">
-          <v-spacer></v-spacer>
-          <v-flex shrink>
-            <div class="subheading">Jonathan Lee</div>
-            <div class="body-1">heyfromjonathan@gmail.com</div>
-          </v-flex>
-        </v-layout>
-      </v-img>
+  <v-layout justify-center>
+    <v-flex xs12 sm6>
+      <v-card>
+        <v-container
+          fluid
+          grid-list-md
+        >
+          <v-layout row wrap>
+            <v-flex
+              v-for="card in cards"
+              :key="card.title"
+              v-bind="{ [`xs${card.flex}`]: true }"
+            >
+              <v-card>
+                <v-img
+                  :src="card.src"
+                  height="200px"
+                >
+                  <v-container
+                    fill-height
+                    fluid
+                    pa-2
+                  >
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <span class="headline white--text" v-text="'card.title'"></span>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
 
-      <v-list>
-        <template v-for="(item, i) in items">
-          <v-divider v-if="item.divider" :key="i"></v-divider>
-          <v-list-tile v-else :key="item.title" @click>
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
-  </v-container>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>bookmark</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>share</v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
+
 <script>
   export default {
     data: () => ({
-      width: 300,
-      items: [
-        { icon: 'inbox', title: 'Inbox' },
-        { icon: 'star', title: 'Starred' },
-        { icon: 'send', title: 'Sent mail' },
-        { icon: 'drafts', title: 'Drafts' },
-        { divider: true },
-        { icon: 'mail', title: 'All mail' },
-        { icon: 'delete', title: 'Trash' },
-        { icon: 'error', title: 'Spam' }
+      cards: [
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
       ]
     })
   }

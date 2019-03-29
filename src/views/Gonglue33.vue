@@ -1,19 +1,17 @@
 <template>
-  <div class="status has-header">
     <div class="content-list">
-      <card mold="quote" v-for="item in items" :key="item"></card>
+      <gongluelist mold="quote" v-for="item in items" :key="item"></gongluelist>
       <a class="list-link" href="#">显示更多广播</a>
     </div>
-  </div>
 </template>
 
 <script>
 import Banner from '../components/Banner'
-import Card from '../components/Card'
+import Gongluelist from '../components/Gongluelist'
 
 export default {
   name: 'status',
-  components: { Banner, Card },
+  components: { Banner, Gongluelist },
   data () {
     return {
       items: new Array(10)
@@ -24,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .content-list{
-  margin-top: 7rem;
+  margin-top: 0;
 }
 .list-link {
   display: block;

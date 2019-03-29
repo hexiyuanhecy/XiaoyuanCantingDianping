@@ -4,6 +4,7 @@
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
       <!-- <loading slot="spinner"></loading> -->
     </infinite-loading>
+    <totop></totop>
   </div>
 </template>
 
@@ -13,10 +14,11 @@ import { mapState, mapActions } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import List from '../components/List'
 import Loading from '../components/Loading'
+import Totop from '../components/Banner'
 
 export default {
   name: 'home-view',
-  components: { List, InfiniteLoading, Loading },
+  components: { List, InfiniteLoading, Loading, Totop },
   data () {
     return {}
   },
@@ -42,8 +44,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '~css/sass/mysass';
+<style scoped>
 .sub-nav {
   margin: 0 1.8rem;
   padding-top: 0.2rem;

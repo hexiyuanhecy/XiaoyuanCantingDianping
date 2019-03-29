@@ -20,9 +20,9 @@
         </div>
         <div class="detail-img">
           <ul>
-            <li><img src="/api/images/kaorou.jpg" alt=""></li>
-            <li><img src="/api/images/kaorou.jpg" alt=""></li>
-            <li><img src="/api/images/kaorou.jpg" alt=""></li>
+            <li><img src="/api/images/2.jpg" alt=""></li>
+            <li><img src="/api/images/2.jpg" alt=""></li>
+            <li><img src="/api/images/2.jpg" alt=""></li>
           </ul>
         </div>
       </div>
@@ -54,8 +54,9 @@ export default {
 <style lang="scss" scoped>
 .card {
   position: relative;
-  padding: 0 0 2rem 5rem;
-  margin: 2rem 1.8rem;
+  padding: 0 0 2rem 3rem;
+  margin: 0rem 1.8rem;
+  padding-top: 50px;
 }
 
 .desc {
@@ -73,7 +74,7 @@ export default {
   display: inline-block;
 
   strong {
-    font-size: 1.7rem;
+    font-size: 1rem;
     line-height: 1;
     color: #494949;
 
@@ -84,7 +85,7 @@ export default {
   }
 
   .timestamp {
-    font-size: 1.4rem;
+    font-size: 0.8rem;
     margin-top: 0.6rem;
     line-height: 1;
     color: #aaa;
@@ -97,7 +98,7 @@ export default {
   text-align: left;
 
   .detail {
-    font-size: 1.2rem;
+    font-size: 0.6rem;
     line-height: 1.6rem;
     color: #aaa;
     overflow: hidden;
@@ -119,14 +120,14 @@ export default {
 
 .comment {
   line-height: 2.2rem;
-  font-size: 1.5rem;
+  font-size: 0.7rem;
   color: #494949;
 }
 
 .info {
   span {
     margin-right: 2rem;
-    font-size: 1.4rem;
+    font-size: 0.7rem;
   }
 
   .like::before {

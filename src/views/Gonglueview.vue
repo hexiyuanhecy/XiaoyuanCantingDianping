@@ -2,7 +2,7 @@
   <div class="subject-view has-header">
     <return-bar :title="title"></return-bar>
     <template >
-      <div class="subject-card">
+      <div class="subject-Gongluelist">
         <div class="subject-pics">
           <ul>
             <li class="pic-one">
@@ -60,7 +60,7 @@
       <div class="subject-comments">
         <h2>{{subject.title}}的评论</h2>
         <div class="content-list">
-          <card mold="comment" v-for="item in items" :key="item"></card>
+          <Gongluelist mold="comment" v-for="item in items" :key="item"></Gongluelist>
           <a class="list-link" href="javascript:;">显示更多评论<i class="icon">&#xe87e;</i></a>
         </div>
       </div>
@@ -74,7 +74,6 @@
 import ReturnBar from '../components/ReturnBar'
 import Rating from '../components/Rating'
 import Marking from '../components/Marking'
-import Card from '../components/Card'
 import List from '../components/List'
 import Scroller from '../components/Scroller'
 import DetailTab from '../components/DetailTab'
@@ -86,7 +85,6 @@ export default {
     ReturnBar,
     Rating,
     Marking,
-    Card,
     List,
     Scroller,
     DetailTab,
@@ -152,7 +150,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.subject-card {
+.subject-Gongluelist {
   padding: 0 1.8rem;
 
   h1 {
@@ -259,7 +257,7 @@ export default {
 
 h2 {
   margin: 0 0 1.5rem;
-  font-size: 1.5rem;
+  font-size: 0.8em;
   color: #aaa;
 }
 

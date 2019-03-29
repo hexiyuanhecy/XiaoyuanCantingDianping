@@ -3,11 +3,10 @@ import Router from 'vue-router'
 
 import PagesView from '../views/PagesView'
 import HomeView from '../views/HomeView'
-import MovieView from '../views/MovieView'
-import BookView from '../views/BookView'
-import StatusView from '../views/StatusView'
-import GroupView from '../views/GroupView'
-import SubjectView from '../views/SubjectView'
+import Hallview from '../views/Hallview'
+import Gonglue33 from '../views/Gonglue33'
+import Personalview from '../views/Personalview'
+import Gonglueview from '../views/Gonglueview'
 import DetailView from '../views/DetailView'
 import SearchView from '../views/SearchView'
 import LoginView from '../views/LoginView'
@@ -40,23 +39,18 @@ export default new Router({
         },
         {
           path: 'hall',
-          name: 'MovieView',
-          component: MovieView
-        },
-        {
-          path: 'book',
-          name: 'BookView',
-          component: BookView
+          name: 'Hallview',
+          component: Hallview
         },
         {
           path: 'gonglue',
-          name: 'StatusView',
-          component: StatusView
+          name: 'Gonglue33',
+          component: Gonglue33
         },
         {
           path: 'personal',
-          name: 'GroupView',
-          component: GroupView
+          name: 'Personalview',
+          component: Personalview
         }
       ]
     },
@@ -71,9 +65,9 @@ export default new Router({
     },
     {
       path: '/pages/:classify/subject/:id',
-      name: 'SubjectView',
+      name: 'Gonglueview',
       components: {
-        subject: SubjectView
+        subject: Gonglueview
       }
     },
     {

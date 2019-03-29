@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <template v-for="(item , index) in items">
+    <!-- <template v-for="(item , index) in items">
       <router-link
         class="thumbnail"
         :to="{name: 'DetailView', params: { id: index }}"
@@ -17,7 +17,67 @@
           </div>
         </div>
       </router-link>
-    </template>
+    </template> -->
+    <div class="height">
+  <v-carousel hide-controls 
+      height="200">
+    <v-carousel-item
+      v-for="(item,i) in cards"
+      :key="i"
+      :src="item.src"
+      touch
+    ></v-carousel-item>
+  </v-carousel></div>
+    <v-layout justify-center>
+    <v-flex xs12 sm6>
+      <v-card>
+        <v-container
+          fluid
+          grid-list-md
+        >
+          <v-layout row wrap>
+            <v-flex
+              v-for="item in items"
+              :key="item.title"
+              v-bind="{ [`xs6`]: true }"
+            >
+              <v-card>
+                <v-img
+                  :src="item.image_hlarge"
+                  height="200px"
+                >
+                  <v-container
+                    fill-height
+                    fluid
+                    pa-2
+                  >
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <!-- <span class="headline white--text" v-text="item.title"></span> -->
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>bookmark</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>share</v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-flex>
+  </v-layout>
   </div>
 </template>
 
@@ -36,6 +96,12 @@ export default {
   },
   data () {
     return {
+      cards: [
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
+        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
+      ]
     }
   },
   filters: {
@@ -48,70 +114,13 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '~css/sass/mysass';
+.height{
+  // height: 10rem;
+}
 .list {
-  .thumbnail {
-    position: relative;
-    display: block;
-    padding: 2.5rem 1.8rem 1rem 0;
-    margin-left: 1.8rem;
-
-    .content {
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 0.6rem;
-      line-height: 1.41;
-      text-align: justify;
-      font-size: 1.7rem;
-      font-weight: 500;
-      color: #494949;
-    }
-
-    p {
-      line-height: 1.5;
-      text-align: justify;
-      color: #aaa;
-      font-size: 1.2rem;
-      overflow: hidden;
-    }
-
-    img {
-      float: right;
-      width: 40%;
-      height: 12rem;
-      margin-left: 2.5rem;
-    }
-
-    .author {
-      font-size: 1.2rem;
-      color: #ccc;
-    }
-
-    .label {
-      position: absolute;
-      bottom: 2.5rem;
-      right: 1.8rem;
-    }
-  }
-
-  .thumbnail ~ .thumbnail::before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 0.1rem;
-    content: '';
-    background: #e3e3e3;
-  }
-
-  .author {
-    .icon{
-      color: $theme-cl;
-    }
+  padding-top:50px;
+  img{
+    height: 100% ;
   }
 }
 

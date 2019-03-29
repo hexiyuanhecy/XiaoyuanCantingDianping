@@ -14,5 +14,4 @@ export default {
 
 <style lang="scss">
 @import '~css/iconfont.css';
-@import '~css/sass/mysass';
 </style>

@@ -20,7 +20,7 @@
       </v-btn>
       <v-btn color="" flat value="presonal" @click="personal">
         <span class="tabs">我的</span>
-        <v-icon>account_box</v-icon>
+        <v-icon>account_circle</v-icon>
       </v-btn>
     </v-bottom-nav>
   </v-card>
