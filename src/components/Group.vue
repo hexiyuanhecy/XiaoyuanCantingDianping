@@ -13,7 +13,6 @@
             <img v-if="item.images.small" :src="item.images.small" alt="cover">
             <div class="group-info">
               <span>{{item.title}}</span>
-              <rating v-if="item.rating" :rating="item.rating"></rating>
             </div>
             <span v-if="item.group_member" class="group-member">20005人</span>
           </div>
@@ -29,11 +28,10 @@
 </template>
 
 <script>
-import Rating from '../components/Rating'
 
 export default {
   name: 'group',
-  components: { Rating },
+  components: {},
   props: {
     title: {
       type: String,

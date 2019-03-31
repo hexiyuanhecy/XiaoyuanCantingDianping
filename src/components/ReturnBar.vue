@@ -1,9 +1,17 @@
 <template>
   <div class="return-bar">
-    <a href="javascript:history.go(-1);">
-      <span class="icon">&#xe8b5;</span>
-    </a>
-    <div class="title" >{{title}}</div>
+    <v-toolbar
+      absolute
+      color="white"
+      light
+      fixed
+      dense>
+        <v-btn icon class="" href="javascript:history.go(-1);">
+          <v-icon class="body-3">arrow_back</v-icon>
+        </v-btn>
+        <v-toolbar-title class="body-2">{{title}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+    </v-toolbar>
   </div>
 </template>
 
@@ -29,30 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.return-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 998;
-  display: flex;
-  align-items: center;
-  height: 4rem;
-  padding: 0 2rem;
-  background: #00b600;
-  border-bottom: 0.1rem solid #ccc;
-  vertical-align: middle;
-  .icon{
-    color: #fff;
-    font-size: 2rem;
-  }
-  .title{
-    height: 4rem;
-    width: 100%;
-    font-size: 1.6rem;
-    color: white;
-    line-height: 4rem;
-    text-align: center;
-  }
+.v-btn .v-btn__content .v-icon {
+    color: rgba(0,0,0,.54);;
 }
 </style>

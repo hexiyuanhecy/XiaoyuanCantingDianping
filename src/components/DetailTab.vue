@@ -14,6 +14,7 @@
         </router-link>
       </ul>
     </div>
+    
   </div>
 
 </template>
@@ -31,33 +32,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$heme-color: #9AD57F;
-.header-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 998;
-  display: flex;
-  align-items: center;
-  height: 4.8rem;
-  padding: 0 4rem;
-  background: #fff;
-  border-top: 0.1rem solid #79a560;
-
-  ul {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-  }
-
-  li {
-    display: inline-block;
-    .icon{
-      font-size: 21px;
-      color: 2E2A29;
-    }
-  }
-}
-
 </style>

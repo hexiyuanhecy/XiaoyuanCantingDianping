@@ -37,12 +37,11 @@
 <script>
 // import { mapState } from 'vuex'
 import DetailTab from '../components/DetailTab'
-import DownloadApp from '../components/DownloadApp'
 import Loading from '../components/Loading'
 
 export default {
   name: 'detail_1',
-  components: { DetailTab, DownloadApp, Loading },
+  components: { DetailTab, Loading },
   data () {
     return {
       showLoading: true,

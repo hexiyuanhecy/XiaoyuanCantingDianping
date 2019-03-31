@@ -15,11 +15,10 @@ import { mapState } from 'vuex'
 
 import Scroller from '../components/Scroller'
 import Types from '../components/Types'
-import DownloadApp from '../components/DownloadApp'
 
 export default {
   name: 'movie-view',
-  components: { Scroller, Types, DownloadApp },
+  components: { Scroller, Types },
   data () {
     return {}
   },

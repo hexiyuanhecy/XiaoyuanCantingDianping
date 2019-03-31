@@ -6,12 +6,11 @@
 </template>
 
 <script>
-import Banner from '../components/Banner'
 import Gongluelist from '../components/Gongluelist'
 
 export default {
   name: 'status',
-  components: { Banner, Gongluelist },
+  components: { Gongluelist },
   data () {
     return {
       items: new Array(10)
@@ -21,9 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-list{
-  margin-top: 0;
-}
+
 .list-link {
   display: block;
   padding: 1.5rem 0;

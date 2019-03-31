@@ -4,21 +4,18 @@
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
       <!-- <loading slot="spinner"></loading> -->
     </infinite-loading>
-    <totop></totop>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-
 import InfiniteLoading from 'vue-infinite-loading'
 import List from '../components/List'
 import Loading from '../components/Loading'
-import Totop from '../components/Banner'
 
 export default {
   name: 'home-view',
-  components: { List, InfiniteLoading, Loading, Totop },
+  components: { List, InfiniteLoading, Loading },
   data () {
     return {}
   },

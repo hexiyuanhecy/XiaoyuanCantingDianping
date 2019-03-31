@@ -7,31 +7,30 @@
           <ul>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/pen.jpg" alt="poster">
+                <img src="/api/images/1.jpg" alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/pen.jpg" alt="poster">
+                <img src="/api/images/1.jpg" alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/pen.jpg" alt="poster">
+                <img src="/api/images/1.jpg" alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/pen.jpg" alt="poster">
+                <img src="/api/images/1.jpg" alt="poster">
               </a>
             </li>
           </ul>
         </div>
         <div class="subject-intro">
           <h1 class="title">{{subject.title}}</h1>
-          <rating :rating="subject.rating">
-            <span slot="ratingsCount">{{subject.ratings_count}}人评价</span>
-          </rating>
+            <v-rating v-model="subject.rating" small half-increments 
+            color="grey darken-3"></v-rating>
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;{{subject.summary}}
           </p>
@@ -60,7 +59,7 @@
       <div class="subject-comments">
         <h2>{{subject.title}}的评论</h2>
         <div class="content-list">
-          <Gongluelist mold="comment" v-for="item in items" :key="item"></Gongluelist>
+          <esjianjie mold="comment" v-for="item in items" :key="item"></esjianjie>
           <a class="list-link" href="javascript:;">显示更多评论<i class="icon">&#xe87e;</i></a>
         </div>
       </div>
@@ -70,9 +69,8 @@
 </template>
 
 <script>
-
+import Esjianjie from '../components/Card'
 import ReturnBar from '../components/ReturnBar'
-import Rating from '../components/Rating'
 import Marking from '../components/Marking'
 import List from '../components/List'
 import Scroller from '../components/Scroller'
@@ -80,12 +78,12 @@ import DetailTab from '../components/DetailTab'
 import Loading from '../components/Loading'
 
 export default {
-  name: 'subject-view',
+  name: 'Gonglueview',
   components: {
     ReturnBar,
-    Rating,
     Marking,
     List,
+    Esjianjie,
     Scroller,
     DetailTab,
     Loading
@@ -98,13 +96,8 @@ export default {
       items: new Array(5),
       subject: {
         title: '韩式烤肉拌饭',
-        images: '/api/images/kaorou.jpg',
-        rating: {
-          'max': 10,
-          'average': 4.7,
-          'stars': '1',
-          'min': 0
-        },
+        images: '/api/images/1.jpg',
+        rating: 2.5,
         ratings_count: 103,
         summary: '韩式烤肉拌饭，以韩式烤肉的手法精制烤肉，再结合传统盖浇饭特点，独创韩式烤肉拌饭，菜式多样，价优味美，是深受广大年轻人爱好的新型快餐。'
       }

@@ -31,7 +31,7 @@ export default {
   name: 'Homeview',
   data () {
     return {
-      activeBtn: Number
+      activeBtn: Number, String
     }
   },
   methods: {
@@ -53,17 +53,17 @@ export default {
     }
   },
   mounted: function () {
-    this.activeBtn = document.cookie.split(';')[0].split('=')[1]
-    console.log(this.activeBtn)
+    let activeBtnTemp = Number(document.cookie.split(';')[0].split('=')[1])
+    console.log(typeof activeBtnTemp)
+    if (activeBtnTemp !== '') {
+      this.activeBtn = activeBtnTemp
+    } else this.activeBtn = 0
   }
 }
 </script>
 
 <style scoped>
-#inspire {
-  height: 56px
+.tabs{
+  font-size: 12px !important
 }
-  .tabs{
-    font-size: 12px !important}
-
 </style>

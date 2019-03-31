@@ -32,9 +32,10 @@
       <ul class="hasCover">
         <li v-for="item in myitems" :key="item.id">
           <router-link :to="'subject/' + item.id" append>
-            <img v-if="item.images" :src="item.images" alt="">
+            <img v-if="item.images" :src="item.images" alt="" contain>
             <span class="title">{{item.title}}</span>
-            <v-rating v-model="rating" small></v-rating>
+            <v-rating v-model="item.rating" small half-increments 
+            color="grey darken-3"></v-rating>
           </router-link>
         </li>
       </ul>
@@ -43,53 +44,32 @@
 </template>
 
 <script>
-import Rating from './Rating'
-
 export default {
-  name: 'scroller',
-  components: { Rating },
+  name: 'hallfenlei',
+  components: {},
   data () {
     return {
       title: '热门餐厅',
       myitems: [{
+        id: 1,
         images: '/api/images/4.jpg',
         title: '韩式烤肉拌饭',
-        rating: {
-          'max': 10,
-          'average': 5.1,
-          'stars': '25',
-          'min': 0
-        }
+        rating: 4
       },
       {
         images: '/api/images/5.jpg',
         title: '韩式烤肉拌饭',
-        rating: {
-          'max': 10,
-          'average': 5.1,
-          'stars': '25',
-          'min': 0
-        }
+        rating: 4
       },
       {
         images: '/api/images/5.jpg',
         title: '韩式烤肉拌饭',
-        rating: {
-          'max': 10,
-          'average': 5.1,
-          'stars': '25',
-          'min': 0
-        }
+        rating: 4.5
       },
       {
         images: '/api/images/3.jpg',
         title: '韩式烤肉拌饭',
-        rating: {
-          'max': 10,
-          'average': 5.1,
-          'stars': '25',
-          'min': 0
-        }
+        rating: 3
       }]
     }
   }

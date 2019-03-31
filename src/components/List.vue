@@ -18,8 +18,8 @@
         </div>
       </router-link>
     </template> -->
-    <div class="height">
-  <v-carousel hide-controls 
+<div class="height">
+  <v-carousel hide-controls hide-delimiters interval="3000"
       height="200">
     <v-carousel-item
       v-for="(item,i) in cards"
@@ -27,8 +27,20 @@
       :src="item.src"
       touch
     ></v-carousel-item>
-  </v-carousel></div>
-    <v-layout justify-center>
+  </v-carousel>
+</div>
+    <div class="content">
+      <slot name="promItem"></slot>
+      <ul class="hasCover">
+        <li v-ripple v-for="item in myitems" :key="item.id">
+          <!-- <router-link :to="'subject/' + item.id" append> -->
+            {{item}}
+          <!-- </router-link> -->
+        </li>
+      </ul>
+    </div>
+
+  <v-layout justify-center>
     <v-flex xs12 sm6>
       <v-card>
         <v-container
@@ -37,11 +49,11 @@
         >
           <v-layout row wrap>
             <v-flex
-              v-for="item in items"
-              :key="item.title"
-              v-bind="{ [`xs6`]: true }"
+              v-for="(item , index) in items"
+              :key="index"
+              v-bind="{ [`xs6`]: true}"
             >
-              <v-card>
+              <v-card :to="{name: 'DetailView', params: { id: index }}">
                 <v-img
                   :src="item.image_hlarge"
                   height="200px"
@@ -71,6 +83,7 @@
                     <v-icon>share</v-icon>
                   </v-btn>
                 </v-card-actions>
+                
               </v-card>
             </v-flex>
           </v-layout>
@@ -101,7 +114,8 @@ export default {
         { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
         { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
         { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
-      ]
+      ],
+      myitems: ['无辣不欢', '清淡可口', '日式料理', '韩式口味', '杭帮菜品']
     }
   },
   filters: {
@@ -118,10 +132,42 @@ export default {
   // height: 10rem;
 }
 .list {
-  padding-top:50px;
   img{
     height: 100% ;
   }
+}
+
+  ul {
+    width: 100%;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    border-bottom: 1px solid rgb(236, 236, 236);
+  }
+
+
+.hasCover {
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: center;
+
+  .title {
+    display: block;
+    line-height: 100%;
+    font-size: 0.8rem !important;
+    color: #111;
+    overflow: hidden;
+  }
+
+  li {
+    display: inline-block;
+    width: 20%;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+    &:first-child {
+      padding-left: 0.5rem;
+    }
+  }
+
 }
 
 </style>
