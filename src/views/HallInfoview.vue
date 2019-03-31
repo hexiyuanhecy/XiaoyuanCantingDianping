@@ -1,6 +1,6 @@
 <template>
   <div class="subject-view has-header">
-    <return-bar :title="title"></return-bar>
+    <return-bar :title="title2"></return-bar>
     <template >
       <div class="subject-Gongluelist">
         <div class="subject-pics">
@@ -28,16 +28,29 @@
           </ul>
         </div>
         <div class="subject-intro">
-          <h1 class="title">{{subject.title}}</h1>
-            <v-rating v-model="subject.rating" small half-increments 
-            color="grey darken-3"></v-rating>
+          <h3 class="title">{{subject.title}}</h3>
+            <v-rating 
+              v-model="subject.rating" 
+              small half-increments 
+              color="grey darken-3"
+            ></v-rating>
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;{{subject.summary}}
           </p>
         </div>
         <div class="subject-pics">
-          <h2>{{subject.title}}的图片</h2>
+          <h4>{{subject.title}}推荐菜品</h4>
           <ul>
+            <li class="pic">
+              <a href="#">
+                <img :src="subject.images" alt="poster">
+              </a>
+            </li>
+            <li class="pic">
+              <a href="#">
+                <img :src="subject.images" alt="poster">
+              </a>
+            </li>
             <li class="pic">
               <a href="#">
                 <img :src="subject.images" alt="poster">
@@ -56,6 +69,8 @@
           </ul>
         </div>
       </div>
+
+
       <div class="subject-comments">
         <h2>{{subject.title}}的评论</h2>
         <div class="content-list">
@@ -90,7 +105,7 @@ export default {
   },
   data () {
     return {
-      title: '店铺详情',
+      title2: '店铺详情',
       showLoading: true,
       isExpand: true,
       items: new Array(5),
@@ -143,17 +158,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.subject-Gongluelist {
-  padding: 0 1.8rem;
-
-  h1 {
-    margin: 2rem 0 0;
-  }
-}
-
-.subject-info {
-  overflow: hidden;
-  margin-bottom: 3rem;
 
   .right {
     float: right;
@@ -165,86 +169,7 @@ export default {
     }
   }
 
-  .left {
-    margin-right: 10rem;
-
-    .meta {
-      margin-top: 1.5rem;
-      padding-right: 2.4rem;
-      line-height: 1.6;
-      font-size: 1.4rem;
-      color: #494949;
-    }
-
-    .open-app {
-      display: block;
-      margin-top: 1rem;
-      line-height: 1;
-      font-size: 1.4rem;
-      color: #42bd56;
-    }
-
-    .buy {
-      display: inline-block;
-      height: 2.4rem;
-      padding: 0 0.6rem;
-      line-height: 2.4rem;
-      text-align: center;
-      font-size: 1.3rem;
-      color: #E76648;
-      border: 0.1rem solid #E76648;
-      border-radius: 0.3rem;
-    }
-  }
-}
-
-.vendors-link {
-  position: relative;
-  margin: 1.5rem 0;
-  padding: 1rem 1.8rem 1rem 0;
-  line-height: 2.4rem;
-  font-size: 1.5rem;
-  overflow: auto;
-  box-sizing: border-box;
-
-  .link {
-    display: inline-block;
-    width: 100%;
-    position: relative;
-  }
-
-  .info {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    color: #ccc;
-    font-size: 1.4rem;
-  }
-
-  &::before {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 1px;
-    background: #E8E8E8;
-    content: '';
-    position: absolute;
-  }
-
-  &::after {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #E8E8E8;
-    content: '';
-    position: absolute;
-  }
-}
-
-.subject-intro, .genres, .subject-pics, .subject-comments,
-.ad, .subject-question {
+.subject-intro, .genres, .subject-pics, .subject-comments{
   margin-bottom: 3rem;
 }
 
@@ -255,8 +180,9 @@ h2 {
 }
 
 .subject-intro {
+  padding: 0 1.5rem;
   p {
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     color: #494949;
   }
 
@@ -277,6 +203,29 @@ h2 {
     width: 95%;
     overflow: hidden;
     display: inline-block;
+    &:first-child{
+      margin-left: -1rem;
+    }
+    &:last-child{
+      margin-right: 2.5rem;/* 最后一张图 */
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+  }
+   .pic{ /* 推荐菜品 */
+    height: 6rem;
+    width: 30%;
+    overflow: hidden;
+    display: inline-block;
+    &:first-child{
+      margin-left: -1rem;
+    }
+    &:last-child{
+      margin-right: 2.5rem;/* 最后一张图 */
+    }
     img{
       width: 100%;
       height: 100%;
@@ -295,11 +244,11 @@ h2 {
   }
 }
 
-.subject-comments h2, .subject-question {
+.subject-comments h2{
   padding: 0 1.8rem;
 }
 
-.subject-comments, .subject-question {
+.subject-comments{
   .list-link {
     display: block;
     padding: 1.5rem 0;
@@ -310,10 +259,6 @@ h2 {
   }
 }
 
-.ad {
-  margin: 3rem 1.8rem;
-  margin-top: -2rem;
-}
 .subject-view{
   margin-bottom: 5rem;
 }

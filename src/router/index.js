@@ -6,7 +6,7 @@ import HomeView from '../views/HomeView'
 import Hallview from '../views/Hallview'
 import Gonglue33 from '../views/Gonglue33'
 import Personalview from '../views/Personalview'
-import Gonglueview from '../views/Gonglueview'
+import HallInfoview from '../views/HallInfoview'
 import DetailView from '../views/DetailView'
 import SearchView from '../views/SearchView'
 import LoginView from '../views/LoginView'
@@ -64,10 +64,10 @@ export default new Router({
       component: DetailDetail
     },
     {
-      path: '/pages/:classify/subject/:id',
-      name: 'Gonglueview',
+      path: '/pages/:classify/hallinfo/:id',
+      name: 'HallInfoview',
       components: {
-        subject: Gonglueview
+        subject: HallInfoview
       }
     },
     {

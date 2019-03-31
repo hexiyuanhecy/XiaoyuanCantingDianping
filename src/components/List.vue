@@ -26,8 +26,28 @@
       :key="i"
       :src="item.src"
       touch
-    ></v-carousel-item>
+      >
+    <v-window v-model="onboarding">
+        <v-window-item
+        >
+          <v-card
+            color="transparent"
+            height="200"
+          >
+            <v-layout
+              align-center
+              justify-center
+              fill-height
+              tag="v-card-text"
+            >
+              Transparent themed, for background-imaged slides. Background color black added for demonstration purposes.
+            </v-layout>
+          </v-card>
+        </v-window-item>
+      </v-window>>
+    </v-carousel-item>
   </v-carousel>
+
 </div>
     <div class="content">
       <slot name="promItem"></slot>
@@ -110,12 +130,9 @@ export default {
   data () {
     return {
       cards: [
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 }
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 }
       ],
-      myitems: ['无辣不欢', '清淡可口', '日式料理', '韩式口味', '杭帮菜品']
+      myitems: ['无辣不欢', '清淡可口', '日韩料理', '杭帮菜品']
     }
   },
   filters: {

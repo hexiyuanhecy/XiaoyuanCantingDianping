@@ -38,7 +38,6 @@ export default {
 
 <style lang="scss" scoped>
 .estimate {
-  margin: 5rem 1.5rem;
   form{
     textarea{
       border: none;

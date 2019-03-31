@@ -1,4 +1,5 @@
 <template>
+<!-- 评论详情 -->
   <div class="detail-view has-header">
     <template v-if="!showLoading">
       <br>

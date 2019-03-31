@@ -1,9 +1,10 @@
 <template>
+<!-- 好像没用了的 -->
   <div class="detail-view has-header">
     <template>
       <br>
       <div class="info">
-        <h2>
+        <h2>44444444
           {{eventItem.title}}
           <span class="badge">{{eventItem.loc_name}}</span>
         </h2>

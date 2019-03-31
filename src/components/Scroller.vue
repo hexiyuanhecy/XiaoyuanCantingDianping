@@ -31,7 +31,7 @@
       <slot name="promItem"></slot>
       <ul class="hasCover">
         <li v-for="item in myitems" :key="item.id">
-          <router-link :to="'subject/' + item.id" append>
+          <router-link :to="'hallinfo/' + item.id" append :title="'餐厅详情'">
             <img v-if="item.images" :src="item.images" alt="" contain>
             <span class="title">{{item.title}}</span>
             <v-rating v-model="item.rating" small half-increments 
