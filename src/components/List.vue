@@ -27,7 +27,7 @@
       :src="item.src"
       touch
       >
-    <v-window v-model="onboarding">
+    <v-window >
         <v-window-item
         >
           <v-card
@@ -75,7 +75,7 @@
             >
               <v-card :to="{name: 'DetailView', params: { id: index }}">
                 <v-img
-                  :src="item.image_hlarge"
+                  :src="'api/images/estimate/'  + item.es_main_img"
                   height="200px"
                 >
                   <v-container

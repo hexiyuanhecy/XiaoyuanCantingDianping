@@ -3,7 +3,16 @@
     <return-bar :title="title"></return-bar>
     <div class="es-content">
       <form name="my_form" action='URL' method="POST">
-        <textarea autofocus cols="52" rows="10" placeholder="此刻我想说..." wrap="hard"></textarea>
+        <v-textarea
+        class="p-5"
+            clearable
+            autofocus
+            name="input-7-1"
+            label="说点什么吧"
+            auto-grow
+            width='600'
+          ></v-textarea>
+        <!-- <textarea autofocus cols="52" rows="10" placeholder="此刻我想说..." wrap="hard"></textarea> -->
       </form>
       <div class="square">
         <div class="square-inner grid">
@@ -39,10 +48,9 @@ export default {
 <style lang="scss" scoped>
 .estimate {
   form{
-    textarea{
+    padding: 10px;
       border: none;
-      font-size: 14px;
-    }
+      font-size: 12px;
   }
 .square{
   margin-top: 2rem;

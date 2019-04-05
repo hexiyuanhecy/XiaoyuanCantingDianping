@@ -30,11 +30,16 @@
     <div class="content">
       <slot name="promItem"></slot>
       <ul class="hasCover">
-        <li v-for="item in myitems" :key="item.id">
-          <router-link :to="'hallinfo/' + item.id" append :title="'餐厅详情'">
-            <img v-if="item.images" :src="item.images" alt="" contain>
-            <span class="title">{{item.title}}</span>
-            <v-rating v-model="item.rating" small half-increments 
+        <li v-for="item in items" :key="item.id">
+          <router-link :to="'hallinfo/' + item.dh_id" append :title="'餐厅详情'">
+            <v-img 
+              :src="'api/images/dh_main_imgs/'+item.dh_main_img" 
+              alt="" 
+              contain
+              height='100'
+            ></v-img>
+            <span class="title">{{item.dh_info}}</span>
+            <v-rating v-model="item.dh_score" small half-increments 
             color="grey darken-3"></v-rating>
           </router-link>
         </li>
@@ -46,6 +51,7 @@
 <script>
 export default {
   name: 'hallfenlei',
+  props: [ 'items' ],
   components: {},
   data () {
     return {

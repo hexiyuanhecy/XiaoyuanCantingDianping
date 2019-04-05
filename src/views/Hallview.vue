@@ -1,6 +1,6 @@
 <template>
   <div class="movie-view has-header mybox">
-    <scroller title="热门餐厅"></scroller>
+    <scroller title="无辣不欢" :items="hotMovies"></scroller>
     <scroller title="热门餐厅"></scroller>
     <scroller title="热门餐厅"></scroller>
     <scroller title="热门餐厅"></scroller>
@@ -25,21 +25,22 @@ export default {
   computed: {
     // Getting Vuex State from store/modules/movie
     ...mapState({
-      hotMovies: state => state.movie.hotMovies,
-      topMovies: state => state.movie.topMovies,
-      newMovies: state => state.movie.newMovies,
-      movieTags: state => state.movie.movieTags
+      hotMovies: state => state.movie.hotMovies
+      // topMovies: state => state.movie.topMovies,
+      // newMovies: state => state.movie.newMovies,
+      // movieTags: state => state.movie.movieTags
     })
   },
   methods: {
-    // Dispatching getMovie
-    getMovie: function () {
-      this.$store.dispatch('getMovie')
+    // Dispatching getDiningHall
+    getDiningHall: function () {
+      this.$store.dispatch('getDiningHall')
+      console.log('getDiningHall')
     }
   },
   created () {
     // Getting movies data on created
-    this.getMovie()
+    this.getDiningHall()
   }
 }
 </script>

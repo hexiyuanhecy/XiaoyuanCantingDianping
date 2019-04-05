@@ -6,10 +6,10 @@
       <div class="info">
         <h2>
           {{eventItem.title}}
-          <span class="badge">{{eventItem.loc_name}}</span>
+          <span class="badge">{{eventItem.es_content}}</span>
         </h2>
         <div class="poster">
-          <img :src="eventItem.image_hlarge" alt="">
+          <img :src="'api/images/estimate/' + eventItem.es_main_img" alt="">
         </div>
         <div class="detail">
           <span>餐厅地点:&nbsp;&nbsp;</span>
@@ -21,7 +21,7 @@
            <a href="#">
           <img src="../assets/douban-app-logo.png" alt="">
         </a>
-          <div v-if="eventItem.content" class="content" v-html="content"></div>
+          <div v-if="eventItem.es_content" class="content" v-test="es_content"></div>
         </div>
       </div>
     </template>

@@ -54,7 +54,7 @@ export default {
   },
   mounted: function () {
     let activeBtnTemp = Number(document.cookie.split(';')[0].split('=')[1])
-    console.log(typeof activeBtnTemp)
+    // console.log(typeof activeBtnTemp)
     if (activeBtnTemp !== '') {
       this.activeBtn = activeBtnTemp
     } else this.activeBtn = 0

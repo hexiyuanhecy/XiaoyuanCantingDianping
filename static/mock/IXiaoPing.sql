@@ -24,21 +24,26 @@ DROP TABLE IF EXISTS `dining_hall`;
 CREATE TABLE `dining_hall` (
   `dh_id` int(11) NOT NULL AUTO_INCREMENT,
   `sc_id` int(11) DEFAULT NULL,
-  `dining` varchar(32) DEFAULT NULL,
   `dh_name` varchar(32) DEFAULT NULL,
-  `dh_add` varchar(32) DEFAULT NULL,
   `dh_info` varchar(128) DEFAULT NULL,
-  `dh_kind` varchar(32) DEFAULT NULL,
-  `dh_star` int(11) DEFAULT NULL,
-  `dh_score` int(11) DEFAULT NULL,
+  `dh_star` int(32) DEFAULT NULL,
+  `dh_score` decimal(11) DEFAULT NULL,
+  `dining` varchar(32) DEFAULT NULL,
   `dh_main_img` varchar(128) DEFAULT NULL,
+  `dh_add` varchar(32) DEFAULT NULL,
+  `breakfast` int(11) DEFAULT NULL,
+  `noodles` int(11) DEFAULT NULL,
+  `meat` int(11) DEFAULT NULL,
+  `rice` int(11) DEFAULT NULL,
+  `rihan` int(11) DEFAULT NULL,
   PRIMARY KEY (`dh_id`),
   KEY `dh_sc` (`sc_id`),
   CONSTRAINT `dh_sc` FOREIGN KEY (`sc_id`) REFERENCES `school` (`sc_id`),
   CONSTRAINT `dh_us` FOREIGN KEY (`dh_id`) REFERENCES `user` (`dh_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert  into `dining_hall`(`dh_id`,`sc_id`,`dining`,`dh_name`,`dh_add`,`dh_info`,`dh_kind`) values (1,1,'玫瑰园','韩式烤肉拌饭','玫瑰园二楼','正宗的韩式烤肉拌饭，你值得拥有！','韩式料理');
+INSERT INTO `dining_hall`(`dh_id`, `sc_id`, `dh_name`, `dh_info`, `dh_star`, `dh_score`, `dining`, `dh_main_img`, `dh_add`, `breakfast`, `noodles`, `meat`, `rice`, `rihan`) VALUES ( 1,1,'重庆小面','最具重庆特色的面食，你一定要进来尝尝！店内各种口味都有，酸甜咸辣你值得拥有!',103,4.5,'玫瑰园','11.jpg','玫瑰园3楼',1,1,0,null,0 )
+
 /*Data for the table `dining_hall` */
 
 /*Table structure for table `dining_hall_img` */
