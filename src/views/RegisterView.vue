@@ -1,100 +1,167 @@
 <template>
-  <form>
-    <v-text-field
-      v-model="name"
-      v-validate="'required|max:10'"
-      :counter="10"
-      :error-messages="errors.collect('name')"
-      label="Name"
-      data-vv-name="name"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      v-validate="'required|email'"
-      :error-messages="errors.collect('email')"
-      label="E-mail"
-      data-vv-name="email"
-      required
-    ></v-text-field>
-    <v-select
-      v-model="select"
-      v-validate="'required'"
-      :items="items"
-      :error-messages="errors.collect('select')"
-      label="Select"
-      data-vv-name="select"
-      required
-    ></v-select>
-    <v-checkbox
-      v-model="checkbox"
-      v-validate="'required'"
-      :error-messages="errors.collect('checkbox')"
-      value="1"
-      label="Option"
-      data-vv-name="checkbox"
-      type="checkbox"
-      required
-    ></v-checkbox>
+  <v-card
+    class="mx-auto"
+  >
+  <v-toolbar
+      card
+      light
+    >
+      <v-icon>menu</v-icon>
+      <v-toolbar-title class="font-weight-light">用户注册</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
 
-    <v-btn @click="submit">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
-  </form>
+    <v-form
+      ref="form"
+      v-model="form"
+      class="pa-3 pt-4"
+    >
+      <v-text-field
+        v-model="password"
+        :rules="[rules.password, rules.length(6)]"
+        counter="6"
+        label="密码"
+        type="password"
+        clearable
+      ></v-text-field>
+      <v-text-field
+        v-model="phone"
+        label="手机号码"
+        clearable
+      ></v-text-field>
+      <v-text-field
+        v-model="email"
+        :rules="[rules.email]"
+        label="邮箱"
+        type="email"
+        clearable
+      ></v-text-field>
+      <v-textarea
+        v-model="sign"
+        auto-grow
+        label="个性签名"
+        rows="1"
+        clearable
+      ></v-textarea>
+      <v-checkbox
+        v-model="agreement"
+        :rules="[rules.required]"
+      >
+        <template v-slot:label>
+          我同意爱校评...
+        </template>
+      </v-checkbox>
+    </v-form>
+    <v-divider></v-divider>
+    <v-card-actions >
+      <v-btn
+        flat
+        @click="$refs.form.reset()"
+      >重置
+        
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn
+        :disabled="!form"
+        :loading="isLoading"
+        class="white--text"
+        color="black accent-4"
+        depressed
+        @click="register"
+      >注册</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
-Vue.use(VeeValidate)
+import request from 'superagent'
+// import request from 'superagent'
+// import axios from 'axios'
 export default {
-  name: 'register-view',
   data: () => ({
-    name: '',
-    email: '',
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4'
-    ],
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        email: 'E-mail Address'
-        // custom attributes
-      },
-      custom: {
-        name: {
-          required: () => 'Name can not be empty',
-          max: 'The name field may not be greater than 10 characters'
-          // custom messages
-        },
-        select: {
-          required: 'Select field is required'
-        }
-      }
+    agreement: false,
+    sign: undefined,
+    email: undefined,
+    form: false,
+    isLoading: false,
+    password: undefined,
+    phone: undefined,
+    rules: {
+      email: v => (v || '').match(/@/) || '请输入正确的邮箱',
+      length: len => v => (v || '').length >= len || `密码至少为 ${len}位`,
+      // password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+      password: v => (v || '').match() ||
+        '密码必须包含大写字母、数字字符和特殊字符',
+      required: v => !!v || '不能为空'
     }
   }),
-
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
-  },
-
   methods: {
-    submit () {
-      this.$validator.validateAll()
+    register ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        request
+          .post('http://localhost:3001/api/register')
+          .send({
+            // email: this.email,
+            password: this.password
+          })
+          .then(res => {
+            // localStorage.setItem('token', res.body.token)
+            // localStorage.setItem('email', res.body.email)
+            // localStorage.setItem('name', res.body.name)
+
+            commit({
+              // type: 'setUser',
+              // email: res.body.email,
+              // token: res.body.token,
+              // name: res.body.name
+            })
+            resolve(res)
+          }, err => {
+            reject(err)
+          })
+      })
     },
-    clear () {
-      this.name = ''
-      this.email = ''
-      this.select = null
-      this.checkbox = null
-      this.$validator.reset()
+    submit () {
+      // console.log(this.password)
+    //   var instance = axios.create({
+    //     headers: {'content-type': 'application/x-www-form-urlencoded'}
+    //   })
+    //   instance.post(`http://localhost:3001/api/register`, 123).then(res => res.data)
+    //   this.$axios({
+    //     method: 'post',
+    //     url: 'http://localhost:3001/user/register',
+    //     params: {
+    //       password: this.password
+    //     }
+    //   }).then((res) => {
+    //     console.log(res.data)
+    //   })
+    //   return new Promise((resolve, reject) => {
+    //     request
+    //       .post('http://localhost:3001/user/register')
+    //       .send({
+    //         // email: payload.email,
+    //         password: this.password
+    //         // name: payload.name
+    //       })
+    //       .then(res => { // 返回
+    //         // localStorage.setItem('token', res.body.token)
+    //         // localStorage.setItem('email', res.body.email)
+    //         // localStorage.setItem('name', res.body.name)
+
+    //         commit({
+    //           // type: 'setUser',
+    //           // email: res.body.email,
+    //           // token: res.body.token,
+    //           // name: res.body.name
+    //         })
+    //         // resolve(res)
+    //       // }
+    //       // , err => {
+    //       //   // reject(err)
+    //       })
+    //   })
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

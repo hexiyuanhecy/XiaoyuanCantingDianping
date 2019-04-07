@@ -1,7 +1,7 @@
 <template>
   <v-card height="56px">
     <v-bottom-nav
-      :active.sync="activeBtn"
+      active.sync="1"
       value="true"
       fixed
       shift
