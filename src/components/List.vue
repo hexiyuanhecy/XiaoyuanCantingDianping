@@ -73,7 +73,7 @@
                     </v-container>
                   </v-img>
                   <v-card-title dark  class="pb-0">
-                      <div>123454316451</div>
+                      <div class="es_content">{{item.es_content}}</div>
                   </v-card-title>
                   <v-card-actions class="px-0 pt-0">
                     <v-list-tile  >
@@ -84,15 +84,15 @@
                         >
                         <v-img
                           class="elevation-4"
-                          src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                          :src="'api/images/user_imgs/'+ item.us_pic"
                         ></v-img>
                       </v-list-tile-avatar>
               
                       <v-layout class="py-0 mt-0">
-                        <v-icon class="mr-">favorite</v-icon>
-                        <span class="subheading mr-2">156</span>
-                        <v-icon class="mr-">thumb_up</v-icon>
-                        <span class="subheading">45</span>
+                        <v-icon class="ml-5 mr-0">favorite</v-icon>
+                        <span class="subheading mr-0">{{item.es_star}}</span>
+                        <!-- <v-icon class="mr-">thumb_up</v-icon>
+                        <span class="subheading">45</span> -->
                       </v-layout>
 
                     </v-list-tile>
@@ -182,4 +182,10 @@ export default {
 
 }
 
+.es_content{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #111;
+}
 </style>

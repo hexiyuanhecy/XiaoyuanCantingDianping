@@ -21,9 +21,9 @@ const mutations = {
 const actions = {
   loadMore ({commit, state}) {
     request
-      .get('http://localhost:3001/estimate')
+      .get('http://localhost:3001/estimate/estimate')
       .end((err, res) => {
-        console.log('+++++' + res)
+        // console.log(res.body.data[0].es_content)
         if (!err) {
           commit({
             type: 'loadMore',
@@ -40,7 +40,7 @@ const actions = {
   getSingleEvent ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get('http://localhost:3001/estimate')
+        .get('http://localhost:3001/estimate/estimate')
         .end((err, res) => {
           // var myid = payload
           // console.log('接收到的list传给detail的index' + payload.id)

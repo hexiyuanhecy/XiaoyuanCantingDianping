@@ -19,7 +19,7 @@
         </div>
         <div class="describe">
            <a href="#">
-          <img src="../assets/douban-app-logo.png" alt="">
+          <img :src="'api/images/user_imgs/'+ eventItem.us_pic" alt="">
         </a>
           <div v-if="eventItem.es_content" class="content" v-test="es_content"></div>
         </div>
