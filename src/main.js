@@ -7,6 +7,8 @@ import store from './store'
 import vueScrollBehavior from 'vue-scroll-behavior'
 import VueMaterial from 'vue-material'
 import Vuetify from 'vuetify'
+import axios from 'axios'
+import qs from 'qs'
 
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'css/boder.css'
@@ -16,9 +18,10 @@ import 'swiper/dist/css/swiper.css'
 import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-import 'vuetify/dist/vuetify.min.css' //
+import 'vuetify/dist/vuetify.min.css'
 
-// Vue.prototype.$axios = axios
+Vue.prototype.axios = axios
+Vue.prototype.qs = qs
 Vue.use(VueMaterial)
 Vue.use(vueScrollBehavior, { router: router })
 Vue.use(Vuetify)
