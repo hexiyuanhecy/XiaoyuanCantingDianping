@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import movie from './modules/movie'
+import hall from './modules/hall'
 import activities from './modules/activities'
 import book from './modules/book'
 import subject from './modules/subject'
@@ -13,7 +13,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    movie,
+    hall,
     activities,
     book,
     subject,

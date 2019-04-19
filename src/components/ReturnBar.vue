@@ -42,6 +42,6 @@ export default {
     color: rgba(0,0,0,.54);;
 }
 .box{
-  height: 50px;
+  height: 48px;
 }
 </style>

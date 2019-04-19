@@ -14,9 +14,20 @@
           ></v-textarea>
         <!-- <textarea autofocus cols="52" rows="10" placeholder="此刻我想说..." wrap="hard"></textarea> -->
       </form>
+      <v-rating 
+        v-model="item.dh_score" 
+        small 
+        dense
+        half-increments 
+        size="1"
+        color="grey darken-3">
+      </v-rating>
       <div class="square">
         <div class="square-inner grid">
-          <div>1</div>
+          <md-field>
+      <label>Only images</label>
+      <md-file v-model="single" accept="image/*" />
+    </md-field>v
           <div>2</div>
           <div>3</div>
           <div>4</div>

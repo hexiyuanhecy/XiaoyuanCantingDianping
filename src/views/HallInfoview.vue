@@ -1,69 +1,80 @@
 <template>
   <div class="subject-view has-header">
-    <return-bar :title="title2"></return-bar>
+    <return-bar title="店铺详情"></return-bar>
     <template >
+      <v-btn 
+        color="primary" 
+        fab 
+        small 
+        dark
+        fixed
+        bottom
+        right
+      >
+        <v-icon>edit</v-icon>
+      </v-btn>
       <div class="subject-Gongluelist">
         <div class="subject-pics">
           <ul>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/1.jpg" alt="poster">
+                <img :src='hall_info.dh_main_img' alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/1.jpg" alt="poster">
+                <img :src='hall_info.dh_main_img' alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/1.jpg" alt="poster">
+                <img :src='hall_info.dh_main_img' alt="poster">
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img src="/api/images/1.jpg" alt="poster">
+                <img :src='hall_info.dh_main_img' alt="poster">
               </a>
             </li>
           </ul>
         </div>
         <div class="subject-intro">
-          <h3 class="title">{{subject.title}}</h3>
+          <h3 class="title">{{hall_info.dh_name}}</h3>
             <v-rating 
-              v-model="subject.rating" 
+              v-model="hall_info.dh_score" 
               small half-increments 
               color="grey darken-3"
             ></v-rating>
           <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{subject.summary}}
+            &nbsp;&nbsp;&nbsp;&nbsp;{{hall_info.dh_info+hall_info.dh_info+hall_info.dh_info+hall_info.dh_info+hall_info.dh_info}}
           </p>
         </div>
         <div class="subject-pics">
-          <h4>{{subject.title}}推荐菜品</h4>
+          <h4>{{hall_info.dh_name}}推荐菜品</h4>
           <ul>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images" alt="poster">
+                <img :src="hall_info.dh_main_img" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images" alt="poster">
+                <img :src="hall_info.dh_main_img" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images" alt="poster">
+                <img :src="hall_info.dh_main_img" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images" alt="poster">
+                <img :src="hall_info.dh_main_img" alt="poster">
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="subject.images" alt="poster">
+                <img :src="hall_info.dh_main_img" alt="poster">
               </a>
             </li>
           </ul>
@@ -79,11 +90,11 @@
         </div>
       </div>
     </template>
-    <detail-tab></detail-tab>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Esjianjie from '../components/Card'
 import ReturnBar from '../components/ReturnBar'
 import Marking from '../components/Marking'
@@ -111,26 +122,17 @@ export default {
       items: new Array(5),
       subject: {
         title: '韩式烤肉拌饭',
-        images: '/api/images/1.jpg',
+        images: '/api/images/dh_main_imgs/11.jpg',
         rating: 2.5,
         ratings_count: 103,
         summary: '韩式烤肉拌饭，以韩式烤肉的手法精制烤肉，再结合传统盖浇饭特点，独创韩式烤肉拌饭，菜式多样，价优味美，是深受广大年轻人爱好的新型快餐。'
       }
     }
-  }
- /* computed: {
+  },
+  computed: {
     // Getting Vuex State from store/modules/subject
     ...mapState({
-      // subject: state => state.subject.subject,
-      adImgUrl: state => state.subject.adImgUrl,
-      questions: state => state.subject.questions,
-      movieTags: state => state.movie.movieTags
-    }),
-    // Getting Filtered Vuex State
-    ...mapGetters({
-      subjectMeta: 'subjectMeta',
-      summary: 'summary',
-      genres: 'genres'
+      hall_info: state => state.hall.hall_info
     })
   },
   methods: {
@@ -142,18 +144,22 @@ export default {
   created () {
     // Getting route params
     const id = this.$route.params.id
-    const classify = this.$route.params.classify
+    // console.log('这是屏幕的第几个==传递给activity.js的参数' + id)
 
-    // Dispatching getSingleSubject
+    // Dispatching getSingleHall
     this.$store.dispatch({
-      type: 'getSingleSubject',
-      id: id,
-      classify: classify
+      type: 'getSingleHall',
+      id: id
     }).then(res => {
       // Success handle
       this.showLoading = false
+      // console.log(res)
     })
-  } */
+  },
+  mounted () {
+    console.log('///////')
+    console.log(this.hall_info)
+  }
 }
 </script>
 
@@ -178,7 +184,9 @@ h2 {
   font-size: 0.8em;
   color: #aaa;
 }
-
+h4{
+  margin-left: 15px;
+}
 .subject-intro {
   padding: 0 1.5rem;
   p {
@@ -251,11 +259,10 @@ h2 {
 .subject-comments{
   .list-link {
     display: block;
-    padding: 1.5rem 0;
-    font-size: 1.6rem;
-    line-height: 1.8rem;
+    font-size: 1rem;
+    line-height: 1rem;
     text-align: center;
-    color: #42bd56;
+    color: #777;
   }
 }
 

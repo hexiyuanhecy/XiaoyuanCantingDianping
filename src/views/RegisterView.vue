@@ -26,26 +26,28 @@
       v-model="form"
       class="pa-5 pt-4"
     >
-      <v-text-field
-        v-model="password"
-        :rules="[rules.password, rules.length(6)]"
-        counter="6"
-        label="密码"
-        type="password"
-        clearable
-      ></v-text-field>
-      <v-text-field
+       <v-text-field
         v-model="phone"
+        :rules="[rules.required, rules.phone]"
         label="手机号码"
         clearable
       ></v-text-field>
       <v-text-field
-        v-model="email"
-        :rules="[rules.email]"
-        label="邮箱"
-        type="email"
+        v-model="password"
+        :rules="[rules.length(6)]"
+        counter="6"
+        label="输入密码"
+        type="password"
         clearable
       ></v-text-field>
+      <!-- <v-text-field
+        v-model="password_again"
+        :rules="[rules.password_again, rules.required]"
+        counter="6"
+        label="确认密码"
+        type="password"
+        clearable
+      ></v-text-field> -->
       <v-checkbox
         v-model="agreement"
         :rules="[rules.required]"
@@ -81,28 +83,39 @@
 export default {
   data: () => ({
     agreement: false,
-    sign: undefined,
     email: undefined,
     form: false,
     isLoading: false,
     password: undefined,
+    password_again: undefined,
     phone: undefined,
+    temp: undefined,
     rules: {
-      email: v => (v || '').match(/@/) || '请输入正确的邮箱',
+      phone: v => (v || '').match(/\d{11}/) || '请输入正确的邮箱',
       length: len => v => (v || '').length >= len || `密码至少为 ${len}位`,
-      // password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
-      password: v => (v || '').match() ||
-        '密码必须包含大写字母、数字字符和特殊字符',
+      // password_again: v => console.log(this.password + (v || '')),
       required: v => !!v || '不能为空'
     }
   }),
   methods: {
     submit () {
       var password = {
-        password: 1234,
-        a: 321
+        phone: this.phone,
+        password: this.password
       }
-      this.axios.post(`http://localhost:3001/user/register`, this.qs.stringify(password)).then(res => res.data)
+      this.axios.post(`http://192.168.137.1:3001/user/register/cname`, this.qs.stringify(password))
+      .then(res => {
+        this.temp = res.data.code
+        if (this.temp === -1) {
+          alert(res.data.msg)
+        } else {
+          this.axios.post(`http://192.168.137.1:3001/user/register`, this.qs.stringify(password))
+          .then(res => {
+            console.log(res.data.code)
+            alert('注册成功')
+          })
+        }
+      })
     }
   }
 }

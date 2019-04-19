@@ -87,7 +87,7 @@ export default {
         loginname: this.loginname,
         password: this.password
       }
-      this.axios.post(`http://localhost:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
+      this.axios.post(`http://192.168.137.1:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
         console.log(res.data)
       })
     }

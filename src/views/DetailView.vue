@@ -1,45 +1,91 @@
 <template>
 <!-- 评论详情 -->
   <div class="detail-view has-header">
-    <template v-if="!showLoading">
-      <br>
-      <div class="info">
-        <h2>
-          {{eventItem.title}}
-          <span class="badge">{{eventItem.es_content}}</span>
-        </h2>
-        <div class="poster">
-          <img :src="'api/images/estimate/' + eventItem.es_main_img" alt="">
-        </div>
-        <div class="detail">
-          <span>餐厅地点:&nbsp;&nbsp;</span>
-          <ul>
-            <li>{{eventItem.address}}</li>
-          </ul>
-        </div>
-        <div class="describe">
-           <a href="#">
-          <img :src="'api/images/user_imgs/'+ eventItem.us_pic" alt="">
-        </a>
-          <div v-if="eventItem.es_content" class="content" v-test="es_content"></div>
-        </div>
+    <return-bar title="评论详情"></return-bar>
+      <!-- 图片 -->
+      <div class="poster">
+        <img v-for="(item, index) in items" :key="index" :src="eventItem.es_main_img" alt="">
       </div>
-    </template>
-    <detail-tab></detail-tab>
+
+      <!--用户及评论  -->
+      <div class="info">
+        <div class="describe">
+          <!-- 用户名 -->
+          <div class="user-info">
+            <v-avatar color="grey darken-3" >
+              <img :src="eventItem.us_pic" alt="">
+            </v-avatar>
+            <div class="name-info">
+              <h6 class="name">一只小西瓜</h6>
+              <p class="date">{{formatData(eventItem.es_date)}}</p>
+            </div>
+          </div>
+          <!-- 评论内容 -->
+          <div class="content">
+            <div v-if="eventItem.es_content" class="content">{{doubleContent(eventItem.es_content)}}</div>
+            <div v-if="eventItem.es_content" class="content">{{doubleContent(eventItem.es_content)}}</div>
+          </div>
+        </div>
+         <!-- 餐厅简介 -->
+         <br>
+         <v-flex xs12>
+            <v-card color="white darken-2" class="black--text">
+              <v-layout>
+                <v-flex xs4>
+                  <v-img
+                    src="api/images/estimate/16.jpg"
+                    height="100px"
+                    contain
+                  ></v-img>
+                </v-flex>
+                <v-flex xs7>
+                  <v-card-title primary-title>
+                    <div  :to="'hallinfo/' + 1">
+                      <div class="headline">韩式烤肉拌饭</div>
+                      <div>桂花园2楼</div>
+                    </div>
+                  </v-card-title>
+                </v-flex>
+              </v-layout>
+              <v-divider dark></v-divider>
+              <v-card-actions class="pa-0">
+                评分
+                <v-spacer></v-spacer>
+                <v-rating half-increments value="3.5"></v-rating>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+
+      </div>
+
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import DetailTab from '../components/DetailTab'
+import ReturnBar from '../components/ReturnBar'
 import Loading from '../components/Loading'
 
 export default {
   name: 'detail-view',
-  components: { DetailTab, Loading },
+  components: { ReturnBar, Loading },
   data () {
     return {
-      showLoading: true
+      showLoading: true,
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+        }
+      ]
     }
   },
   filters: {
@@ -70,74 +116,64 @@ export default {
     }).then(res => {
       // Success handle
       this.showLoading = false
+      console.log('接受到的res')
+      console.log(res)
     })
+  },
+  methods: {
+    formatData (time) {
+      // time = time.toString()
+      return time.substring(0, 10)
+    },
+    doubleContent (str) {
+      str = str + '美味佳肴、口齿留香、珍馐佳肴、秀色可餐、饕餮大餐、回味无穷、色味俱佳、垂涎欲滴、其味无穷'
+      return str
+    }
+  },
+  mounted () {
+    console.log('接受到的eventItem')
+    console.log(this.eventItem)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.info {
+.poster {
+  text-align: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: center;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.v-avatar img{
+  border: 1px solid rgb(250, 248, 248);
+}
+.info{
   margin: 1rem;
+}
+.user-info{
+  margin-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+.name-info{
+  margin-left: 1rem;
+  .name{
 
-  h2 {
-    margin: 2rem 0;
-    font-weight: bold;
-    color: #494949;
   }
-
-  .badge {
-    display: inline-block;
-    padding: 0.1rem 0.5rem;
-    margin-bottom: 0.3rem;
-    vertical-align: middle;
-    line-height: 1.8rem;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #FF8263;
-    border-radius: 0.2rem;
-  }
-
-  .poster {
-    margin: 2rem auto;
-    text-align: center;
-
-    img {
-      width: 100%;
-      max-width: 22rem;
-      height: auto;
-    }
+  .date{
+    font-size: 12px;
+    color: #555
   }
 }
-
-.detail {
-  margin-left: 3.3rem;
-  margin-bottom: 1rem;
-  min-height: 1.5em;
-  font-size: 1.4rem;
-  clear: left;
-
-  span {
-    float: left;
-    margin-left: -3.3rem;
-    line-height: 150%;
-    color: #666666;
-  }
-
-  ul {
-    list-style-position: outside;
-    margin-left: 0;
-  }
+.content{
+  margin-right:4px;
+  margin-left: 4px;
 }
-
-.describe {
-  h2 {
-    color: #072;
-  }
-
-  .content {
-    overflow: hidden;
-    font-size: 1.4rem;
-  }
+.v-carousel__controls{
+  background: none !important;
 }
-
 </style>

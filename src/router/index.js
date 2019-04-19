@@ -15,6 +15,10 @@ import School from '../views/SchoolView'
 import Estimate from '../views/Estimate'
 import Swiper from '../components/Swiper'
 import DetailDetail from '../views/DetailView.1'
+import PersonalInfo from '../views/PersonalInfo'
+import Favourite from '../views/Favourite'
+import GonglueDetail from '../views/GonglueDetail'
+import HallAll from '../views/Hall_all'
 
 Vue.use(Router)
 
@@ -29,49 +33,55 @@ export default new Router({
       component: PagesView,
       children: [
         {
-          path: '',
+          path: '', // 默认主页
           redirect: '/pages/home'
         },
         {
           path: 'home',
-          name: 'HomeView',
+          name: 'HomeView', // 主页
           component: HomeView
         },
         {
-          path: 'hall',
+          path: 'hall', // 餐厅
           name: 'Hallview',
           component: Hallview
         },
         {
-          path: 'gonglue',
+          path: 'gonglue', // 攻略
           name: 'Gonglue33',
           component: Gonglue33
         },
         {
-          path: 'personal',
+          path: 'personal', // 我的
           name: 'Personalview',
           component: Personalview
         }
       ]
-    },
+    }, // 单页面=============================================
     {
-      path: 'detail/:id',
+      path: 'detail/:id', // 评论详情
       name: 'DetailView',
       component: DetailView
-    }, {
+    },
+    {
       path: 'detail-1',
       name: 'DetailDetail',
       component: DetailDetail
     },
     {
-      path: '/pages/:classify/hallinfo/:id',
-      name: 'HallInfoview',
+      path: '/hallinfo/:id',
+      name: 'HallInfoview', // 店铺详情
       components: {
         subject: HallInfoview
       }
     },
     {
-      path: '/search',
+      path: '/hallall/:id', // 评论详情
+      name: 'HallAll',
+      component: HallAll
+    },
+    {
+      path: '/search', // 查找
       name: 'SearchView',
       components: {
         default: PagesView,
@@ -79,22 +89,37 @@ export default new Router({
       }
     },
     {
-      path: '/login',
+      path: '/gonglue_detail', // 评论详情
+      name: 'GonglueDetail',
+      component: GonglueDetail
+    },
+    {
+      path: '/login', // 登录
       name: 'LoginView',
       component: LoginView
     },
     {
-      path: '/register',
+      path: '/register', // 注册
       name: 'RegisterView',
       component: RegisterView
     },
     {
-      path: '/school',
+      path: '/info', // 个人信息
+      name: 'PersonalInfo',
+      component: PersonalInfo
+    },
+    {
+      path: '/favourite', // 收藏
+      name: 'Favourite',
+      component: Favourite
+    },
+    {
+      path: '/school', // 学校
       name: 'School',
       component: School
     },
     {
-      path: '/estimate',
+      path: '/estimate', // 发表评论
       name: 'Estimate',
       component: Estimate
     },

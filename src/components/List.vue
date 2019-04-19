@@ -9,24 +9,21 @@
           :src="item.src"
           touch
           >
-        <v-window >
-            <v-window-item
-            >
-              <v-card
-                color="transparent"
-                height="200"
-              >
-                <v-layout
-                  align-center
-                  justify-center
-                  fill-height
-                  tag="v-card-text"
-                >
-                  浙江理工大学特色餐厅
-                </v-layout>
-              </v-card>
-            </v-window-item>
-          </v-window>>
+        <md-card>
+      <md-card-media-cover md-text-scrim>
+        <md-card-media md-ratio="16:9">
+          <img :src="item.src" alt="Skyscraper">
+        </md-card-media>
+
+        <md-card-area>
+          <md-card-header>
+            <span class="md-title">浙理特色食堂</span>
+            <span class="md-subhead">你值得拥有</span>
+          </md-card-header>
+
+        </md-card-area>
+      </md-card-media-cover>
+    </md-card>
         </v-carousel-item>
       </v-carousel>
 
@@ -56,9 +53,11 @@
                 v-bind="{ [`xs6`]: true}"
               >
                 <v-card :to="{name: 'DetailView', params: { id: index }}">
-                  <v-img
-                    :src="'api/images/estimate/'  + item.es_main_img"
+                  <div style="border-radius:8px">
+                    <v-img
+                    :src="item.es_main_img"
                     height="230px"
+                    tile
                   >
                     <v-container
                       fill-height
@@ -72,6 +71,7 @@
                       </v-layout>
                     </v-container>
                   </v-img>
+                  </div>
                   <v-card-title dark  class="pb-0">
                       <div class="es_content">{{item.es_content}}</div>
                   </v-card-title>
@@ -84,7 +84,7 @@
                         >
                         <v-img
                           class="elevation-4"
-                          :src="'api/images/user_imgs/'+ item.us_pic"
+                          :src="item.us_pic"
                         ></v-img>
                       </v-list-tile-avatar>
               
@@ -125,7 +125,7 @@ export default {
   data () {
     return {
       cards: [
-        { title: 'Favorite road trips', src: 'api/images/school/zstu.jfif', flex: 6 }
+        { title: 'Favorite road trips', src: 'http://192.168.43.224:3001/public/images/school/zstu.jfif', flex: 6 }
       ],
       myitems: ['无辣不欢', '清淡可口', '日韩料理', '杭帮菜品']
     }
@@ -135,11 +135,16 @@ export default {
       let newVal = value.replace(/<.*?>/g, '')
       return newVal.slice(0, 30)
     }
+  },
+  created () {
   }
 }
 </script>
 
 <style lang='scss' scoped>
+.v-image__image .v-image__image--cover,.v-responsive .v-image{
+  border-radius: 8px !important;
+}
 .height{
   // height: 10rem;
 }

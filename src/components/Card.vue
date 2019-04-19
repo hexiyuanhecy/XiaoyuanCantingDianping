@@ -7,14 +7,12 @@
         </a>
         <a href="#">
           <div class="user-info">
-            <strong>
-              刘一一
-            </strong>
+              <div>刘一一</div>
             <div class="timestamp">2017-03-01 19:30:41</div>
           </div>
         </a>
       </div>
-      <div v-if="mold === 'quote'" class="article-card">
+      <div class="article-card">
         <div class="detail">
           昨天吃的糖醋里脊太好吃啦！鲜嫩可口，酸甜合适。商家拼盘也特别好看，颜值特别高！用的餐具也超级精美···
         </div>
@@ -97,8 +95,8 @@ export default {
   text-align: left;
 
   .detail {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
+    font-size: 1rem;
+    line-height: 1rem;
     color: #aaa;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -179,5 +177,10 @@ export default {
   width: 100%;
   height: 0.1rem;
   background: #E8E8E8;
+}
+.detail{
+  white-space: nowrap;  
+ text-overflow:ellipsis; 
+ overflow:hidden;
 }
 </style>

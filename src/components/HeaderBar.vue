@@ -6,9 +6,12 @@
     fixed
     dense
     >
-    <v-toolbar-side-icon color="balck"></v-toolbar-side-icon>
-
-    <v-toolbar-title :to="{ name: 'School'}"><span class="title">浙江理工</span></v-toolbar-title>
+    <v-toolbar-title :to="{ name: 'School'}">
+      <span class="title">
+        <v-icon>place</v-icon>
+        浙江理工
+      </span>
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 

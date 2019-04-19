@@ -30,7 +30,7 @@ import { mapState } from 'vuex'
 import Group from '../components/Group'
 
 export default {
-  name: 'search-view',
+  name: 'searchview',
   components: { Group },
   data () {
     return {

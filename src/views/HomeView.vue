@@ -37,6 +37,9 @@ export default {
     ...mapActions([
       'loadMore'
     ])
+  },
+  mounted () {
+    console.log(this.$route.name)
   }
 }
 </script>
@@ -45,5 +48,8 @@ export default {
 .sub-nav {
   margin: 0 1.8rem;
   padding-top: 0.2rem;
+}
+.v-image{
+    border-radius: 5px !important;
 }
 </style>

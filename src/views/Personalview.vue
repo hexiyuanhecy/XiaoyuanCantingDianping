@@ -13,20 +13,25 @@
         color="grey"
         right
         fab
+        big
       >
-        <v-icon>mdi-plus</v-icon>
+        <v-avatar
+          size="56px"
+        >
+          <img src='http://192.168.43.224:3001/public/images/user_imgs/1.jpg' alt="">
+        </v-avatar>
       </v-btn>
 
       <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/forest.jpg"
+        src="http://192.168.43.224:3001/public/images/dh_main_imgs/16.jpg"
         gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
       >
         <v-container fill-height><!-- 图片上的文字 -->
           <v-layout align-center>
-            <strong class="display-4 font-weight-regular mr-4">8</strong>
+            <strong class="display-4 font-weight-regular mr-4"></strong>
             <v-layout column justify-end>
-              <div class="headline font-weight-light">Monday</div>
-              <div class="text-uppercase font-weight-light">February 2015</div>
+              <div class="headline font-weight-light">{{data[1].us_name}}</div>
+              <div class="text-uppercase font-weight-light">{{data[1].us_sign}}</div>
             </v-layout>
           </v-layout>
         </v-container>
@@ -37,7 +42,7 @@
         <v-card>
           <v-list class=" darken-2" light>
             <template v-for="(item, index) in items">
-              <v-list-tile v-if="item.action" :key="item.title">
+                <v-list-tile v-if="item.action" :key="item.title" @click="item.fn">
                 <v-list-tile-action>
                   <v-icon>{{ item.action }}</v-icon>
                 </v-list-tile-action>
@@ -62,37 +67,45 @@ export default {
     return {
       items: [
         {
+          action: 'info',
+          title: '个人信息',
+          fn: () => (this.$router.push('/info'))
+        },
+        {
           action: 'move_to_inbox',
-          title: 'Inbox'
+          title: '我的收藏',
+          fn: () => (this.$router.push('/favourite'))
         },
         {
           action: 'send',
-          title: 'Sent'
+          title: '我的评价'
         },
         {
           action: 'delete',
-          title: 'Trash'
-        },
-        {
-          action: 'report',
-          title: 'Spam'
+          title: '我的攻略'
         },
         { divider: true },
         { header: 'Labels' },
         {
           action: 'label',
           title: 'Family'
-        },
-        {
-          action: 'label',
-          title: 'Friends'
-        },
-        {
-          action: 'label',
-          title: 'Work'
         }
-      ]
+      ],
+      day: Date,
+      week: String,
+      data: undefined
     }
+  },
+  mounted () {
+    console.log(123123123)
+    this.axios.get(`http://192.168.43.224:3001/user/info`)
+    .then(res => {
+      this.data = res.data.data
+      console.log(this.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>

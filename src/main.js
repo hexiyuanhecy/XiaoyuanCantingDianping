@@ -22,10 +22,14 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.prototype.axios = axios
 Vue.prototype.qs = qs
+// Vue.prototype.baseurl = 'http://192.168.43.224:3001'
+
 Vue.use(VueMaterial)
 Vue.use(vueScrollBehavior, { router: router })
 Vue.use(Vuetify)
-// Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
+// axios.defaults.baseURL = 'http://192.168.43.224:3001'
+axios.defaults.baseURL = 'http://10.202.44.234:3001'
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,46 +1,30 @@
 <template>
-  <!-- <div class="scroller">
-    <div class="header">
-      <h2>{{title}}</h2>
-      <a href="#">更多</a>
-    </div>
-    <div class="content">
-      <slot name="promItem"></slot>
-      <ul class="hasCover" v-if="type === 'hasCover'">
-        <li v-for="item in myitems" :key="item.id">
-          <router-link :to="'subject/' + item.id" append>
-            <img v-if="item.images" :src="item.images.large" alt="">
-            <span class="title">{{item.title}}</span>
-            <rating v-if="item.rating" :rating="item.rating"></rating>
-          </router-link>
-        </li>
-      </ul>
-      <ul class="onlyString" v-if="type === 'onlyString'">
-        <li v-for="item in myitems" style="border-color: #FFAC2D;" :key="item.id">
-          <a :href="item.href" v-if="!item.line" :style="{color: item.color}">{{item.title}}</a>
-        </li>
-      </ul>
-    </div>
-  </div> -->
   <div class="scroller">
     <div class="header">
       <p>{{title}}</p>
-      <a href="#">更多<i class="icon">></i></a>
+      <router-link :to="'/hallall/' + title">
+        <a href="#">更多<i class="icon">></i></a>
+      </router-link>
     </div>
     <div class="content">
       <slot name="promItem"></slot>
       <ul class="hasCover">
-        <li v-for="item in items" :key="item.id">
-          <router-link :to="'hallinfo/' + item.dh_id" append :title="'餐厅详情'">
-            <v-img 
-              :src="'api/images/dh_main_imgs/'+item.dh_main_img" 
-              alt="" 
-              contain
-              height='100'
-            ></v-img>
-            <span class="title">{{item.dh_info}}</span>
-            <v-rating v-model="item.dh_score" small half-increments 
-            color="grey darken-3"></v-rating>
+       <li v-for="item in items" :key="item.id">
+          <router-link :to="'/hallinfo/' + item.dh_id" append :title="'餐厅详情'">
+            <div class="box">
+              <div class="zoomImage"  :style="{backgroundImage:'url('+item.dh_main_img+')'}"></div>
+              <div class="title">
+                <v-rating 
+                  v-model="item.dh_score" 
+                  small 
+                  dense
+                  half-increments 
+                  size="1"
+                  color="yellow darken-3">
+                </v-rating>
+                <div>{{item.dh_name}}</div>
+              </div>
+            </div>
           </router-link>
         </li>
       </ul>
@@ -51,38 +35,55 @@
 <script>
 export default {
   name: 'hallfenlei',
-  props: [ 'items' ],
+  props: [ 'items', 'title' ],
   components: {},
   data () {
     return {
-      title: '热门餐厅',
-      myitems: [{
-        id: 1,
-        images: '/api/images/4.jpg',
-        title: '韩式烤肉拌饭',
-        rating: 4
-      },
-      {
-        images: '/api/images/5.jpg',
-        title: '韩式烤肉拌饭',
-        rating: 4
-      },
-      {
-        images: '/api/images/5.jpg',
-        title: '韩式烤肉拌饭',
-        rating: 4.5
-      },
-      {
-        images: '/api/images/3.jpg',
-        title: '韩式烤肉拌饭',
-        rating: 3
-      }]
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.zoomImage{
+  width:100%;
+  height:0;
+  padding-bottom: 133.33%;
+  border-radius: 5px;
+  overflow:hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  background-size:cover;
+}
+
+.box{
+  height: 200px;
+  width: 130px;
+  position: relative;
+}
+.title{
+  font-size: 0.9rem !important;
+  border-radius: 8px;
+  width: 100%;
+  height: 60%;
+  display: flex !important;
+  flex-direction: column-reverse;
+  position: absolute;
+  bottom: 0px;
+  background: linear-gradient(transparent,#a76a4f - 10,#a76a4f);
+  div{
+    color: white;
+  }
+}
+
+
+
+
+.v-rating .v-icon{
+  padding: 0px !important;
+}
 .scroller {
   padding-top: 1rem;
 }
@@ -90,13 +91,13 @@ export default {
 .header {
   height: 2.6rem;
   line-height: 2.6rem;
-  padding: 0 1.6rem;
-
+  padding: 0 1.2rem;
+  font-size: 1rem;
   a {
     float: right;
     font-size: 0.8rem;
     &:last-child {
-      color: #42bd56;
+      color: #555;
     }
   }
 
@@ -110,7 +111,8 @@ export default {
 
   ul {
     width: 100%;
-    padding: 1rem 0;
+    padding-top: 0;
+    padding: 0 0 1rem 0;
     border-bottom: 1px solid rgb(236, 236, 236);
   }
 }
@@ -120,71 +122,39 @@ export default {
   white-space: nowrap;
   text-align: center;
 
-  .title {
-    display: block;
-    max-width: 100%;
-    margin-top: 1rem;
-    line-height: 0.8rem;
-    font-size: 0.8rem !important;
-    color: #111;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-wrap: normal;
-  }
+  // .title {
+  //   display: block;
+  //   max-width: 100%;
+  //   margin-top: 1rem;
+  //   line-height: 0.8rem;
+  //   font-size: 0.9rem !important;
+  //   color: #111;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  //   word-wrap: normal;
+  // }
 
   li {
+    // height: 120px;
     display: inline-block;
-    width: 60%;
-    margin-left: 0.6rem;
-    margin-right: 0.6rem;
+    // width: 40%;
+    // margin-left: 0.6rem;
+    margin-right: 0.2rem;
     img{
-      width: 100%;
-      height: 80%;
+      // width: 100%;
+      // height: 100%;
     }
     &:first-child {
-      padding-left: 0.5rem;
+      padding-left: 0.6rem;
     }
   }
-
-
-  img {
-    height: 15rem;
-  }
 }
 
-.onlyString {
-  overflow-x: auto;
-  white-space: nowrap;
 
-  li {
-    display: inline-block;
-    margin: 0 0 0.8rem 1.6rem;
-    font-size: 1.6rem;
-    border: solid 0.1rem;
-    border-radius: 0.4rem;
-    vertical-align: middle;
-  }
-
-  a {
-    height: 5rem;
-    line-height: 5rem;
-    padding: 0 2.4rem;
-    letter-spacing: 0.16rem;
-    overflow: auto;
-    display: block;
-    text-align: center;
-  }
-
-  li:empty {
-    width: 100%;
-    display: block;
-    height: 0.1rem;
-    border: 0;
-    margin: 0;
-  }
-}
 span{
   font-size: 1rem;
+}
+.v-rating .v-icon{
+  padding: 2px !important;
 }
 </style>

@@ -1,5 +1,7 @@
 import request from 'superagent'
 // import jsonp from 'superagent-jsonp'
+// const baseurl = 'http://10.202.44.234:3001'
+const baseurl = 'http://192.168.43.224:3001'
 
 const state = {
   events: [],
@@ -21,9 +23,9 @@ const mutations = {
 const actions = {
   loadMore ({commit, state}) {
     request
-      .get('http://localhost:3001/estimate/estimate')
+      .get(`${baseurl}/estimate/estimate`)
       .end((err, res) => {
-        // console.log(res.body.data[0].es_content)
+        console.log(1231231111)
         if (!err) {
           commit({
             type: 'loadMore',
@@ -40,13 +42,13 @@ const actions = {
   getSingleEvent ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get('http://localhost:3001/estimate/estimate')
+        .get(`${baseurl}/estimate/estimate`)
         .end((err, res) => {
           // var myid = payload
           // console.log('接收到的list传给detail的index' + payload.id)
           // console.log('12123123' + res.body.data)
           if (!err) {
-            let id = payload.id % 10
+            let id = payload.id
             // console.log(id)
             commit({
               type: 'getSingleEvent',

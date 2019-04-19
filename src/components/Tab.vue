@@ -6,20 +6,20 @@
       fixed
       shift
     >
-      <v-btn @click="home">
-        <span class="tabs">热门</span>
+      <v-btn color="black" flat value="home" :to="{name: 'HomeView'}">
+        <span class="tabs">热门评论</span>
         <v-icon>home</v-icon>
       </v-btn>
-      <v-btn color="" flat value="hall" @click="hall">
-        <span class="tabs">分类</span>
+      <v-btn color="black" flat value="hall" :to="{name: 'Hallview'}">
+        <span class="tabs">店铺分类</span>
         <v-icon>widgets</v-icon>
       </v-btn>
-      <v-btn color="" flat value="gonglue" @click="gonglue">
-        <span class="tabs">喜欢</span>
-        <v-icon>favorite</v-icon>
+      <v-btn color="black" flat value="gonglue" :to="{name: 'Gonglue33'}">
+        <span class="tabs">看看攻略</span>
+        <v-icon>book</v-icon>
       </v-btn>
-      <v-btn color="" flat value="presonal" @click="personal">
-        <span class="tabs">我的</span>
+      <v-btn color="black" flat value="presonal" :to="{name: 'Personalview'}">
+        <span class="tabs">个人中心</span>
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-bottom-nav>
@@ -34,31 +34,7 @@ export default {
       activeBtn: Number, String
     }
   },
-  methods: {
-    home () {
-      this.$router.push('home')
-      document.cookie = 'activeBtn=' + 0
-    },
-    hall () {
-      this.$router.push('hall')
-      document.cookie = 'activeBtn=' + 1
-    },
-    gonglue () {
-      this.$router.push('gonglue')
-      document.cookie = 'activeBtn=' + 2
-    },
-    personal () {
-      this.$router.push('personal')
-      document.cookie = 'activeBtn=' + 3
-    }
-  },
-  mounted: function () {
-    let activeBtnTemp = Number(document.cookie.split(';')[0].split('=')[1])
-    // console.log(typeof activeBtnTemp)
-    if (activeBtnTemp !== '') {
-      this.activeBtn = activeBtnTemp
-    } else this.activeBtn = 0
-  }
+  mounted: function () {}
 }
 </script>
 
