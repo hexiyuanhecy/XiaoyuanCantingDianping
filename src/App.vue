@@ -25,4 +25,8 @@ export default {
 a:not(.md-button):hover,a:not(.md-button):visited{
   text-decoration: none !important;
 }
+.md-checkbox.md-theme-default.md-checked .md-checkbox-container{
+  background-color: #000 !important;
+  border-color:  #000 !important;
+}
 </style>

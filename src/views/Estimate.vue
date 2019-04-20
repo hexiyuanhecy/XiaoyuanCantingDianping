@@ -1,100 +1,85 @@
 <template>
-  <div class="estimate">
-    <return-bar :title="title"></return-bar>
-    <div class="es-content">
-      <form name="my_form" action='URL' method="POST">
-        <v-textarea
-        class="p-5"
-            clearable
-            autofocus
-            name="input-7-1"
-            label="说点什么吧"
-            auto-grow
-            width='600'
-          ></v-textarea>
-        <!-- <textarea autofocus cols="52" rows="10" placeholder="此刻我想说..." wrap="hard"></textarea> -->
-      </form>
-      <v-rating 
-        v-model="item.dh_score" 
-        small 
-        dense
-        half-increments 
-        size="1"
-        color="grey darken-3">
-      </v-rating>
-      <div class="square">
-        <div class="square-inner grid">
-          <md-field>
-      <label>Only images</label>
-      <md-file v-model="single" accept="image/*" />
-    </md-field>v
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-          <div>9</div>
-        </div>
+  <div>
+    <return-bar title='发表评论'></return-bar>
+    <div class='estimate'>
+      <textarea class='input-text' v-model='es_content' rows='5' cols='40' name='uCode' placeholder='说点什么吧'></textarea>
+      <uploader @getFiles='getImageList' @removeFiles='removeImage'></uploader>
+      <div class='kind'>
+        <md-checkbox v-model='array' value='1' dark class=''>无辣不欢</md-checkbox>
+        <md-checkbox v-model='array' value='2'>日常最佳</md-checkbox>
+        <md-checkbox v-model='boolean'>日韩料理</md-checkbox>
+        <md-checkbox v-model='string'>无肉不欢</md-checkbox>
+        <md-checkbox v-model='string2' value='my-checkbox'>面食主义</md-checkbox>
+        <md-checkbox v-model='novalue'>地方特色</md-checkbox>
       </div>
-      <div class="button"><button>发表</button></div>
+      <br>
+      <v-btn block outline color='secondary' @click='submit'>发布</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import ReturnBar from '../components/ReturnBar'
+import uploader from '../components/Upload'
+
 export default {
-  name: 'estimate',
-  components: { ReturnBar },
+  name: 'DynamicCreate',
   data () {
     return {
-      title: '发表评论'
+      baseurl: 'http://192.168.43.224:3001/',
+      es_content: '',
+      imgList: [],
+      FilecodeList: [],
+      isSubmit: false,
+      array: [],
+      boolean: false,
+      string: null,
+      string2: null,
+      novalue: null,
+      disabled: true,
+      obj1: {name: 'obj1'},
+      obj2: {name: 'obj2'},
+      obj: null,
+      indeterminate: true
     }
+  },
+  methods: {
+    getImageList (files) {
+      this.$nextTick(() => {
+        for (let i = 0, len = files.length; i < len; i++) {
+          this.imgList.push(files[i].src.split('base64,')[1])
+        }
+      })
+    },
+    // 删除图片
+    removeImage (index) {
+      this.imgList.splice(index, 1)
+    },
+    submit () {
+      var password = {
+        phone: this.es_content,
+        password: 'this.password',
+        img: 'data:image/jpg;base64,' + this.imgList[0]
+      }
+      this.axios.post(this.baseurl + `estimate/submit_estimate`, this.qs.stringify(password))
+        .then(res => {
+          console.log(res.data.code)
+          alert('注册成功')
+        })
+    }
+  },
+  components: {
+    uploader,
+    ReturnBar
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.estimate {
-  form{
-    padding: 10px;
-      border: none;
-      font-size: 12px;
-  }
-.square{
-  margin-top: 2rem;
+<style lang='scss' scoped>
+.estimate{
+  padding: 20px;
 }
-  .grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 相当于 1fr 1fr 1fr */
-    grid-template-rows: repeat(3, 1fr); /* fr单位可以将容器分为几等份 */
-    grid-gap: 1%; /* grid-column-gap 和 grid-row-gap的简写 */
-    grid-auto-flow: row;
-  }
-  .grid>div{
-    color: #fff;
-    font-size: 50px;
-    line-height: 2;
-    text-align: center;
-    background: #ccc;
-
-  }
-  .button{
-    position: fixed;
-    bottom: 5rem;
-    margin: 3rem 0;
-    text-align: center;
-    width: 92%;
-    button{
-      width: 90%;
-      height: 2.5rem;
-      border: none;
-      color: white;
-      background: #42bd56;
-      border-radius: 4px;
-    }
-  }
+.input-text{
+  margin-bottom: 10px;
 }
 </style>

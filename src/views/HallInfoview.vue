@@ -10,6 +10,7 @@
         fixed
         bottom
         right
+        :to="{ name: 'Estimate'}"
       >
         <v-icon>edit</v-icon>
       </v-btn>
@@ -18,22 +19,22 @@
           <ul>
             <li class="pic-one">
               <a href="#">
-                <img :src='hall_info.dh_main_img' alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img :src='hall_info.dh_main_img' alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img :src='hall_info.dh_main_img' alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic-one">
               <a href="#">
-                <img :src='hall_info.dh_main_img' alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
           </ul>
@@ -54,27 +55,27 @@
           <ul>
             <li class="pic">
               <a href="#">
-                <img :src="hall_info.dh_main_img" alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="hall_info.dh_main_img" alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="hall_info.dh_main_img" alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="hall_info.dh_main_img" alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
             <li class="pic">
               <a href="#">
-                <img :src="hall_info.dh_main_img" alt="poster">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+hall_info.dh_main_img+')'}"></div>
               </a>
             </li>
           </ul>
@@ -165,15 +166,27 @@ export default {
 
 <style lang="scss" scoped>
 
-  .right {
-    float: right;
+.zoomImage{
+  width:100%;
+  height:0;
+  padding-bottom: 80%;
+  border-radius: 5px;
+  overflow:hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  background-size:cover;
+}
+.right {
+  float: right;
 
-    img {
-      display: block;
-      width: 100%;
-      max-width: 10rem;
-    }
+  img {
+    display: block;
+    width: 100%;
+    max-width: 10rem;
   }
+}
 
 .subject-intro, .genres, .subject-pics, .subject-comments{
   margin-bottom: 3rem;
@@ -207,7 +220,7 @@ h4{
   }
 
   .pic-one{
-    height: 18rem;
+    height: 21rem;
     width: 95%;
     overflow: hidden;
     display: inline-block;
@@ -217,14 +230,9 @@ h4{
     &:last-child{
       margin-right: 2.5rem;/* 最后一张图 */
     }
-    img{
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-    }
   }
    .pic{ /* 推荐菜品 */
-    height: 6rem;
+    height: 7rem;
     width: 30%;
     overflow: hidden;
     display: inline-block;
