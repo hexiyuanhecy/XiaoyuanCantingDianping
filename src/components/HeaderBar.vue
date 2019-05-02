@@ -39,4 +39,9 @@ export default {
 .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before{
   background: none;
 }
+.v-toolbar{
+  /* box-shadow: none;
+  border-bottom: 1px solid rgb(230, 229, 229) !important; */
+  box-shadow: 0 3px 7px 1px rgba(0,0,0,.12) !important;
+}
 </style>

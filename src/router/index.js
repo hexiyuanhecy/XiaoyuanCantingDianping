@@ -18,6 +18,7 @@ import DetailDetail from '../views/DetailView.1'
 import PersonalInfo from '../views/PersonalInfo'
 import Favourite from '../views/Favourite'
 import GonglueDetail from '../views/GonglueDetail'
+import EditGonglue from '../views/EditGonglue'
 import HallAll from '../views/Hall_all'
 
 Vue.use(Router)
@@ -25,8 +26,8 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      redirect: '/pages/'
+      path: '',
+      redirect: '/login'
     },
     {
       path: '/pages',
@@ -76,11 +77,6 @@ export default new Router({
       }
     },
     {
-      path: '/hallall/:id', // 评论详情
-      name: 'HallAll',
-      component: HallAll
-    },
-    {
       path: '/search', // 查找
       name: 'SearchView',
       components: {
@@ -119,9 +115,14 @@ export default new Router({
       component: School
     },
     {
-      path: '/estimate', // 发表评论
+      path: '/estimate/:id', // 发表评论
       name: 'Estimate',
       component: Estimate
+    },
+    {
+      path: '/edit_gonglue', // 发表攻略
+      name: 'EditGonglue',
+      component: EditGonglue
     },
     {
       path: '*',

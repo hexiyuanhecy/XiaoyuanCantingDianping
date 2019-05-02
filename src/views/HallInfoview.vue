@@ -10,7 +10,7 @@
         fixed
         bottom
         right
-        :to="{ name: 'Estimate'}"
+        :to="'/estimate/' + this.$route.params.id"
       >
         <v-icon>edit</v-icon>
       </v-btn>
@@ -41,7 +41,9 @@
         </div>
         <div class="subject-intro">
           <h3 class="title">{{hall_info.dh_name}}</h3>
-            <v-rating 
+            <v-rating
+              readonly
+              dense
               v-model="hall_info.dh_score" 
               small half-increments 
               color="grey darken-3"
@@ -276,5 +278,9 @@ h4{
 
 .subject-view{
   margin-bottom: 5rem;
+}
+.theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+    margin-bottom: 2.5rem;
+    border-radius: 50%;
 }
 </style>

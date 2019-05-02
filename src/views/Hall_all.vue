@@ -39,11 +39,11 @@ import Loading from '../components/Loading'
 export default {
   name: 'hall-all',
   components: { ReturnBar, Loading },
-  props: ['item'],
+  props: ['items'],
   data () {
     return {
       showLoading: true,
-      items: undefined,
+      // items: undefined,
       productno: this.$route.params.id
     }
   },
@@ -51,13 +51,13 @@ export default {
   },
   computed: {
     // Getting Vuex State from store/modules/hall
-    ...mapState({
-      guihuayuan: state => state.hall.guihuayuan,
-      breakfast: state => state.hall.breakfast,
-      noodles: state => state.hall.noodles,
-      meat: state => state.hall.meat,
-      all: state => state.hall.all
-    })
+    // ...mapState({
+    //   guihuayuan: state => state.hall.guihuayuan,
+    //   breakfast: state => state.hall.breakfast,
+    //   noodles: state => state.hall.noodles,
+    //   meat: state => state.hall.meat,
+    //   all: state => state.hall.all
+    // })
   },
   created () {
   },
@@ -71,22 +71,22 @@ export default {
     }
   },
   mounted () {
-    switch (this.productno) {
-      case '桂花园':
-        this.items = this.guihuayuan; console.log(this.items)
-        break
-      case '面食主义':
-        this.items = this.noodles
-        break
-      case '营养早餐':
-        this.items = this.breakfast
-        break
-      case '无肉不欢':
-        this.items = this.meat
-        break
-      case '全部餐厅':
-        this.items = this.all
-    }
+    // switch (this.productno) {
+    //   case '桂花园':
+    //     this.items = this.guihuayuan; console.log(this.items)
+    //     break
+    //   case '面食主义':
+    //     this.items = this.noodles
+    //     break
+    //   case '营养早餐':
+    //     this.items = this.breakfast
+    //     break
+    //   case '无肉不欢':
+    //     this.items = this.meat
+    //     break
+    //   case '全部餐厅':
+    //     this.items = this.all
+    // }
   }
 }
 </script>
@@ -102,7 +102,7 @@ export default {
   margin: 0px 15px 10px 15px;
   justify-content: flex-start;
   .img{
-    width: 30%;
+    width: 112px;
     .zoomImage{
       width:100%;
       height:0;
@@ -119,7 +119,7 @@ export default {
 }
 
 .info{
-  height: 112.55px;
+  height: 112px;
   width: 63%;
   background: #704d43;
   padding: 20px 15px 0 20px;

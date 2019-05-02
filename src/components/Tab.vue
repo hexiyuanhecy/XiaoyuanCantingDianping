@@ -1,10 +1,10 @@
 <template>
-  <v-card height="56px">
     <v-bottom-nav
       active.sync="1"
       value="true"
       fixed
       shift
+      height="56px"
     >
       <v-btn color="black" flat value="home" :to="{name: 'HomeView'}">
         <span class="tabs">热门评论</span>
@@ -12,7 +12,7 @@
       </v-btn>
       <v-btn color="black" flat value="hall" :to="{name: 'Hallview'}">
         <span class="tabs">店铺分类</span>
-        <v-icon>widgets</v-icon>
+        <v-icon>widgets </v-icon>
       </v-btn>
       <v-btn color="black" flat value="gonglue" :to="{name: 'Gonglue33'}">
         <span class="tabs">看看攻略</span>
@@ -23,7 +23,6 @@
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-bottom-nav>
-  </v-card>
 </template>
 
 <script>

@@ -1,14 +1,18 @@
 <template>
-  <v-card
-    class="mx-auto"
-  >
+<div>
+  <div class="back">
+    <v-btn icon class="" href="javascript:history.go(-1);">
+          <v-icon color="white" class="body-3">arrow_back</v-icon>
+        </v-btn>
+  </div>
     <v-card
       dark
       flat
     >
       <v-img
-        src="api/images/images/shousi2.jpg"
+        src="http://192.168.43.224:3001/public/images/images/register2.jpg"
         gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
+        height="200"
       >
         <v-container fill-height>
           <v-layout align-center>
@@ -24,7 +28,7 @@
     <v-form
       ref="form"
       v-model="form"
-      class="pa-5 pt-4"
+      class="mx-5 pt-4"
     >
        <v-text-field
         v-model="phone"
@@ -34,38 +38,22 @@
       ></v-text-field>
       <v-text-field
         v-model="password"
-        :rules="[rules.length(6)]"
-        counter="6"
+        :rules="[rules.length(6), rules.required]"
         label="输入密码"
         type="password"
         clearable
       ></v-text-field>
-      <!-- <v-text-field
+      <v-text-field
         v-model="password_again"
-        :rules="[rules.password_again, rules.required]"
-        counter="6"
+        :rules="[rules.length(6), rules.required]"
         label="确认密码"
         type="password"
         clearable
-      ></v-text-field> -->
-      <v-checkbox
-        v-model="agreement"
-        :rules="[rules.required]"
-      >
-        <template v-slot:label>
-          我同意爱校评...
-        </template>
-      </v-checkbox>
+      ></v-text-field>
     </v-form>
-    <v-divider></v-divider>
-    <v-card-actions >
+    <v-card-actions  class="mx-5 mt-4 x-0">
       <v-btn
-        flat
-        @click="$refs.form.reset()"
-      >重置
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
+        block
         :disabled="!form"
         :loading="isLoading"
         class="white--text"
@@ -74,7 +62,23 @@
         @click="submit"
       >注册</v-btn>
     </v-card-actions>
-  </v-card>
+    <div class="agree">注册即代表您同意<span id="protocol">用户服务协议</span></div>
+    <div>
+
+    <md-dialog-confirm
+      :md-active.sync="msgb"
+      :md-content="msg"
+      md-confirm-text="好的"
+      md-cancel-text=""/>
+    <md-dialog-confirm
+      :md-active.sync="msgb1"
+      :md-content="msg1"
+      md-confirm-text="好的"
+      md-cancel-text=""
+      @md-confirm="onConfirm"/>
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -82,41 +86,76 @@
 // import axios from 'axios'
 export default {
   data: () => ({
-    agreement: false,
-    email: undefined,
     form: false,
     isLoading: false,
     password: undefined,
     password_again: undefined,
     phone: undefined,
     temp: undefined,
+    check: '',
     rules: {
-      phone: v => (v || '').match(/\d{11}/) || '请输入正确的邮箱',
+      phone: v => (v || '').match(/\d{11}/) || '请输入正确的电话号码或邮箱',
       length: len => v => (v || '').length >= len || `密码至少为 ${len}位`,
-      // password_again: v => console.log(this.password + (v || '')),
+      password_again: v => console.log('+++'+this.check),
       required: v => !!v || '不能为空'
-    }
+    },
+    msgb: false,
+    msg: '',
+    msgb1: false,
+    msg1: ''
   }),
   methods: {
+    onConfirm () {
+      this.$router.push({ path:'/login'})
+    },
     submit () {
-      var password = {
-        phone: this.phone,
-        password: this.password
+      if(this.password !== this.password_again){
+        this.msgb = true
+        this.msg = '两次密码不一致，请重新输入！'
       }
-      this.axios.post(`http://192.168.137.1:3001/user/register/cname`, this.qs.stringify(password))
-      .then(res => {
-        this.temp = res.data.code
-        if (this.temp === -1) {
-          alert(res.data.msg)
-        } else {
-          this.axios.post(`http://192.168.137.1:3001/user/register`, this.qs.stringify(password))
-          .then(res => {
-            console.log(res.data.code)
-            alert('注册成功')
-          })
+      else{
+        var user_info = {
+          phone: this.phone,
+          password: this.password
         }
-      })
+        this.axios.post(`http://192.168.43.224:3001/user/register/cname`, this.qs.stringify(user_info))
+        .then(res => {
+          this.temp = res.data.code
+          if (this.temp === -1) {
+            this.msgb = true
+            this.msg = '该用户名已存在！'
+          } else {
+            this.axios.post(`http://192.168.43.224:3001/user/register`, this.qs.stringify(user_info))
+            .then(res => {
+            this.msgb1 = true
+            this.msg1 = '恭喜您注册成功，请前往登录吧！！'
+            })
+          }
+        })
+      }
+      
     }
   }
 }
 </script>
+
+<style scoped>
+.back{
+  position: absolute;
+  top: 0px;
+  z-index: 3;
+}
+.v-text-field{
+  padding-top: 5px;
+}
+.agree{
+  width: 100%;
+  margin-top: 5px;
+  color: grey;
+  font-size: 12px;
+  text-align: center;
+}
+#protocol{
+  color: #000;
+}
+</style>

@@ -3,7 +3,7 @@
     <div class="header">
       <p>{{title}}</p>
       <router-link :to="'/hallall/' + title">
-        <a href="#">更多<i class="icon">></i></a>
+        <a href="#" :items='items'>更多<i class="icon">></i></a>
       </router-link>
     </div>
     <div class="content">
@@ -68,6 +68,7 @@ export default {
   border-radius: 8px;
   width: 100%;
   height: 60%;
+  padding-bottom: 15px;
   display: flex !important;
   flex-direction: column-reverse;
   position: absolute;

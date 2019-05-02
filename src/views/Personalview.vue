@@ -18,20 +18,20 @@
         <v-avatar
           size="56px"
         >
-          <img src='http://192.168.43.224:3001/public/images/user_imgs/1.jpg' alt="">
+          <img :src='data.us_pic' alt="">
         </v-avatar>
       </v-btn>
 
       <v-img
-        src="http://192.168.43.224:3001/public/images/dh_main_imgs/16.jpg"
+        :src="data.us_bg"
         gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
       >
         <v-container fill-height><!-- 图片上的文字 -->
           <v-layout align-center>
             <strong class="display-4 font-weight-regular mr-4"></strong>
             <v-layout column justify-end>
-              <div class="headline font-weight-light">{{data[1].us_name}}</div>
-              <div class="text-uppercase font-weight-light">{{data[1].us_sign}}</div>
+              <div class="headline font-weight-light">{{data.us_name}}</div>
+              <div class="text-uppercase font-weight-light">{{data.us_sign}}</div>
             </v-layout>
           </v-layout>
         </v-container>
@@ -39,7 +39,6 @@
     </v-card>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <v-card>
           <v-list class=" darken-2" light>
             <template v-for="(item, index) in items">
                 <v-list-tile v-if="item.action" :key="item.title" @click="item.fn">
@@ -54,7 +53,6 @@
               <v-subheader v-else-if="item.header" :key="item.header" class="">{{ item.header }}</v-subheader>
             </template>
           </v-list>
-        </v-card>
       </v-flex>
     </v-layout>
   </v-card>
@@ -72,23 +70,25 @@ export default {
           fn: () => (this.$router.push('/info'))
         },
         {
-          action: 'move_to_inbox',
+          action: 'favorite',
           title: '我的收藏',
           fn: () => (this.$router.push('/favourite'))
         },
         {
-          action: 'send',
+          action: 'chat',
           title: '我的评价'
         },
         {
           action: 'delete',
           title: '我的攻略'
         },
-        { divider: true },
-        { header: 'Labels' },
         {
-          action: 'label',
-          title: 'Family'
+          action: 'close',
+          title: '退出登录',
+          fn: () => {
+            localStorage.clear()
+            this.$router.push('/login')
+            }
         }
       ],
       day: Date,
@@ -97,11 +97,13 @@ export default {
     }
   },
   mounted () {
-    console.log(123123123)
-    this.axios.get(`http://192.168.43.224:3001/user/info`)
+    let obj = {
+      usid: localStorage.getItem('us_id')
+    }
+    this.axios.post(`http://192.168.43.224:3001/user/info`, this.qs.stringify(obj))
     .then(res => {
-      this.data = res.data.data
-      console.log(this.data)
+      this.data = res.data.data[0]
+      // console.log(this.data)
     })
     .catch(err => {
       console.log(err)

@@ -1,5 +1,17 @@
 <template>
     <div class="content-list">
+      <v-btn 
+        color="primary" 
+        fab 
+        small 
+        dark
+        fixed
+        bottom
+        right
+        :to="{ name: 'EditGonglue'}"
+      >
+        <v-icon>edit</v-icon>
+      </v-btn>
       <router-link tag="div" v-for="(item, index) in items" :key="index" to="/gonglue_detail">
         <md-card>
           <md-card-media-cover md-text-scrim>
@@ -52,5 +64,9 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.theme--dark.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+    margin-bottom: 5rem;
+    border-radius: 50%;
 }
 </style>

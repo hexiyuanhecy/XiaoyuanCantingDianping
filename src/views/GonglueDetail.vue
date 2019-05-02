@@ -6,7 +6,7 @@
         <v-layout>
             <div class="center avatar">
               <v-avatar size="50">
-                <img src="api/images/estimate/1.jpg" alt="Skyscraper">
+                <img src="http://192.168.43.224:8081/api/images/estimate/1.jpg" alt="Skyscraper">
               </v-avatar>
             <div class="center name">一只懒学姐</div>
             </div>
@@ -19,7 +19,7 @@
     </v-flex>
     <!-- 图片 -->
     <div class="poster">
-      <img v-for="(item, index) in items" :key="index" src="api/images/estimate/2.jpg" alt="">
+      <img v-for="(item, index) in items" :key="index" src="http://192.168.43.224:8081/api/images/estimate/2.jpg" alt="">
     </div>
     <!-- 内容 -->
     <div class="content">

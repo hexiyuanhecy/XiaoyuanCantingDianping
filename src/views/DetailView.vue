@@ -51,7 +51,7 @@
               <v-card-actions class="pa-0">
                 评分
                 <v-spacer></v-spacer>
-                <v-rating half-increments value="3.5"></v-rating>
+                <v-rating readonly half-increments value="3.5"></v-rating>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -161,9 +161,6 @@ export default {
 }
 .name-info{
   margin-left: 1rem;
-  .name{
-
-  }
   .date{
     font-size: 12px;
     color: #555
