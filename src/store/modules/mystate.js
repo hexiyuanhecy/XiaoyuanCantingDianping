@@ -1,19 +1,21 @@
 import request from 'superagent'
+import axios from 'axios'
+import qs from 'qs'
 // import jsonp from 'superagent-jsonp'
 // const baseurl = 'http://10.202.44.234:3001'
 const baseurl = 'http://192.168.43.224:3001'
 
 const state = {
-  events: [],
-  temp: [],
-  skip: 0,
-  eventItem: {}
+  count: 0,
+  us_id: localStorage.getItem('us_id'),
+  us_name: '',
+  userData: []
 }
 
 const mutations = {
-  loadMore (state, payload) {
-    state.skip += 3
-    state.events = state.events.concat(payload.res)
+  getUserInfo (state, payload) {
+    state.userData = payload.res
+    state.us_name = payload.res[0].us_name
   },
   getSingleEvent (state, payload) {
     state.eventItem = payload.res
@@ -21,19 +23,35 @@ const mutations = {
 }
 
 const actions = {
-  loadMore ({commit, state}) {
-    request
-      .get(`${baseurl}/estimate/estimate`)
-      .end((err, res) => {
-        // console.log(res.body.data)
-        if (!err) {
-          commit({
-            type: 'loadMore',
-            res: res.body.data
-          })
-        }
+  getUserInfo ({commit, state}) {
+    // request
+    //   .get(`http://192.168.137.1:3001/user/info`)
+    //   .end((err, res) => {
+    //     // console.log(res.body.data)
+    //     if (!err) {
+    //       commit({
+    //         type: 'getUserInfo',
+    //         res: res.data.data
+    //       })
+    //     }
+    // })
+    
+    let obj = {
+      usid: localStorage.getItem('us_id')
+    }
+    axios.post(`http://192.168.43.224:3001/user/info`, qs.stringify(obj))
+    .then(res => {
+      commit({
+        type: 'getUserInfo',
+        res: res.data.data
       })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
   },
+  
   /**
    * Getting single event
    * id: event id
@@ -66,3 +84,4 @@ export default {
   mutations,
   actions
 }
+

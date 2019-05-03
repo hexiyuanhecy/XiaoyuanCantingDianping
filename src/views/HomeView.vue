@@ -31,7 +31,7 @@ export default {
       setTimeout(() => {
         this.loadMore()
         this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
-      }, 1000)
+      }, 500)
     },
     // Dispatching Actions
     ...mapActions([
@@ -39,7 +39,11 @@ export default {
     ])
   },
   mounted () {
-    console.log(this.$route.name)
+    let fresh = localStorage.getItem('home')
+    if(fresh){
+      this.$router.go(0)
+      localStorage.removeItem('home')
+    }
   }
 }
 </script>

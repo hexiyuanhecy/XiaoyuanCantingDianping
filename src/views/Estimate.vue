@@ -37,6 +37,20 @@
         <md-checkbox v-model='noodles'>面食主义</md-checkbox>
         <md-checkbox v-model='specialty'>地方特色</md-checkbox>
       </div>
+      <v-dialog
+        v-model="show"
+        hide-overlay
+        persistent
+        width="188"
+      >
+        <v-card
+          color="primary"
+          dark
+        >
+          <v-card-text v-text="txt">
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <br>
       <!-- <v-btn block outline color='secondary' @click='submit'>发布</v-btn> -->
     </div>
@@ -55,6 +69,8 @@ export default {
   },
   data () {
     return {
+      show: false,
+      txt: undefined,
       baseurl: 'http://192.168.43.224:3001/',
       es_content: '',
       imgList: [],
@@ -75,6 +91,12 @@ export default {
       obj: Object
     }
   },
+  watch: {
+    // show (val) {
+    //   if (!val) return
+    //   setTimeout(() => (this.dialog = false), 1000)
+    // }
+  },
   methods: {
     getImageList (files) {
       this.$nextTick(() => {
@@ -88,27 +110,43 @@ export default {
       this.imgList.splice(index, 1)
     },
     submit () {
-      var password = {
-        dh_id: this.$route.params.id,
-        us_id: localStorage.getItem('us_id'),
-        es_content: this.es_content,// 用户填
-        es_date: new Date(),
-        es_score: this.score,// 用户填
-        es_main_img: this.imgList[0],
-        imgs: this.imgList,
-        hot: +this.hot,
-        rihan: +this.rihan,
-        specialty:+this.specialty,
-        noodles: +this.noodles,
-        meat: +this.meat,
-        daily: +this.daily
+      if(!this.es_content||!this.score||this.imgList.length===0){
+        this.txt='评论未填写完整！'
+        this.show = true;
+        setTimeout(() => {
+          this.show = false;
+        }, 1000)
       }
-      this.axios.post(this.baseurl + `estimate/submit_estimate`, this.qs.stringify(password))
-        .then(res => {
-          console.log(res.data.code)
-          alert('注册成功')
-        })
+      else{
+        var password = {
+          dh_id: this.$route.params.id,
+          us_id: localStorage.getItem('us_id'),
+          es_content: this.es_content,// 用户填
+          es_date: new Date(),
+          es_score: this.score,// 用户填
+          es_main_img: this.imgList[0],
+          imgs: this.imgList,
+          hot: +this.hot,
+          rihan: +this.rihan,
+          specialty:+this.specialty,
+          noodles: +this.noodles,
+          meat: +this.meat,
+          daily: +this.daily
+        }
+        this.axios.post(this.baseurl + `estimate/submit_estimate`, this.qs.stringify(password))
+          .then(res => {
+            if(res.data.code === 200){
+              localStorage.setItem('home',1)
+              this.$router.push({ path: '/pages/home'})
+            }
+            else {
+              this.show = true
+              this.txt='发表失败，请稍后再试！'
+            }
+          })
+      }
     }
+      
   },
   mounted () {
     // console.log(this.$route.params.id)

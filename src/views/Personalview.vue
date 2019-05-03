@@ -76,11 +76,13 @@ export default {
         },
         {
           action: 'chat',
-          title: '我的评价'
+          title: '我的评价',
+          fn: () => (this.$router.push('/favourite'))
         },
         {
           action: 'delete',
-          title: '我的攻略'
+          title: '我的攻略',
+          fn: () => (this.$router.push('/favourite'))
         },
         {
           action: 'close',
@@ -93,21 +95,20 @@ export default {
       ],
       day: Date,
       week: String,
-      data: undefined
+      data: this.$store.state.mystate.userData[0]
     }
   },
   mounted () {
-    let obj = {
-      usid: localStorage.getItem('us_id')
+    console.log(this.$store.state.mystate.us_name)
+  },
+  created () {
+    this.getUserInfo()
+    console.log(this.$store.state.mystate.us_name)
+  },
+  methods: {
+    getUserInfo: function () {
+      this.$store.dispatch('getUserInfo')
     }
-    this.axios.post(`http://192.168.43.224:3001/user/info`, this.qs.stringify(obj))
-    .then(res => {
-      this.data = res.data.data[0]
-      // console.log(this.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
   }
 }
 </script>

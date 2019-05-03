@@ -89,6 +89,8 @@ export default {
         if(res.data.code === 200){
           localStorage.setItem('flag',"1")
           localStorage.setItem('us_id', res.data.msg.us_id)
+          localStorage.setItem('us_name', res.data.msg.us_name)
+          this.$store.state.mystate.us_id = res.data.msg.us_id;//存入state的us_id
           // this.$store.dispatch("us_id", res.data.msg.us_id);
           this.$router.push({ path: '/pages/home'})
         }

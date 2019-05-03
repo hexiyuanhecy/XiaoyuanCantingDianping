@@ -111,7 +111,6 @@ export default {
     }
   },
   mounted () {
-    console.log(123123123)
     this.axios.get(`http://192.168.137.1:3001/user/info`)
     .then(res => {
       this.data = res.data.data

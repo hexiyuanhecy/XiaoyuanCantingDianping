@@ -11,9 +11,9 @@
           >
         <md-card>
       <md-card-media-cover md-text-scrim>
-        <md-card-media md-ratio="16:9">
+        <!-- <md-card-media md-ratio="16:9">
           <img :src="item.src" alt="Skyscraper">
-        </md-card-media>
+        </md-card-media> -->
 
         <md-card-area>
           <md-card-header>
@@ -146,9 +146,6 @@ export default {
 <style lang='scss' scoped>
 .v-image__image .v-image__image--cover,.v-responsive .v-image{
   border-radius: 8px !important;
-}
-.height{
-  // height: 10rem;
 }
 .list {
   img{
