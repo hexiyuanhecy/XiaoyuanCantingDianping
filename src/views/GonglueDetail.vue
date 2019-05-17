@@ -1,35 +1,38 @@
 <template>
-<!-- 评论详情 -->
+<!-- 攻略详情 -->
   <div class="detail-view has-header">
-    <return-bar :title="title"></return-bar>
+    <return-bar :title="items.gl_name"></return-bar>
     <v-flex xs12>
         <v-layout>
+          <!-- {{items}} -->
             <div class="center avatar">
               <v-avatar size="50">
-                <img src="http://192.168.43.224:8081/api/images/estimate/1.jpg" alt="Skyscraper">
+                <img :src="items.us_pic" alt="Skyscraper">
               </v-avatar>
-            <div class="center name">一只懒学姐</div>
+            <div class="center name_data">
+              <div>{{items.us_name}}</div>
+              <div class="date">{{items.gl_date.substring(0, 10)}}</div>
+            </div>
             </div>
             <div class="right">
-              <v-icon>favorite</v-icon>
-              100
+              <div @click="toStar(item.gl_id,id)">
+                <v-rating
+                  :value="item.star"
+                  length="1"
+                  empty-icon="favorite_border"
+                  full-icon="favorite"
+                  readonly="readonly"
+                  color="red"
+                  background-color="grey lighten-1"
+                ></v-rating>
+              </div>
+              {{items.gl_star}}
             </div>
         </v-layout>
       <v-divider></v-divider>
     </v-flex>
-    <!-- 图片 -->
-    <div class="poster">
-      <img v-for="(item, index) in items" :key="index" src="http://192.168.43.224:8081/api/images/estimate/2.jpg" alt="">
-    </div>
     <!-- 内容 -->
-    <div class="content">
-      <div>
-        这些新菜品的出现，正是源于学校膳食科三月份开展的创新菜与创新月活动。在桂花园一楼、三楼，玫瑰园一楼这三个保障性食堂当中，每个食堂每周都会出十个左右的新菜品，供大家品尝。
-      </div>
-      <br>
-      <div>
-        创新菜中散发着家乡的味道。譬如桂花园一楼的花椒扣肉，这道属于淮扬菜系的菜，被厨师们搬上了浙理的餐桌，带来了满满的乡情。膳食服务科的职员们也将“为家人烧菜”作为他们的工作理念，研究着各地不同风味的饭菜。
-      </div>
+    <div class="content" v-html="items.gl_content">
     </div>
   </div>
 </template>
@@ -37,70 +40,59 @@
 <script>
 import { mapState } from 'vuex'
 import ReturnBar from '../components/ReturnBar'
-import Loading from '../components/Loading'
 
 export default {
   name: 'gonglue-detail',
-  components: { ReturnBar, Loading },
+  components: { ReturnBar },
   data () {
     return {
-      showLoading: true,
-      title: '学姐带你吃喝玩乐',
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-        }
-      ]
-    }
-  },
-  filters: {
-    toArray (value) {
-      return value.split(',')
+      id:this.$route.params.id
     }
   },
   computed: {
-    content: function () {
-      // Careful XSS
-      // Remove copyright imgs
-      return this.eventItem.content.replace(/<img.+?>/ig, '')
-    },
-    // Getting Vuex State from store/modules/activities
     ...mapState({
-      eventItem: state => state.activities.eventItem
-    })
+      items: state => state.gonglue.gonglueItem
+    }),
+    item: function () {
+      let id = this.$route.params.id
+      // console.log(this.$store.state.star.es_star)
+      var datadata = this.$store.state.gonglue.gonglueItem
+      var stardate = this.$store.state.star.gl_star
+        var itemdate = datadata
+        for (let i=0;i<stardate.length; i++){
+            if(itemdate.gl_id === stardate[i].st_id){
+              this.$store.state.gonglue.gonglueItem.star = 1
+            }
+        }
+      return this.$store.state.gonglue.gonglueItem
+    }
   },
   created () {
-    // Getting route params
-    const id = this.$route.params.id
-    // console.log('这是屏幕的第几个==传递给activity.js的参数' + id)
-
-    // Dispatching getSingleEvent
-    this.$store.dispatch({
-      type: 'getSingleEvent',
-      id: id
-    }).then(res => {
-      // Success handle
-      this.showLoading = false
-      console.log(res)
-    })
+      this.$store.dispatch('getGonglueItem',{id:this.$route.params.id})
   },
   methods: {
-    formatData (time) {
-      // time = time.toString()
-      return time.substring(0, 10)
-    },
-    doubleContent (str) {
-      str = str + '美味佳肴、口齿留香、珍馐佳肴、秀色可餐、饕餮大餐、回味无穷、色味俱佳、垂涎欲滴、其味无穷'
-      return str
+    toStar (id,index) {
+      var info = {
+        type: '',
+        id: id,
+        kind: '3'
+      }
+      console.log(this.$store.state.gonglue.gonglueItem)
+      if(this.$store.state.gonglue.gonglueItem.star === 1){
+        info.type = 'removeStar'
+        this.$store.dispatch(info).then(res => {
+            this.$store.state.gonglue.gonglueItem.gl_star -= 1
+            this.$store.state.gonglue.gonglueItem.star = 0
+        })
+      } 
+      else if(this.$store.state.gonglue.gonglueItem.star=== 0){
+        info.type = 'addStar'
+        this.$store.dispatch(info).then(res => {
+            this.$store.state.gonglue.gonglueItem.gl_star += 1
+            this.$store.state.gonglue.gonglueItem.star = 1
+        })
+      }
+      // this.$store.dispatch('getUserStar')
     }
   }
 }
@@ -121,6 +113,14 @@ export default {
   justify-content: flex-end;
   align-items: center;
   margin-right: 15px;
+}
+.name_data{
+  flex-direction: column;
+  align-items: flex-start;
+  .date{
+    color: #777;
+    font-size: 12px;
+  }
 }
 .poster {
   text-align: center;

@@ -2,26 +2,28 @@
   <div class="scroller">
     <div class="header">
       <p>{{title}}</p>
-      <router-link :to="'/hallall/' + title">
+      <router-link :to="'/hallall/' + id">
         <a href="#" :items='items'>更多<i class="icon">></i></a>
       </router-link>
     </div>
     <div class="content">
       <slot name="promItem"></slot>
       <ul class="hasCover">
-       <li v-for="item in items" :key="item.id">
-          <router-link :to="'/hallinfo/' + item.dh_id" append :title="'餐厅详情'">
+       <li v-for="(item,index) in items" :key="item.id">
+          <router-link v-if="index<6" :to="'/hallinfo/' + item.dh_id" append :title="'餐厅详情'">
             <div class="box">
               <div class="zoomImage"  :style="{backgroundImage:'url('+item.dh_main_img+')'}"></div>
               <div class="title">
-                <v-rating 
-                  v-model="item.dh_score" 
-                  small 
-                  dense
-                  half-increments 
-                  size="1"
-                  color="yellow darken-3">
-                </v-rating>
+                <div class="star">
+                  <v-rating
+                    readonly
+                    dense
+                    v-model="item.dh_score" 
+                    small half-increments 
+                    color="yellow darken-3"
+                  ></v-rating>
+                  <div>({{item.dh_score}})</div>
+                </div>
                 <div>{{item.dh_name}}</div>
               </div>
             </div>
@@ -35,7 +37,7 @@
 <script>
 export default {
   name: 'hallfenlei',
-  props: [ 'items', 'title' ],
+  props: [ 'items', 'title','id' ],
   components: {},
   data () {
     return {
@@ -78,8 +80,11 @@ export default {
     color: white;
   }
 }
-
-
+.star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 .v-rating .v-icon{

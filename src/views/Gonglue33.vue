@@ -12,20 +12,19 @@
       >
         <v-icon>edit</v-icon>
       </v-btn>
-      <router-link tag="div" v-for="(item, index) in items" :key="index" to="/gonglue_detail">
+      <router-link tag="div" v-for="(item, index) in items" :key="index"  :to="{name: 'GonglueDetail', params: { id: item.gl_id }}">
         <md-card>
           <md-card-media-cover md-text-scrim>
             <md-card-media md-ratio="16:9">
-              <img :src="item.src" alt="Skyscraper">
+              <img :src="item.gl_main_img" alt="Skyscraper">
             </md-card-media>
 
             <md-card-area>
               <md-card-header>
-                <span class="md-title">学姐带你吃遍浙理！</span>
-                <span class="md-subhead">无名之人</span>
-                <p class="gonglue-content-info">下沙食堂哪家强，当数浙理的饭堂，今天就让学姐带你来品味一下浙理的网红餐厅！</p>
+                <span class="md-title">{{item.gl_name}}</span>
+                <span class="md-subhead">{{item.us_name}}</span>
+                <p class="gonglue-content-info" v-text="item.info"></p>
               </md-card-header>
-
             </md-card-area>
           </md-card-media-cover>
         </md-card>
@@ -36,22 +35,25 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Gongluelist from '../components/Gongluelist'
 
 export default {
-  name: 'status',
+  name: 'gongluelist',
   components: { Gongluelist },
   data () {
     return {
-      items: [
-        {src: 'http://192.168.43.224:3001/public/images/estimate/11.jpg'},
-        {src: 'http://192.168.43.224:3001/public/images/estimate/12.jpg'},
-        {src: 'http://192.168.43.224:3001/public/images/estimate/13.jpg'},
-        {src: 'http://192.168.43.224:3001/public/images/estimate/14.jpg'},
-        {src: 'http://192.168.43.224:3001/public/images/estimate/15.jpg'},
-        {src: 'http://192.168.43.224:3001/public/images/estimate/16.jpg'}
-      ]
     }
+  },
+  computed: {
+    ...mapState({
+      items: state => state.gonglue.gonglueData
+    })
+  },
+  mounted () {
+      this.$store.dispatch('getGonglue')
+  },
+  methods: {
   }
 }
 </script>

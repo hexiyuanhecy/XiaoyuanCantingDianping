@@ -14,7 +14,20 @@ export default {
 
 <style lang="scss">
 @import '~css/iconfont.css';
-
+.content .v-tabs__container {
+  height: 35px !important;
+}
+.favourite .v-tabs__container {
+  // height: 35px !important;
+}
+.v-tabs__div .black--text div{
+  height: 30px !important;
+}
+.black--text .v-tabs__item{
+  padding: 0 10px 0;
+  font-size: 12px !important;
+  color: #111 !important;
+}
 .v-image__image{
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;

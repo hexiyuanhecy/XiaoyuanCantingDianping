@@ -1,6 +1,9 @@
 <template>
-  <div class="loading">
-    <img src="../assets/loading_green.gif" alt="loading">
+  <div class="box">
+    <v-progress-linear 
+      :indeterminate="true" 
+      height="2" 
+      color="black" ></v-progress-linear>
   </div>
 </template>
 
@@ -14,12 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading {
-  margin: 2rem;
-  text-align: center;
-
-  img {
-    width: 4.8rem;
-  }
+.box{
+  margin: 5px 15px 30px;
 }
 </style>

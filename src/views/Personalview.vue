@@ -77,12 +77,12 @@ export default {
         {
           action: 'chat',
           title: '我的评价',
-          fn: () => (this.$router.push('/favourite'))
+          fn: () => (this.$router.push('/estimate'))
         },
         {
           action: 'delete',
           title: '我的攻略',
-          fn: () => (this.$router.push('/favourite'))
+          fn: () => (this.$router.push('/mygonglue'))
         },
         {
           action: 'close',
@@ -92,18 +92,21 @@ export default {
             this.$router.push('/login')
             }
         }
-      ],
-      day: Date,
-      week: String,
-      data: this.$store.state.mystate.userData[0]
+      ]
+    }
+  },
+  computed: {
+    data: function () {
+      console.log(this.$store.state.mystate.userData[0])
+      return this.$store.state.mystate.userData[0]
     }
   },
   mounted () {
-    console.log(this.$store.state.mystate.us_name)
+    // console.log(this.$store.state.mystate.us_name)
   },
   created () {
     this.getUserInfo()
-    console.log(this.$store.state.mystate.us_name)
+    // console.log(this.$store.state.mystate.us_name)
   },
   methods: {
     getUserInfo: function () {

@@ -9,7 +9,8 @@ const state = {
   count: 0,
   us_id: localStorage.getItem('us_id'),
   us_name: '',
-  userData: []
+  userData: [],
+  userItem: {}
 }
 
 const mutations = {
@@ -17,25 +18,13 @@ const mutations = {
     state.userData = payload.res
     state.us_name = payload.res[0].us_name
   },
-  getSingleEvent (state, payload) {
-    state.eventItem = payload.res
+  getUserInfoItem (state, payload) {
+    state.userItem = payload.res
   }
 }
 
 const actions = {
   getUserInfo ({commit, state}) {
-    // request
-    //   .get(`http://192.168.137.1:3001/user/info`)
-    //   .end((err, res) => {
-    //     // console.log(res.body.data)
-    //     if (!err) {
-    //       commit({
-    //         type: 'getUserInfo',
-    //         res: res.data.data
-    //       })
-    //     }
-    // })
-    
     let obj = {
       usid: localStorage.getItem('us_id')
     }
@@ -57,19 +46,19 @@ const actions = {
    * id: event id
    * payload.id 就是点击屏幕第几个后list传给detail的参数--index
    */
-  getSingleEvent ({commit, state}, payload) {
+  getUserInfoItem ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get(`${baseurl}/estimate/estimate`)
+        .get(`http://192.168.43.224:3001/user/allinfo`)
         .end((err, res) => {
           // var myid = payload
           // console.log('接收到的list传给detail的index' + payload.id)
           // console.log('12123123' + res.body.data)
           if (!err) {
             let id = payload.id
-            // console.log(id)
+            // console.log(res.body.data[id])
             commit({
-              type: 'getSingleEvent',
+              type: 'getUserInfoItem',
               res: res.body.data[id]
             })
             resolve(res)

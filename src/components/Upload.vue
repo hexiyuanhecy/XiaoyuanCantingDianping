@@ -171,6 +171,7 @@ export default {
             img.naturalWidth + 'x' + img.naturalHeight
           )
           size = linkEl.getAttribute('data-size').split('x')
+            console.log(size)
           item = {
             src: linkEl.getAttribute('href'),
             w: parseInt(size[0], 10),

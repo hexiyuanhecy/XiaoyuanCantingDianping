@@ -43,6 +43,6 @@ export default {
   height: 48px;
 }
 .box2{
-  /* height: 56px; */
+  height: 56px;
 }
 </style>

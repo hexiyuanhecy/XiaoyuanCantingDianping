@@ -127,8 +127,8 @@ export default {
           } else {
             this.axios.post(`http://192.168.43.224:3001/user/register`, this.qs.stringify(user_info))
             .then(res => {
-            this.msgb1 = true
-            this.msg1 = '恭喜您注册成功，请前往登录吧！！'
+              this.msgb1 = true
+              this.msg1 = '恭喜您注册成功，请前往登录吧！！'
             })
           }
         })

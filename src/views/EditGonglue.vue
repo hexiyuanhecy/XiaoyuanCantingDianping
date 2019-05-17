@@ -99,7 +99,7 @@ export default {
         gl_content: this.content,
         gl_star: 0
       }
-      // console.log(obj)
+      console.log(obj.gl_content)
       if(obj.gl_content==='<h5>写点什么吧...</h5>'||obj.gl_name==='<br>'){
         this.txt='攻略未填写完整！'
         this.show = true;
@@ -110,7 +110,7 @@ export default {
       else{
         this.axios.post(`http://192.168.43.224:3001/gonglue/submit_gonglue`, this.qs.stringify(obj))
           .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.code === 200){
               this.$router.push({ path: '/pages/gonglue'})
             }

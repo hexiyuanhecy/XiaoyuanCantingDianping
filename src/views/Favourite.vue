@@ -1,102 +1,178 @@
 <template>
-  <div class="">
-    <return-bar :title="title"></return-bar>
+  <div class="favourite">
+    <return-bar title="我的收藏"></return-bar>
+    <v-tabs
+        v-model="model"
+        centered
+        fixed-tabs
+        slider-color="black"
+        class="primary--text"
+      >
+        <v-tab
+          v-for="(value,k) in myitems"
+          :key="k"
+          :href="`#tab-${k}`"
+          class="black--text"
+        >
+          <span class="blacktext" v-text="value"></span>
+        </v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="model">
+        <v-tab-item value="tab-0" >
+          <div class="content">
+            <esjianjie v-for="(value,index) in getitems()[1]" :key="index" :item="value" :i='index' :k='-1'></esjianjie>
+          </div>
+        </v-tab-item>
+
+        <v-tab-item value="tab-1" >
+          <div class="content hall">
+              <hall class="hallall mx-1 my-2" v-for="(item, index) in getitems()[2]" :key="index" :item='item'></hall>
+            
+         </div>
+        </v-tab-item>
+
+        <v-tab-item value="tab-2">
+          <div class="content">
+            <!-- <esjianjie v-for="(value,index) in 3" :key="index" :item="value" :i='index'></esjianjie> -->
+            <router-link tag="div" v-for="(item, index) in getitems()[3]" :key="index"  :to="{name: 'GonglueDetail', params: { id: item.gl_id }}">
+              <md-card>
+                <md-card-media-cover md-text-scrim>
+                  <md-card-media md-ratio="16:9">
+                    <img :src="item.gl_main_img" alt="Skyscraper">
+                  </md-card-media>
+
+                  <md-card-area>
+                    <md-card-header>
+                      <span class="md-title">{{item.gl_name}}</span>
+                      <span class="md-subhead">{{item.us_name}}</span>
+                      <p class="gonglue-content-info" v-text="item.info"></p>
+                    </md-card-header>
+                  </md-card-area>
+                </md-card-media-cover>
+              </md-card>
+              <br>
+            </router-link>
+           </div>
+        </v-tab-item>
+      </v-tabs-items>
+
     
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import ReturnBar from '../components/ReturnBar'
+import Esjianjie from '../components/Card'
+import Hall from '../components/Hall'
 export default {
   name: 'estimate',
-  components: { ReturnBar },
+  components: { 
+    ReturnBar, 
+    Esjianjie,
+    Hall
+  },
   data () {
     return {
-      title: '我的收藏',
-      initial: '一只老学姐',
-      items: [
-        {
-          action: 'info',
-          title: '个人信息',
-          fn: () => (this.$router.push('/info'))
-        },
-        {
-          action: 'move_to_inbox',
-          title: '我的收藏'
-        },
-        {
-          action: 'send',
-          title: '我的评价'
-        },
-        {
-          action: 'delete',
-          title: '我的攻略'
-        },
-        { divider: true },
-        { header: 'Labels' },
-        {
-          action: 'label',
-          title: 'Family'
+      myitems: ['评价','店铺', '攻略'],
+      model: 'tab-0'
+    }
+  },
+  computed:{
+    ...mapState({
+      events: state => state.estimate.events[0],
+      gonglueItems: state=> state.gonglue.gonglueData,
+      hallItems: state=> state.hall.obj[0],
+      starItem: state => state.star.es_star
+    })
+  },
+  methods:{
+    ...mapActions([
+      'getDiningHall',
+      'getGonglue',
+      'gerEstimateStar',
+      'getUserStar'
+    ]),
+    check (stardata,esdata,type) {
+      let arr = []
+      if(type === 1){
+        for (let i=0;i<stardata.length; i++){
+          for (let j=0;j<esdata.length; j++){
+            if(esdata[j].es_id === stardata[i].st_id){
+              arr.push(esdata[j])
+            }
+          }
         }
-      ],
-      day: Date,
-      week: String,
-      data: undefined
+      }
+      else if(type === 2){
+        for (let i=0;i<stardata.length; i++){
+          for (let j=0;j<esdata.length; j++){
+            if(esdata[j].dh_id === stardata[i].st_id){
+              arr.push(esdata[j])
+            }
+          }
+        }
+      }
+      else{
+        for (let i=0;i<stardata.length; i++){
+          for (let j=0;j<esdata.length; j++){
+            if(esdata[j].gl_id === stardata[i].st_id){
+              arr.push(esdata[j])
+            }
+          }
+        }
+      }
+      return arr
+    },
+    getitems: function () {
+      let items = {
+        1: [],
+        2: [],
+        3: []
+      }
+      var stares = this.$store.state.star.es_star
+      var stardh = this.$store.state.star.dh_star
+      var stargl = this.$store.state.star.gl_star
+      var esdata = this.$store.state.estimate.us_es
+      var dhdata = this.$store.state.hall.obj[0]
+      var gldata = this.$store.state.gonglue.gonglueData
+      items[1] = this.check(stares,esdata,1)
+      items[2] = this.check(stardh,dhdata,2)
+      items[3] = this.check(stargl,gldata,3)
+      // console.log(stares)
+      // console.log(dhdata)
+      // console.log(items[3])
+      return items
     }
   },
   mounted () {
-    console.log(123123123)
-    this.axios.get(`http://192.168.137.1:3001/user/info`)
-    .then(res => {
-      this.data = res.data.data
-      console.log(this.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    // this.getUserStar()
+    this.getDiningHall()
+    this.$store.dispatch('getUserStar')
+    this.$store.dispatch('getGonglue')
+    this.gerEstimateStar()
+    this.getitems()
+    // console.log(this.$store.state.star.es_star)
+    window.reload()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.estimate {
-  form{
-    padding: 10px;
-      border: none;
-      font-size: 12px;
-  }
-.square{
-  margin-top: 2rem;
+.blacktext{
+  font-size: 14px;
+  letter-spacing: 10px;
 }
-  .grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 相当于 1fr 1fr 1fr */
-    grid-template-rows: repeat(3, 1fr); /* fr单位可以将容器分为几等份 */
-    grid-gap: 1%; /* grid-column-gap 和 grid-row-gap的简写 */
-    grid-auto-flow: row;
-  }
-  .grid>div{
-    color: #fff;
-    font-size: 50px;
-    line-height: 2;
-    text-align: center;
-    background: #ccc;
-
-  }
-  .button{
-    position: fixed;
-    bottom: 5rem;
-    margin: 3rem 0;
-    text-align: center;
-    width: 92%;
-    button{
-      width: 90%;
-      height: 2.5rem;
-      border: none;
-      color: white;
-      background: #42bd56;
-      border-radius: 4px;
-    }
-  }
+.v-window-item{
+  padding-bottom: 20px;
+}
+.content{
+  margin: 10px 15px 20px;
+  .hall{}
+}
+.gonglue-content-info{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

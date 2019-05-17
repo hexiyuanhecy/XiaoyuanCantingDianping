@@ -109,6 +109,9 @@ export default {
     removeImage (index) {
       this.imgList.splice(index, 1)
     },
+    loadMore: function () {
+      this.$store.dispatch('loadMore')
+    },
     submit () {
       if(!this.es_content||!this.score||this.imgList.length===0){
         this.txt='评论未填写完整！'
@@ -136,7 +139,8 @@ export default {
         this.axios.post(this.baseurl + `estimate/submit_estimate`, this.qs.stringify(password))
           .then(res => {
             if(res.data.code === 200){
-              localStorage.setItem('home',1)
+              // localStorage.setItem('home',1)
+              this.loadMore()
               this.$router.push({ path: '/pages/home'})
             }
             else {

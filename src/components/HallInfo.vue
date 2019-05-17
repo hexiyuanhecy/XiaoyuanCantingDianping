@@ -1,7 +1,6 @@
 <template>
 <!-- 餐厅列表 -->
   <div class="hall-view">
-    <return-bar :title="titletitle"></return-bar>
 
       <v-flex xs12 sm6 offset-sm3 class="hallall mx-1 my-2" v-for="(item, index) in items" :key="index">
         <router-link  :to="'/hallinfo/' + item.dh_id">
@@ -10,8 +9,8 @@
             <div class="img">
               <div class="zoomImage"  :style="{backgroundImage:'url('+item.dh_main_img+')'}"></div>
             </div>
-            <!-- 右详情  -->
-            <div class="info" :style="{background:RandomColor()}">
+            <!-- 右详情 -->
+            <div class="info_box" :style="{background:RandomColor()}">
               <div class="title">{{item.dh_name}}</div>
                 <div class="dh-info">{{item.dh_info}}</div>
                   <div class="pingfen">
@@ -29,60 +28,17 @@
           </div>
         </router-link>
       </v-flex>
-
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import ReturnBar from '../components/ReturnBar'
-import Loading from '../components/Loading'
-import HallInfo from '../components/HallInfo'
-
 export default {
-  name: 'hall-all',
-  components: { ReturnBar, Loading, HallInfo },
-  props: ['ddd'],
-  data () {
-    return {
-      showLoading: true,
-      obj: this.$store.state.hall.obj,
-      items: undefined,
-      id: this.$route.params.id,
-      titletitle: undefined,
-      title: ['全部餐厅','桂花园', '玫瑰园', '紫薇阁', '面食主义', '营养早餐', '无肉不欢']
-   }
+  name: 'hall-info',
+  props: {
+      items: Array
   },
-  computed: {
-    // ...mapState({
-    //   guihuayuan: state => state.hall.guihuayuan,
-    //   breakfast: state => state.hall.breakfast,
-    //   noodles: state => state.hall.noodles,
-    //   meat: state => state.hall.meat,
-    //   all: state => state.hall.all
-    // })
-  },
-  methods: {
-    RandomColor () {
-      let r, g, b
-      r = Math.floor(Math.random() * 151 + 50)
-      g = Math.floor(Math.random() * 151 + 80)
-      b = Math.floor(Math.random() * 151 + 50)
-      return 'rgb(' + r + ',' + g + ',' + b + ')'
-    },
-    getDiningHall: function () {
-      this.$store.dispatch('getDiningHall')
-        .then(res =>{
-          let id = this.id
-          this.items = this.$store.state.hall.obj[id]
-          this.titletitle = this.title[id]
-        })
-    }
-  },
-  mounted () {
-    this.getDiningHall()
-  },
-  updated () {
+  dara () {
+      return {}
   }
 }
 </script>
@@ -113,7 +69,7 @@ export default {
   }
 }
 
-.info{
+.info_box{
   height: 112px;
   width: 63%;
   background: #704d43;

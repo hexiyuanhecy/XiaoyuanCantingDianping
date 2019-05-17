@@ -17,6 +17,8 @@ import Swiper from '../components/Swiper'
 import DetailDetail from '../views/DetailView.1'
 import PersonalInfo from '../views/PersonalInfo'
 import Favourite from '../views/Favourite'
+import MyEstimate from '../views/MyEstimate'
+import MyGonglue from '../views/MyGonglue'
 import GonglueDetail from '../views/GonglueDetail'
 import EditGonglue from '../views/EditGonglue'
 import HallAll from '../views/Hall_all'
@@ -60,12 +62,12 @@ export default new Router({
       ]
     }, // 单页面=============================================
     {
-      path: 'detail/:id', // 评论详情
+      path: '/detail/:id/:dh_id', // 评论详情
       name: 'DetailView',
       component: DetailView
     },
     {
-      path: 'detail-1',
+      path: '/detail_/:id',
       name: 'DetailDetail',
       component: DetailDetail
     },
@@ -85,7 +87,7 @@ export default new Router({
       }
     },
     {
-      path: '/gonglue_detail', // 评论详情
+      path: '/gonglue_detail/:id', // 攻略详情
       name: 'GonglueDetail',
       component: GonglueDetail
     },
@@ -110,6 +112,16 @@ export default new Router({
       component: Favourite
     },
     {
+      path: '/estimate', // 评价
+      name: 'MyEstimate',
+      component: MyEstimate
+    },
+    {
+      path: '/mygonglue', // 评价MyGonglue
+      name: 'MyGonglue',
+      component: MyGonglue
+    },
+    {
       path: '/school', // 学校
       name: 'School',
       component: School
@@ -118,6 +130,11 @@ export default new Router({
       path: '/estimate/:id', // 发表评论
       name: 'Estimate',
       component: Estimate
+    },
+    {
+      path: '/hallall/:id', // 发表评论
+      name: 'HallAll',
+      component: HallAll
     },
     {
       path: '/edit_gonglue', // 发表攻略

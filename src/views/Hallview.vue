@@ -1,9 +1,8 @@
 <template>
-  <div class="hall-view has-header mybox">
-    <scroller title="桂花园" :items="guihuayuan"></scroller>
-    <scroller title="面食主义" :items="noodles"></scroller>
-    <scroller title="营养早餐" :items="breakfast"></scroller>
-    <scroller title="无肉不欢" :items="meat"></scroller>
+  <div v-if="items" class="hall-view has-header mybox">
+    <div v-for="(item,index) in items" :key="index">
+      <scroller v-if="index<6" :title="title[index]" :items="items[+index+1]" :id="+index+1"></scroller>
+    </div>
     <div class="all" @click="go">查看全部店铺</div>
   </div>
 </template>
@@ -18,16 +17,14 @@ export default {
   name: 'hall-view',
   components: { Scroller, Types },
   data () {
-    return {}
+    return {
+      title: ['桂花园', '玫瑰园', '紫薇阁', '面食主义', '营养早餐', '无肉不欢']
+    }
   },
   computed: {
     // Getting Vuex State from store/modules/hall
     ...mapState({
-      guihuayuan: state => state.hall.guihuayuan,
-      breakfast: state => state.hall.breakfast,
-      noodles: state => state.hall.noodles,
-      meat: state => state.hall.meat,
-      all: state => state.hall.all
+      items: state => state.hall.obj
     })
   },
   methods: {
@@ -37,7 +34,7 @@ export default {
       console.log('getDiningHall')
     },
     go: function () {
-      this.$router.push('/hallall/全部餐厅')
+      this.$router.push('/hallall/0')
     }
   },
   created () {
