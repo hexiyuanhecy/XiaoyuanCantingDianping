@@ -1,5 +1,4 @@
 import request from 'superagent'
-import jsonp from 'superagent-jsonp'
 
 const state = {
   queryRes_movie: [],

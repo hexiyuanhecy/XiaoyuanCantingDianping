@@ -159,11 +159,6 @@ export default new Router({
     {
       path: '*',
       redirect: '/pages/'
-    },
-    {
-      path: '/swiper',
-      name: 'Swiper',
-      component: Swiper
     }
   ]
 })

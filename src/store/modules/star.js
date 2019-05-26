@@ -1,8 +1,5 @@
-import request from 'superagent'
 import axios from 'axios'
 import qs from 'qs'
-// import jsonp from 'superagent-jsonp'
-// const baseurl = 'http://10.202.44.234:3001'
 const baseurl = 'http://192.168.43.224:3001'
 
 const state = {
