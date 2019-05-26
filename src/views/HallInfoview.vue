@@ -2,7 +2,7 @@
   <div class="subject-view">
     <return-bar title="店铺详情"></return-bar>
     <template >
-      <v-btn 
+      <!-- <v-btn 
         color="primary" 
         fab 
         small 
@@ -13,19 +13,29 @@
         :to="'/estimate/' + this.$route.params.id"
       >
         <v-icon>edit</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <!-- 餐厅详情 -->
       <div class="subject-Gongluelist">
         <!-- 图片 -->
-        <div class="poster my-gallery imgs1" itemscope>
-          <figure itemprop="associatedMedia" itemscope v-for="(item, index) in hallItemImg" :key="index" itemtype="http://192.168.43.224:3001">
-              <a :href="item.dh_img_path" itemprop="contentUrl" data-size="0x0">
-                  <div class="zoomImage1"  :style="{backgroundImage:'url('+item.dh_img_path+')'}" itemprop="thumbnail"></div>
-              </a>
-          </figure>
+        <div v-if="hallItemImg">
+          <div class="poster my-gallery imgs1" itemscope>
+            <figure itemprop="associatedMedia" itemscope v-for="(item, index) in hallItemImg" :key="index" itemtype="http://192.168.43.224:3001">
+                <a :href="item.dh_img_path" itemprop="contentUrl" data-size="0x0">
+                    <div class="zoomImage1"  :style="{backgroundImage:'url('+item.dh_img_path+')'}" itemprop="thumbnail"></div>
+                </a>
+            </figure>
+          </div>
         </div>
-
+        <div v-else>
+          <div class="poster my-gallery imgs1" itemscope>
+            <figure itemprop="associatedMedia" itemscope :key="index" itemtype="http://192.168.43.224:3001">
+                <a :href="hallItem.dh_main_img" itemprop="contentUrl" data-size="0x0">
+                    <div class="zoomImage1"  :style="{backgroundImage:'url('+hallItem.dh_main_img+')'}" itemprop="thumbnail"></div>
+                </a>
+            </figure>
+          </div>
+        </div>
         <!-- 餐厅简介 -->
         <div class="subject-intro">
           <div class="dining-info">
@@ -68,32 +78,35 @@
         <!-- 推荐菜品 -->
         <div class="subject-pics">
           <h4>{{hallItem.dh_name}}推荐菜品</h4>
-          <div class="poster my-gallery imgs2" itemscope>
-            <figure class="imgs22" itemprop="associatedMedia" itemscope v-for="(item, index) in hallItemDish" :key="index" itemtype="http://192.168.43.224:3001">
-                <a :href="item.ds_img_path" itemprop="contentUrl" data-size="0x0">
-                    <div class="zoomImage"  :style="{backgroundImage:'url('+item.ds_img_path+')'}" itemprop="thumbnail"></div>
-                </a>
-                <figcaption itemprop="caption description">{{item.ds_name}}</figcaption>
-            </figure>
-          </div>
-            <!-- </li>
-          </ul> -->
+          <div class="dish-box" v-for="(item,index) in dishData" :key="item.ds_id" >
+          <dish v-if="index<3" :item="item"></dish></div>
         </div>
       </div>
 
       <br>
       <!-- 更多评论 -->
       <div class="subject-comments">
-        <h2>{{hallItem.dh_name}}的评论</h2>
-        <esjianjie v-for="(value,index) in hallItemEs" :key="index" :item="value" :i='index' :k='index'></esjianjie>
+        <div class="content-list">
+          <router-link class="list-link" tag="div" :to="'/dish/' + hallItem.dh_id">
+            <span v-if="dishData&&dishData.length>3">显示更多菜品<i class="icon">&#xe87e;</i></span>
+            <span v-else>暂无更多菜品</span>
+          </router-link>
+        </div>
       </div>
 
+      <br>
       <!-- 更多评论 -->
-      <div class="subject-comments">
+      <!-- <div class="subject-comments">
+        <h2>{{hallItem.dh_name}}的评论</h2>
+        <esjianjie v-for="(value,index) in hallItemEs" :key="index" :item="value" :i='index' :k='index'></esjianjie>
+      </div> -->
+
+      <!-- 更多评论 -->
+      <!-- <div class="subject-comments">
         <div class="content-list">
           <a class="list-link" href="javascript:;">显示更多评论<i class="icon">&#xe87e;</i></a>
         </div>
-      </div>
+      </div> -->
 
     </template>
 
@@ -141,6 +154,7 @@ import ReturnBar from '../components/ReturnBar'
 import Marking from '../components/Marking'
 import Scroller from '../components/Scroller'
 import Loading from '../components/Loading'
+import Dish from '../components/Dish'
 import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default'
 import 'photoswipe/dist/photoswipe.css'
@@ -153,7 +167,8 @@ export default {
     Marking,
     Esjianjie,
     Scroller,
-    Loading
+    Loading,
+    Dish
   },
   data () {
     return {
@@ -168,30 +183,23 @@ export default {
       hallItemImg: state => state.hall.hallItemImg,
       hallItemDish: state => state.hall.hallItemDish,
       hallItemEs: state => state.hall.hallItemEs,
-      starItem: state => state.star.es_star
+      starItem: state => state.star.es_star,
+      dishData: state => state.dish.dishData
     }),
     hall: function () {
-      console.log('item里的')
       var datadata = this.$store.state.hall.hallItem
       var stardate = this.$store.state.star.dh_star
-      console.log(datadata)
-      console.log(stardate)
       var itemdate = datadata
         for (let i=0;i<stardate.length; i++){
             if(itemdate.dh_id === stardate[i].st_id){
               this.$store.state.hall.hallItem.star = 1
             }
-          
         }
-      console.log('this.$store.state.hall.hallItemEs')
-      console.log(this.$store.state.hall.hallItem)
       return this.$store.state.hall.hallItem
     }
   },
   methods: {
     toStar (id) {
-      console.log(id)
-      console.log(this.$store.state.hall.hallItem)
       var info = {
         type: '',
         id: id,
@@ -428,15 +436,23 @@ export default {
       type: 'getSingleHall',
       id: id
     })
-    this.$store.dispatch('getUserStar')// 获取用户信息
-    this.$store.dispatch({// 获取评价信息
-      type: 'getSingleHallEs',
+    this.$store.dispatch({ // 获取菜品信息
+      type: 'getDish',
       id: id
     }).then(res => {
-      this.initPhotoSwipeFromDOM('.imgs1')
-      this.initPhotoSwipeFromDOM('.imgs2')
-      this.showLoading = false
     })
+    this.$store.dispatch('getUserStar')// 获取用户收藏信息
+    // this.$store.dispatch({// 获取评价信息
+    //   type: 'getSingleHallEs',
+    //   id: id
+    // }).then(res => {
+    //   this.initPhotoSwipeFromDOM('.imgs1')
+    //   this.initPhotoSwipeFromDOM('.imgs2')
+    //   this.showLoading = false
+    // })
+  },
+  updated () {
+    this.initPhotoSwipeFromDOM('.imgs1')
   }
 }
 </script>

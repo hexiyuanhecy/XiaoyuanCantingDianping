@@ -13,11 +13,10 @@
 <script>
 import HeaderBar from '../components/HeaderBar'
 import Tab from '../components/Tab'
-import TalionView from '../views/TalionView'
 
 export default {
   name: 'pages-view',
-  components: { HeaderBar, Tab, TalionView },
+  components: { HeaderBar, Tab},
   data () {
     return {
       talion: ''

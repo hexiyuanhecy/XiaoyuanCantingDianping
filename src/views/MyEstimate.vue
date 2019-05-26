@@ -16,7 +16,7 @@
                   <div @click="toStar(item.es_id)">
                     <!-- {{item}} -->
                     <v-rating
-                      :value="starstar"
+                      :value="0"
                       length="1"
                       empty-icon="favorite_border"
                       full-icon="favorite"
@@ -35,7 +35,7 @@
               </router-link>
               <div class="detail-img">
                 <ul>
-                  <li><div v-for="i in 3" :key="i" class="zoomImage"  :style="{backgroundImage:'url('+item.es_main_img+')'}"></div></li>
+                  <li><div v-for="i in selectimg(item)" :key="i" class="zoomImage"  :style="{backgroundImage:'url('+i+')'}"></div></li>
                   <!-- <li><div class="zoomImage"  v-for="i in 3" :key="i" style="backgroundImage:url(http://192.168.43.224:3001/public/images/estimate_imgs/34.jpg)"></div></li> -->
                 
                 </ul>
@@ -63,12 +63,36 @@ export default {
   computed: {
     ...mapState({
       items: state => state.estimate.user_es
-    })
+    }),
+    images: function () {
+      let values = []
+      let data = this.$store.state.estimate.user_es
+      Object.keys(data).forEach(function(key){
+        // console.log(typeof data[key])
+        // console.log(data[key])
+          if(key.match(/img/)&&data[key]){
+            values.push(data[key])
+        }
+      });
+      return values
+    }
   },
   mounted () {
       this.$store.dispatch('gerUserEstimate')
   },
   methods: {
+    selectimg: function (data) {
+      let values = []
+      // let data = this.$store.state.estimate.user_es
+      Object.keys(data).forEach(function(key){
+        // console.log(typeof data[key])
+        // console.log(data[key])
+          if(key.match(/img/)&&data[key]){
+            values.push(data[key])
+        }
+      });
+      return values
+    }
   }
 }
 </script>

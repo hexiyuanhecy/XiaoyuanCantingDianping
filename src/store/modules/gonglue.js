@@ -15,13 +15,13 @@ const state = {
 }
 
 const mutations = {
-  getGonglue (state, payload) {
+  getGonglue (state, payload) {// 获取全部攻略
     state.gonglueData = payload.res
   },
-  getGonglueItem (state, payload) {
+  getGonglueItem (state, payload) {// 单个攻略
     state.gonglueItem = payload.res
   },
-  getUserGonglue (state, payload) {
+  getUserGonglue (state, payload) {// 用户发表的攻略
     state.user_gl = payload.res
   }
 }

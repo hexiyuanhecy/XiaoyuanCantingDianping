@@ -4,6 +4,7 @@ import qs from 'qs'
 const baseurl = 'http://192.168.43.224:3001'
 
 const state = {
+  estimates:[],
   events: {
     0:[],
     1:[],
@@ -22,7 +23,10 @@ const state = {
   user_es: undefined
 }
 const mutations = {
-  loadMore (state, payload) {
+  getSelectEs (state, payload) {// 单个评价
+    state.estimates = payload.res
+  },
+  loadMore (state, payload) {//获取全部评价并分类
     // state.skip += 1
     // state.events[0] = state.events[0].concat(payload.res)
     // state.events[1] = state.events[1].concat(payload.hot)
@@ -39,20 +43,36 @@ const mutations = {
     state.events[5] = payload.meat
     state.events[6] = payload.daily
   },
-  getSingleEvent (state, payload) {
+  getSingleEvent (state, payload) {// 单个评价
     state.eventItem = payload.res
     state.dh_id = payload.res.dh_id
     state.eventItemImg = payload.img
   },
-  gerEstimateStar (state, payload) {
+  gerEstimateStar (state, payload) {// 用户收藏的评价
     state.us_es = payload.res
   },
-  gerUserEstimate (state, payload) {
+  gerUserEstimate (state, payload) {// 用户发表的评价
     state.user_es = payload.res
   }
 }
 
 const actions = {
+  getSelectEs ({commit, state}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post(`${baseurl}/estimate/estimate_select`,qs.stringify(payload))
+      .then(res => {
+        console.log(res.data)
+        commit({
+          type: 'getSelectEs',
+          res: res.data.data
+        })
+        resolve(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    })
+  },
   loadMore ({commit, state}, payload) {
     let id = payload;
     axios .get(`${baseurl}/estimate/estimate`)
@@ -107,7 +127,7 @@ const actions = {
           res: res.data.data[0],
           img: res.data.img
         })
-        resolve(res.data)
+        resolve(res.data.data[0])
         localStorage.setItem('dh_id',res.data.data[0].dh_id)
       })
       .catch(err => {

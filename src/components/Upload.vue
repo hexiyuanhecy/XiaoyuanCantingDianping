@@ -62,7 +62,6 @@ import 'photoswipe/dist/default-skin/default-skin.css'
 export default {
   data () {
     return {
-      // lang: this.$lang('dynamic'),
       files: [], // 文件缓存
       index: 0, // 序列号
       maxLength: 9, // 图片最大数量
@@ -70,75 +69,32 @@ export default {
     }
   },
   methods: {
-    // 选择图片
     selectImgs () {
-      let fileList = this.$refs.file.files
-      if (fileList.length > 9) {
-        alert(this.lang.dynamic_upload_tips)
+      let thisfile = this.$refs.file.files[0]
+      let tempList = [] 
+      let fileItem = {// 每次点击+号后选择的图片信息
+        Id: this.index++,
+        name: thisfile.name,
+        size: thisfile.size,
+        file: thisfile
       }
-      let tempList = [] // 每次点击+号后选择的图片信息
-      for (let i = 0, len = fileList.length; i < len; i++) {
-        let fileItem = {
-          Id: this.index++,
-          name: fileList[i].name,
-          size: fileList[i].size,
-          file: fileList[i]
-        }
-        // 将图片文件转成Base64
-        let reader = new FileReader()
-        reader.onloadend = e => {
-          this.getBase64(e.target.result).then(url => {
-            this.$set(fileItem, 'src', url)
-          })
-        }
-        if (fileItem.size > this.maxSize) {
-          console.log(this.lang.dynamic_over_size)
-        } else {
-          reader.readAsDataURL(fileList[i])
-          tempList.push(fileItem)
-          this.files.push(fileItem)
-        }
+      // 将图片文件转成Base64显示预览图
+      let reader = new FileReader()/* FileReader对象主要用于将文件内容读入内存，通过一系列异步接口，
+                                      可以在主线程中访问本地文件。web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容，
+                                      可以使用File对象或者Blob对象来指定所要处理的文件或数据。*/
+      reader.onloadend = e => {// 事件 当读取操作成功完成时调用,readAsDataURL异步转成base64
+          this.$set(fileItem, 'src', e.target.result) // 将图片base64编码写入文件src属性
+      }
+      if (fileItem.size > this.maxSize) {//如果图片过大
+        console.log(this.lang.dynamic_over_size)
+      } else {
+        reader.readAsDataURL(thisfile)// 读取方式 异步读取文件内容，结果用data:url的字符串形式表示，它会将文件内容进行base64编码后输出
+        this.files.push(fileItem)
       }
       setTimeout(() => {
-        this.$emit('getFiles', tempList)
+        this.$emit('getFiles', this.files) // 向父组件传值
       }, 300)
       this.files.splice(9)
-    },
-    // 图片压缩并保存到files
-    getBase64 (url) {
-      // let self = this
-      let Img = new Image()
-      let dataURL = ''
-      Img.src = url
-      let p = new Promise(function (resolve, reject) {
-        Img.onload = function () {
-          // 要先确保图片完整获取到，这是个异步事件
-          let canvas = document.createElement('canvas') // 创建canvas元素
-          let width = Img.width // 确保canvas的尺寸和图片一样
-          let height = Img.height
-          // 默认将长宽设置为图片的原始长宽，这样在长宽不超过最大长度时就不需要再处理
-          let ratio = width / height
-          let maxLength = 1000
-          let newHeight = height
-          let newWidth = width
-          // 在长宽超过最大长度时，按图片长宽比例等比缩小
-          if (width > maxLength || height > maxLength) {
-            if (width > height) {
-              newWidth = maxLength
-              newHeight = maxLength / ratio
-            } else {
-              newWidth = maxLength * ratio
-              newHeight = maxLength
-            }
-          }
-          canvas.width = newWidth
-          canvas.height = newHeight
-          canvas.getContext('2d').drawImage(Img, 0, 0, newWidth, newHeight)// 将图片绘制到canvas中
-          dataURL = canvas.toDataURL('image/jpeg', 0.5) // 转换图片为dataURL
-          resolve(dataURL)
-        }
-      })
-      return p
     },
     // 移除图片
     remove (index, e) {

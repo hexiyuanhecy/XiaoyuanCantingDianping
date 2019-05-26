@@ -82,7 +82,7 @@ export default {
   methods: {
     submit () {
       this.gl_name = />(\/?.+?\/?)[<\/|<]/.exec(this.content)[1]
-      let temp_imgArr = /src="(\/?.+?\/?)">/.exec(this.content)
+      let temp_imgArr = /src="(data:image\/\w+;base64,\/?.+?\/?)">/.exec(this.content)
       if(temp_imgArr){
         this.gl_main_img = temp_imgArr[1]
       }
@@ -99,7 +99,7 @@ export default {
         gl_content: this.content,
         gl_star: 0
       }
-      console.log(obj.gl_content)
+      // console.log(temp_imgArr)
       if(obj.gl_content==='<h5>写点什么吧...</h5>'||obj.gl_name==='<br>'){
         this.txt='攻略未填写完整！'
         this.show = true;

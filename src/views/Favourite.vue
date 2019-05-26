@@ -13,6 +13,7 @@
           :key="k"
           :href="`#tab-${k}`"
           class="black--text"
+          @click="settab(k)"
         >
           <span class="blacktext" v-text="value"></span>
         </v-tab>
@@ -54,6 +55,10 @@
             </router-link>
            </div>
         </v-tab-item>
+
+        <v-tab-item value="tab-3" >
+          <dish v-for="(item) in getitems()[4]" :key="item.ds_id" :item="item"></dish>
+        </v-tab-item>
       </v-tabs-items>
 
     
@@ -64,18 +69,20 @@
 import { mapState, mapActions } from 'vuex'
 import ReturnBar from '../components/ReturnBar'
 import Esjianjie from '../components/Card'
+import Dish from '../components/Dish'
 import Hall from '../components/Hall'
 export default {
   name: 'estimate',
   components: { 
     ReturnBar, 
     Esjianjie,
-    Hall
+    Hall,
+    Dish
   },
   data () {
     return {
-      myitems: ['评价','店铺', '攻略'],
-      model: 'tab-0'
+      myitems: ['评价','店铺', '攻略','菜品'],
+      model: localStorage.getItem('starvalue')||'tab-0'
     }
   },
   computed:{
@@ -87,11 +94,15 @@ export default {
     })
   },
   methods:{
+    settab (k) {
+      localStorage.setItem('starvalue',`tab-${k}`)
+    },
     ...mapActions([
       'getDiningHall',
       'getGonglue',
       'gerEstimateStar',
-      'getUserStar'
+      'getUserStar',
+      'getDishAll'
     ]),
     check (stardata,esdata,type) {
       let arr = []
@@ -113,10 +124,19 @@ export default {
           }
         }
       }
-      else{
+      else if(type === 3){
         for (let i=0;i<stardata.length; i++){
           for (let j=0;j<esdata.length; j++){
             if(esdata[j].gl_id === stardata[i].st_id){
+              arr.push(esdata[j])
+            }
+          }
+        }
+      }
+       else{
+        for (let i=0;i<stardata.length; i++){
+          for (let j=0;j<esdata.length; j++){
+            if(esdata[j].ds_id === stardata[i].st_id){
               arr.push(esdata[j])
             }
           }
@@ -128,20 +148,26 @@ export default {
       let items = {
         1: [],
         2: [],
-        3: []
+        3: [],
+        4: []
       }
       var stares = this.$store.state.star.es_star
+      var stards = this.$store.state.star.ds_star
       var stardh = this.$store.state.star.dh_star
       var stargl = this.$store.state.star.gl_star
+
       var esdata = this.$store.state.estimate.us_es
+      var dsdata = this.$store.state.dish.dishAll
       var dhdata = this.$store.state.hall.obj[0]
       var gldata = this.$store.state.gonglue.gonglueData
+
       items[1] = this.check(stares,esdata,1)
       items[2] = this.check(stardh,dhdata,2)
       items[3] = this.check(stargl,gldata,3)
+      items[4] = this.check(stards,dsdata,4)
       // console.log(stares)
       // console.log(dhdata)
-      // console.log(items[3])
+      // console.log(items[4])
       return items
     }
   },
@@ -152,8 +178,10 @@ export default {
     this.$store.dispatch('getGonglue')
     this.gerEstimateStar()
     this.getitems()
+    this.getDishAll()
     // console.log(this.$store.state.star.es_star)
-    window.reload()
+      // console.log('获得的收藏数据')
+      // console.log(this.$store.state.star.gl_star)
   }
 }
 </script>

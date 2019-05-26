@@ -18,6 +18,15 @@
               <div class="date">{{item.es_date.substring(0, 10)}}</div>
           </div>
           <div class="star">
+            <v-rating
+                :value="1"
+                length="1"
+                full-icon="star"
+                readonly="readonly"
+                color="yellow"
+                background-color="grey lighten-1"
+              ></v-rating>
+            <div class="">{{item.es_score}}&nbsp;&nbsp;</div>
             <div @click="toStar(item.es_id)">
               <!-- {{item}} -->
               <v-rating
@@ -40,9 +49,8 @@
         </router-link>
         <div class="detail-img">
           <ul>
-            <li><div v-for="i in 3" :key="i" class="zoomImage"  :style="{backgroundImage:'url('+item.es_main_img+')'}"></div></li>
-            <!-- <li><div class="zoomImage"  v-for="i in 3" :key="i" style="backgroundImage:url(http://192.168.43.224:3001/public/images/estimate_imgs/34.jpg)"></div></li> -->
-          
+            <li><div v-for="i in images" :key="i" class="zoomImage"  :style="{backgroundImage:'url('+i+')'}"></div></li>
+            
           </ul>
         </div>
         <v-divider></v-divider>
@@ -66,7 +74,19 @@ export default {
       else if(this.k === -2){
         return 0
       }
-      else{
+      else if(this.k === -4){//菜里评价
+        let starstar = 0
+        var datadata = this.item
+        var stardate = this.$store.state.star.es_star
+        var itemdate = datadata
+        for (let i=0;i<stardate.length; i++){// 遍历用户收藏评论列表
+            if(itemdate.es_id === stardate[i].st_id){//如果列表里有此条评论
+              this.$store.state.dish.dishItemEs[this.i].star = 1
+            }
+        }
+        return this.$store.state.dish.dishItemEs[this.i].star
+      }
+      else{//店铺里的评价
         let starstar = 0
         var datadata = this.item
         var stardate = this.$store.state.star.es_star
@@ -78,6 +98,19 @@ export default {
         }
         return this.$store.state.hall.hallItemEs[this.i].star
       }
+    },
+    images: function () {
+      let values = []
+      let data = this.item
+      Object.keys(data).forEach(function(key){
+        // console.log(typeof data[key])
+        // console.log(data[key])
+          if(key.match(/img/)&&data[key]){
+            if(values.length<3)
+              values.push(data[key])
+        }
+      });
+      return values
     }
   },
   methods: {
@@ -102,6 +135,30 @@ export default {
           this.item.es_star += 1
           this.k = -1
         })
+      }
+      else if(this.k === -4){
+        let index = this.i
+        var info = {
+          type: '',
+          id: id,
+          kind: '1'
+        }
+        if(this.$store.state.dish.dishItemEs[index].star === 1){
+          info.type = 'removeStar'
+          this.$store.dispatch(info).then(res => {
+              this.$store.state.dish.dishItemEs[index].es_star -= 1
+              this.$store.state.dish.dishItemEs[index].star = 0
+              this.$store.state.dish.dishItemEs[this.i].star=0
+          })
+        } 
+        else if(this.$store.state.dish.dishItemEs[index].star=== 0){
+          info.type = 'addStar'
+          this.$store.dispatch(info).then(res => {
+              this.$store.state.dish.dishItemEs[index].es_star += 1
+              this.$store.state.dish.dishItemEs[this.i].star=1
+          })
+        }
+
       }
       else {
         let index = this.i
@@ -130,6 +187,8 @@ export default {
       }
       // this.$store.dispatch('getUserStar')
     }
+  },
+  mounted () {
   }
 }
 </script>

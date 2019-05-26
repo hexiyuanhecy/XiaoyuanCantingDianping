@@ -6,16 +6,16 @@
     fixed
     dense
     >
-    <v-toolbar-title :to="{ name: 'School'}">
+    <v-toolbar-title @click="select">
       <span class="title">
         <v-icon>place</v-icon>
-        浙江理工
+        {{school}}
       </span>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <v-btn icon :to="{ name: 'Search'}">
+    <v-btn icon  @click="search">
       <v-icon>search</v-icon>
     </v-btn>
   </v-toolbar>
@@ -25,7 +25,20 @@
 <script>
 
 export default {
-  name: 'Toolbar'
+  name: 'Toolbar',
+  data () {
+    return {
+      school: localStorage.getItem('school')||'浙江理工大学'
+    }
+  },
+  methods: {
+    select () {
+      this.$router.push({ path: '/school'})
+    },
+    search () {
+      this.$router.push({ path: '/search'})
+    }
+  }
 }
 </script>
 

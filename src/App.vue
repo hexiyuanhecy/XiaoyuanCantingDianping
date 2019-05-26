@@ -14,6 +14,14 @@ export default {
 
 <style lang="scss">
 @import '~css/iconfont.css';
+.v-list__tile__title{
+  color: #111 !important;
+}
+.v-menu>.v-menu__content{
+  top: 45px!important;
+  left: 0px!important;
+  color: #000!important;
+}
 .content .v-tabs__container {
   height: 35px !important;
 }

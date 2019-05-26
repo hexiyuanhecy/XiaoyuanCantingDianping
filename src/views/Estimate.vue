@@ -74,12 +74,6 @@ export default {
       baseurl: 'http://192.168.43.224:3001/',
       es_content: '',
       imgList: [],
-      FilecodeList: [],
-      isSubmit: false,
-      disabled: true,
-      obj1: {name: 'obj1'},
-      obj2: {name: 'obj2'},
-      obj: null,
       indeterminate: true,
       score: undefined,
       hot: null,
@@ -88,20 +82,19 @@ export default {
       meat: null,
       noodles: null,
       specialty: null,
-      obj: Object
+      formData: FormData
     }
-  },
-  watch: {
-    // show (val) {
-    //   if (!val) return
-    //   setTimeout(() => (this.dialog = false), 1000)
-    // }
   },
   methods: {
     getImageList (files) {
-      this.$nextTick(() => {
+      let formData = new FormData()
+      this.$nextTick(() => {// dom更新后执行
         for (let i = 0, len = files.length; i < len; i++) {
-          this.imgList.push('data:image/jpg;base64,'+files[i].src.split('base64,')[1])
+          formData.append(`img`,files[i].file)
+          console.log('files'+i)
+          console.log(formData.get('img'))
+          // console.log(files[i].get("file"))
+          this.imgList = formData
         }
       })
     },
@@ -113,7 +106,8 @@ export default {
       this.$store.dispatch('loadMore')
     },
     submit () {
-      if(!this.es_content||!this.score||this.imgList.length===0){
+      // if(!this.es_content||!this.score||this.imgList.length===0){
+      if(!this.es_content||!this.score){
         this.txt='评论未填写完整！'
         this.show = true;
         setTimeout(() => {
@@ -122,26 +116,44 @@ export default {
       }
       else{
         var password = {
-          dh_id: this.$route.params.id,
-          us_id: localStorage.getItem('us_id'),
-          es_content: this.es_content,// 用户填
-          es_date: new Date(),
-          es_score: this.score,// 用户填
-          es_main_img: this.imgList[0],
-          imgs: this.imgList,
-          hot: +this.hot,
-          rihan: +this.rihan,
-          specialty:+this.specialty,
-          noodles: +this.noodles,
-          meat: +this.meat,
-          daily: +this.daily
+          // dh_id: this.$route.params.id,
+          // us_id: localStorage.getItem('us_id'),
+          // es_content: this.es_content,// 用户填
+          // es_date: new Date(),
+          // es_score: this.score,// 用户填
+          
+
+          // imgs: this.imgList,
+          // hot: +this.hot,
+          // rihan: +this.rihan,
+          // specialty:+this.specialty,
+          // noodles: +this.noodles,
+          // meat: +this.meat,
+          // daily: +this.daily
         }
-        this.axios.post(this.baseurl + `estimate/submit_estimate`, this.qs.stringify(password))
+        this.imgList.set('ds_id',this.$route.params.id)
+        this.imgList.set('dh_id',localStorage.getItem('dh_id'))
+        this.imgList.set('us_id',localStorage.getItem('us_id'))
+        this.imgList.set('es_content',this.es_content)
+        this.imgList.set('es_date',new Date())
+        this.imgList.set('es_score',this.score)
+        this.imgList.set('imgs',this.imgList)
+        this.imgList.set('hot',+this.hot)
+        this.imgList.set('rihan',+this.rihan)
+        this.imgList.set('specialty',+this.specialty)
+        this.imgList.set('noodles',+this.noodles)
+        this.imgList.set('meat',+this.meat)
+        this.imgList.set('daily',+this.daily)
+
+        this.axios.post(this.baseurl + `estimate/submit_estimate`, this.imgList)
           .then(res => {
+            // console.log(res.data)
             if(res.data.code === 200){
-              // localStorage.setItem('home',1)
-              this.loadMore()
-              this.$router.push({ path: '/pages/home'})
+              // this.$router.push({ path: '/pages/home'})
+              // this.$router.push({  //核心语句
+              //   path:`/dishdetail/${this.$route.params.id}`
+              // })
+              this.$router.go(-1);
             }
             else {
               this.show = true

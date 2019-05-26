@@ -22,6 +22,9 @@ import MyGonglue from '../views/MyGonglue'
 import GonglueDetail from '../views/GonglueDetail'
 import EditGonglue from '../views/EditGonglue'
 import HallAll from '../views/Hall_all'
+import Dish from '../views/DishView'
+import DishDetail from '../views/DishDetail'
+import DishEsList from '../views/DishEsList'
 
 Vue.use(Router)
 
@@ -79,12 +82,9 @@ export default new Router({
       }
     },
     {
-      path: '/search', // 查找
+      path: '/search', // 攻略详情
       name: 'SearchView',
-      components: {
-        default: PagesView,
-        search: SearchView
-      }
+      component: SearchView
     },
     {
       path: '/gonglue_detail/:id', // 攻略详情
@@ -132,7 +132,22 @@ export default new Router({
       component: Estimate
     },
     {
-      path: '/hallall/:id', // 发表评论
+      path: '/dish/:id', // 菜品列表
+      name: 'Dish',
+      component: Dish
+    },
+    {
+      path: '/dishdetail/:id', // 菜品列表
+      name: 'DishDetail',
+      component: DishDetail
+    },
+    {
+      path: '/dishEsList/:id', // 菜品评价列表
+      name: 'DishEsList',
+      component: DishEsList
+    },
+    {
+      path: '/hallall/:id', // 餐厅评论
       name: 'HallAll',
       component: HallAll
     },

@@ -111,6 +111,9 @@ export default {
       password:undefined,
       password_again:undefined,
       files: [], // 文件缓存
+      index: 0, // 序列号
+      maxLength: 9, // 图片最大数量
+      maxSize: 10240000, //图片限制为10M内
       rules: {
         length: len => v => (v || '').length >= len || `密码至少为 ${len}位`
       },
@@ -197,7 +200,6 @@ export default {
         this.close=-1
       }
     },
-    // 保存修改
     save () {
       if(this.kind === 'us_pwd'){
         this.txt = this.password
@@ -225,7 +227,6 @@ export default {
         console.log(err)
       })
     },
-    // 修改密码
     savepwd () {
       if(this.txt&&this.password&&this.password_again){
         var logininfo = {
@@ -264,35 +265,67 @@ export default {
         this.msgb = true
       }
     },
-    //选择图片并修改
+    //选择图片
     selectImgs(kind,file) {
       let fileList
       if(file === 1) fileList= this.$refs.file1.files[0];
       else fileList= this.$refs.file2.files[0];
-
-      let formData = new FormData()
-      formData.append('file',fileList)
-      formData.append('name',fileList.name)
-      formData.set('us_id', localStorage.getItem('us_id'))
-      formData.set('kind', kind)
-      formData.set('txt', '')
-      console.log(formData.get('file'))
-      var obj = {
-        us_id: localStorage.getItem('us_id'),
-        kind: kind,
-        txt: ''
-      }
-      // console.log(obj)
-      const instance=this.axios.create({
-          withCredentials: true
-      }) 
-              
-      instance.post('http://192.168.43.224:3001/user/edit_info',formData)
-        .then(res=>{
-          console.log(res.data)
-          this.$store.dispatch('getUserInfo')
-        })
-    }
+      console.log(fileList)
+      let tempList = []; //每次点击+号后选择的图片信息
+        let fileItem = {
+          Id: this.index++,
+          name: fileList.name,
+          size: fileList.size,
+          file: fileList
+        };
+        //将图片文件转成Base64
+        let reader = new FileReader();
+        reader.onloadend = e => {
+          this.getBase64(e.target.result).then(url => {
+            this.$set(fileItem, "src", url);
+            this.txt = url
+            this.kind = kind
+            this.save()
+          });
+        };
+        reader.readAsDataURL(fileList);
+    },
+    // 图片压缩并保存到files
+    getBase64(url) {
+      let self = this;
+      let Img = new Image(),
+        dataURL = "";
+      Img.src = url;
+      let p = new Promise(function(resolve, reject) {
+        Img.onload = function() {
+          //要先确保图片完整获取到，这是个异步事件
+          let canvas = document.createElement("canvas"), //创建canvas元素
+            width = Img.width, //确保canvas的尺寸和图片一样
+            height = Img.height;
+          // 默认将长宽设置为图片的原始长宽，这样在长宽不超过最大长度时就不需要再处理
+          let ratio = width / height,
+            maxLength = 1000,
+            newHeight = height,
+            newWidth = width;
+          // 在长宽超过最大长度时，按图片长宽比例等比缩小
+          if (width > maxLength || height > maxLength) {
+            if (width > height) {
+              newWidth = maxLength;
+              newHeight = maxLength / ratio;
+            } else {
+              newWidth = maxLength * ratio;
+              newHeight = maxLength;
+            }
+          }
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          canvas.getContext("2d").drawImage(Img, 0, 0, newWidth, newHeight); //将图片绘制到canvas中
+          dataURL = canvas.toDataURL("image/jpeg", 0.5); //转换图片为dataURL
+          resolve(dataURL);
+        };
+      });
+      return p;
+    },
   }
 }
 </script>

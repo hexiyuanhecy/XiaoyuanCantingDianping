@@ -3,34 +3,12 @@
   <div class="hall-view">
     <return-bar :title="titletitle"></return-bar>
     <div class="select">
-      <v-btn depressed :disabled='a' small block outline @click="getDiningHall('dh_star',1)">收藏降序</v-btn>
-      <v-btn depressed :disabled='b' small block outline @click="getDiningHall('dh_score',1)">评分降序</v-btn>
+      <v-btn depressed :disabled='a' small block outline @click="getDishItemEs('es_star',1)">收藏降序</v-btn>
+      <v-btn depressed :disabled='b' small block outline @click="getDishItemEs('es_score',1)">评分降序</v-btn>
     </div>
       <v-flex xs12 sm6 offset-sm3 class="hallall mx-1 my-2" v-for="(item, index) in items" :key="index">
-        <router-link  :to="'/hallinfo/' + item.dh_id">
-          <div class="card">
-            <!-- 作图 -->
-            <div class="img">
-              <div class="zoomImage"  :style="{backgroundImage:'url('+item.dh_main_img+')'}"></div>
-            </div>
-            <!-- 右详情  -->
-            <div class="info" :style="{background:RandomColor()}">
-              <div class="title">{{item.dh_name}}</div>
-                <div class="dh-info">{{item.dh_info}}</div>
-                  <div class="pingfen">
-                    <v-rating 
-                      v-model="item.dh_score" 
-                      small 
-                      dense
-                      half-increments 
-                      size="1"
-                      color="white darken-3">
-                    </v-rating>
-                    <span class="score">{{item.dh_score}}</span>
-                  </div>
-                    <span class="score white--text">收藏人数：{{item.dh_star}}</span>
-            </div>
-          </div>
+        <router-link tag="div" :to="'/dishEsList/' + item.dh_id">
+          <esjianjie v-for="(value,index) in items" :key="index" :item="value" :i='index' :k='-4'></esjianjie>
         </router-link>
       </v-flex>
 
@@ -42,10 +20,11 @@ import { mapState } from 'vuex'
 import ReturnBar from '../components/ReturnBar'
 import Loading from '../components/Loading'
 import HallInfo from '../components/HallInfo'
+import Esjianjie from '../components/Card'
 
 export default {
   name: 'hall-all',
-  components: { ReturnBar, Loading, HallInfo },
+  components: { ReturnBar, Loading, HallInfo,Esjianjie },
   props: ['ddd'],
   data () {
     return {
@@ -53,8 +32,6 @@ export default {
       items: undefined,
       id: this.$route.params.id,
       titletitle: undefined,
-      title: ['全部餐厅','桂花园', '玫瑰园', '紫薇阁', '面食主义', '营养早餐', '无肉不欢'],
-      title2: ['全部餐厅','桂花园', '玫瑰园', '紫薇阁', 'noodles', 'breakfast', 'meat'],
       b: false,
       a: true
    }
@@ -69,22 +46,21 @@ export default {
     // })
   },
   methods: {
-    RandomColor () {
-      let r, g, b
-      r = Math.floor(Math.random() * 151 + 50)
-      g = Math.floor(Math.random() * 151 + 80)
-      b = Math.floor(Math.random() * 151 + 50)
-      return 'rgb(' + r + ',' + g + ',' + b + ')'
-    },
-    getDiningHall: function (select,num) {
+    getDishItemEs: function (select,num) {
+      const id = this.$route.params.id
+      this.$store.dispatch({//获取菜品信息
+        type: 'getDishItem',
+        id: id
+      }).then(res => {
+          this.titletitle = res.ds_name+'的评论列表'
+      })
       this.$store.dispatch({ 
-        type: 'getHall_kind',
-        dining:this.title2[this.id],
-        select: select})
-        .then(res =>{
-          let id = this.id
+        type: 'getDishItemEs',
+        id: this.$route.params.id,
+        select: select
+      }).then(res =>{
+        console.log(res)
           this.items = res
-          this.titletitle = this.title[id]
           if(num === 1){
             this.a = !this.a
             this.b = !this.b
@@ -93,7 +69,7 @@ export default {
     }
   },
   mounted () {
-    this.getDiningHall('dh_star')
+    this.getDishItemEs()
   },
   updated () {
   }

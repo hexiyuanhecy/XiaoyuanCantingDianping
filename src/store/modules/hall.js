@@ -23,11 +23,12 @@ const state = {
   hallItem: {},
   hallItemImg:{},
   hallItemDish:{},
-  hallItemEs:{}
+  hallItemEs:{},
+  hall_kind: []
 }
 
 const mutations = {
-  getDiningHall (state, payload) {
+  getDiningHall (state, payload) {// 获取全部餐厅并分类
     state.obj[1] = payload.kind1
     state.obj[2] = payload.kind2
     state.obj[3] = payload.kind3
@@ -36,17 +37,17 @@ const mutations = {
     state.obj[6] = payload.kind6
     state.obj[0] = payload.res
   },
-  getSingleHall (state, payload) {
+  getSingleHall (state, payload) {// 单个餐厅
     state.hallItem = payload.res
     state.hallItemImg = payload.img
     state.hallItemEs = payload.estimate
     state.hallItemDish = payload.dish
   },
-  getSingleHallDi (state, payload) {
+  getSingleHallEs (state, payload) {//单个餐厅评价
     state.hallItemEs = payload.res
   },
-  getSingleHallEs (state, payload) {
-    state.hallItemEs = payload.res
+  getHall_kind (state, payload) {//分类餐厅
+    state.hall_kind = payload.res
   }
 }
 
@@ -107,7 +108,7 @@ const actions = {
           img: res.data.img,
           dish: res.data.dish
         })
-        resolve(res.data.data)
+        resolve(res.data.data[0])
       })
       .catch(err => {
         console.log(err)
@@ -119,19 +120,39 @@ const actions = {
     let obj = {
       id: payload.id
     }
-    axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall/item_es`, qs.stringify(obj))
-    .then(res => {
-      // console.log('获得餐厅评论/////////'+obj.id)
-      // console.log(res.data)
-      commit({
-        type: 'getSingleHallEs',
-        res: res.data.data
+    return new Promise((resolve, reject) => {
+      axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall/item_es`, qs.stringify(obj))
+      .then(res => {
+        commit({
+          type: 'getSingleHallEs',
+          res: res.data.data
+        })
+        resolve(res.data.data)
+      })
+      .catch(err => {
+        console.log(err)
       })
     })
-    .catch(err => {
-      console.log(err)
+  },
+  
+  getHall_kind ({commit, state}, payload) {
+    let obj = {
+      dining: payload.dining,
+      select: payload.select
+    }
+    return new Promise((resolve, reject) => {
+      axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall_kind`, qs.stringify(obj))
+      .then(res => {
+        commit({
+          type: 'getHall_kind',
+          res: res.data.data
+        })
+        resolve(res.data.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     })
-
   }
 }
 

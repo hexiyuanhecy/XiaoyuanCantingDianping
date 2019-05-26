@@ -9,6 +9,7 @@ import VueMaterial from 'vue-material'
 import Vuetify from 'vuetify'
 import axios from 'axios'
 import qs from 'qs'
+import Js from '@/commentJs/jsjs.js'
 
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'css/boder.css'
@@ -28,8 +29,6 @@ Vue.use(VueMaterial)
 Vue.use(vueScrollBehavior, { router: router })
 Vue.use(Vuetify)
 
-// axios.defaults.baseURL = 'http://192.168.43.224:3001'
-axios.defaults.baseURL = 'http://10.202.44.234:3001'
 
 /* eslint-disable no-new */
 new Vue({

@@ -14,11 +14,11 @@ const state = {
 }
 
 const mutations = {
-  getUserInfo (state, payload) {
+  getUserInfo (state, payload) {// 用户信息
     state.userData = payload.res
     state.us_name = payload.res[0].us_name
   },
-  getUserInfoItem (state, payload) {
+  getUserInfoItem (state, payload) {// 全部用户信息
     state.userItem = payload.res
   }
 }

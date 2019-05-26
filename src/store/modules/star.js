@@ -12,29 +12,23 @@ const state = {
   starDate: [],
   addStarRes: [],
   es_star:[],
+  ds_star:[],
   dh_star:[],
   gl_star:[]
 }
 
 const mutations = {
-  getUserStar (state, payload) {
+  getUserStar (state, payload) {// 用户收藏表并分类
     state.starDate = payload.res
-    state.starDate.map((value,index) => {
-      if(value.type === 1){
-        state.es_star.push(value)
-      }
-      else if(value.type ===2){
-        state.dh_star.push(value)
-      }
-      else{
-        state.gl_star.push(value)
-      }
-    })
+        state.es_star = payload.es_star
+        state.dh_star = payload.dh_star
+        state.gl_star = payload.gl_star
+        state.ds_star = payload.ds_star
   },
-  addStar (state, payload) {
+  addStar (state, payload) {// 加入收藏
     state.addStarRes = payload.res
   },
-  addstar (state, payload) {
+  removeStar (state, payload) {// 取消收藏
     state.addStarRes = payload.res
   }
 }
@@ -46,11 +40,31 @@ const actions = {
     }
     axios.post(`http://192.168.43.224:3001/star/star`, qs.stringify(obj))
     .then(res => {
-      // console.log('-----------------')
-      // console.log(res.data.data)
+      let es_star = []
+      let dh_star = []
+      let gl_star = []
+      let ds_star = []
+      res.data.data.map((value,index) => {
+        if(value.type === 1){
+          es_star.push(value)
+        }
+        else if(value.type ===2){
+          dh_star.push(value)
+        }
+        else if(value.type ===3){
+          gl_star.push(value)
+        }
+        else {
+          ds_star.push(value)
+        }
+      })
       commit({
         type: 'getUserStar',
-        res: res.data.data
+        res: res.data.data,
+        es_star: es_star,
+        dh_star: dh_star,
+        gl_star: gl_star,
+        ds_star: ds_star
       })
     })
     .catch(err => {

@@ -4,9 +4,9 @@
     <return-bar title="评论详情"></return-bar>
       <!-- 图片 -->
       <div class="poster my-gallery" itemscope>
-        <figure itemprop="associatedMedia" itemscope v-for="(item, index) in eventItemImg" :key="index" itemtype="http://192.168.43.224:3001">
-            <a :href="item.es_img_path" itemprop="contentUrl" data-size="0x0">
-                <div class="zoomImage"  :style="{backgroundImage:'url('+item.es_img_path+')'}" itemprop="thumbnail"></div>
+        <figure itemprop="associatedMedia" itemscope v-for="(item, index) in images" :key="index" itemtype="http://192.168.43.224:3001">
+            <a :href="item" itemprop="contentUrl" data-size="0x0">
+                <div class="zoomImage"  :style="{backgroundImage:'url('+item+')'}" itemprop="thumbnail"></div>
             </a>
         </figure>
       </div>
@@ -49,8 +49,11 @@
           </div>
         </div>
 
-         <!-- 餐厅简介 -->
-         <br>
+        <!-- 菜品详情 -->
+        <dish :item='dishItem'></dish>
+
+        <!-- 餐厅简介 -->
+        <br>
         <router-link  :to="'/hallinfo/' + hallItem.dh_id">
           <div class="card">
             <!-- 作图 -->
@@ -121,39 +124,63 @@ import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default'
 import 'photoswipe/dist/photoswipe.css'
 import 'photoswipe/dist/default-skin/default-skin.css'
+import Dish from '../components/Dish'
 import HallInfo from '../components/HallInfo'
 
 export default {
   name: 'detail-view',
-  components: { ReturnBar, Loading, HallInfo },
+  components: { ReturnBar, Loading, Dish, HallInfo },
   data () {
     return {
       showLoading: true,
+      eventItem: undefined,
+      dishItem: undefined,
+      hallItem: undefined
     }
   },
   computed: {
     ...mapState({
-      eventItemImg: state => state.estimate.eventItemImg,
-      eventItem: state => state.estimate.eventItem,
-      dh_id: state => state.estimate.dh_id,
-      hallItem: state => state.hall.hallItem
+      // eventItemImg: state => state.estimate.eventItemImg,
+      // eventItem: state => state.estimate.eventItem,
+      // dh_id: state => state.estimate.dh_id,
+      // hallItem: state => state.hall.hallItem
     }),
+    // images: function () {
+    //   let values = []
+    //   let data = this.$store.state.estimate.eventItem
+    //   Object.keys(data).forEach(function(key){
+    //       if(key.match(/img/)&&data[key]){
+    //         values.push(data[key])
+    //     }
+    //   });
+    //   return values
+    // },
     item: function () {
       // console.log(this.$store.state.star.es_star)
-      var datadata = this.$store.state.estimate.eventItem
+      var datadata = this.eventItem
       var stardate = this.$store.state.star.es_star
-        var itemdate = datadata
-        for (let i=0;i<stardate.length; i++){
-            if(itemdate.es_id === stardate[i].st_id){
-              this.$store.state.estimate.eventItem.star = 1
-            }
-        }
-      return this.$store.state.estimate.eventItem
+      var itemdate = datadata
+      for (let i=0;i<stardate.length; i++){
+          if(itemdate.es_id === stardate[i].st_id){
+            this.eventItem.star = 1
+          }
+      }
+      return this.eventItem
     }
   },
-  created () {
+  updated:function(){
+      this.initPhotoSwipeFromDOM('.my-gallery')
   },
   methods: {
+    push(){
+        this.list.push(11);
+        this.nextTick(function(){
+            alert('数据已经更新')
+        });
+        this.$nextTick(function(){
+            alert('v-for渲染已经完成')
+        })
+    },
     formatData (time) {
       return time.substring(0, 10)
     },
@@ -161,7 +188,18 @@ export default {
       str = str + '美味佳肴、口齿留香、珍馐佳肴、秀色可餐、饕餮大餐、回味无穷、色味俱佳、垂涎欲滴、其味无穷'
       return str
     },
+    images: function () {
+      let values = []
+      let data = this.eventItem
+      Object.keys(data).forEach(function(key){
+          if(key.match(/img/)&&data[key]){
+            values.push(data[key])
+        }
+      });
+      this.images = values
+    },
     initPhotoSwipeFromDOM (gallerySelector) {
+      console.log('jinlailllllllll')
       var parseThumbnailElements = function(el) {
         var thumbElements = el.childNodes,
             numNodes = thumbElements.length,
@@ -393,18 +431,33 @@ export default {
   mounted () {
     const id = this.$route.params.id
     const dh_id = this.$route.params.dh_id
+    console.log('dh_id'+dh_id)
+
+    // 获取单个评价
     this.$store.dispatch({
       type: 'getSingleEvent',
       id: id
     }).then(res => {
-      this.initPhotoSwipeFromDOM('.my-gallery')
-      // console.log(this.eventItemImg)
-    })
-    this.$store.dispatch({
-        type: 'getSingleHall',
-        id: dh_id
+      this.eventItem = res
+      this.images() // 筛选图片
+      
+      // 获取菜品详情
+      this.$store.dispatch({
+        type: 'getDishItem',
+        id: this.eventItem.ds_id
       }).then(res => {
+        this.dishItem = res
       })
+    })
+    
+    // 获取餐厅详情
+    this.$store.dispatch({
+      type: 'getSingleHall',
+      id: dh_id
+    }).then(res => {
+      this.hallItem = res
+    })
+    this.$store.dispatch( 'getUserStar')
     localStorage.removeItem('dh_id')
   }
 }

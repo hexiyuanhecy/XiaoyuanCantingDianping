@@ -7,6 +7,8 @@ import gonglue from './modules/gonglue'
 import star from './modules/star'
 import search from './modules/search'
 import mystate from './modules/mystate'
+import dish from './modules/dish'
+import school from './modules/school'
 
 Vue.use(Vuex)
 
@@ -16,7 +18,9 @@ export default new Vuex.Store({
     estimate,
     gonglue,
     star,
+    dish,
     search,
-    mystate
+    mystate,
+    school
   }
 })
