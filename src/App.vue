@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <router-view class="view"></router-view>
+    123
+    <!-- <router-view class="view"></router-view>
     <router-view class="view" name="subject"></router-view>
-    <router-view class="view" name="search"></router-view>
+    <router-view class="view" name="search"></router-view> -->
   </div>
 </template>
 
@@ -13,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~css/iconfont.css';
+@use '~css/iconfont.css';
 .v-list__tile__title{
   color: #111 !important;
 }

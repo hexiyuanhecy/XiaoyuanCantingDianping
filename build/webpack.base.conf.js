@@ -48,8 +48,17 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.(scss|sass)$/,
-        loader: 'style-loader!css-loader!sass-loader'
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass') // 显式指定使用 Dart Sass
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

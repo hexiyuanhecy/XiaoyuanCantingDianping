@@ -20,7 +20,7 @@
         <!-- 图片 -->
         <div v-if="hallItemImg">
           <div class="poster my-gallery imgs1" itemscope>
-            <figure itemprop="associatedMedia" itemscope v-for="(item, index) in hallItemImg" :key="index" itemtype="http://192.168.43.224:3001">
+            <figure itemprop="associatedMedia" itemscope v-for="(item, index) in hallItemImg" :key="index" itemtype="http://192.168.10.17:3001">
                 <a :href="item.dh_img_path" itemprop="contentUrl" data-size="0x0">
                     <div class="zoomImage1"  :style="{backgroundImage:'url('+item.dh_img_path+')'}" itemprop="thumbnail"></div>
                 </a>
@@ -29,7 +29,7 @@
         </div>
         <div v-else>
           <div class="poster my-gallery imgs1" itemscope>
-            <figure itemprop="associatedMedia" itemscope :key="index" itemtype="http://192.168.43.224:3001">
+            <figure itemprop="associatedMedia" itemscope :key="index" itemtype="http://192.168.10.17:3001">
                 <a :href="hallItem.dh_main_img" itemprop="contentUrl" data-size="0x0">
                     <div class="zoomImage1"  :style="{backgroundImage:'url('+hallItem.dh_main_img+')'}" itemprop="thumbnail"></div>
                 </a>

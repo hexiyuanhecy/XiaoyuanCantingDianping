@@ -10,7 +10,7 @@
       flat
     >
       <v-img
-        src="http://192.168.43.224:3001/public/images/images/register2.jpg"
+        src="http://192.168.10.17:3001/public/images/images/register2.jpg"
         gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
         height="200"
       >
@@ -118,14 +118,14 @@ export default {
           phone: this.phone,
           password: this.password
         }
-        this.axios.post(`http://192.168.43.224:3001/user/register/cname`, this.qs.stringify(user_info))
+        this.axios.post(`http://192.168.10.17:3001/user/register/cname`, this.qs.stringify(user_info))
         .then(res => {
           this.temp = res.data.code
           if (this.temp === -1) {
             this.msgb = true
             this.msg = '该用户名已存在！'
           } else {
-            this.axios.post(`http://192.168.43.224:3001/user/register`, this.qs.stringify(user_info))
+            this.axios.post(`http://192.168.10.17:3001/user/register`, this.qs.stringify(user_info))
             .then(res => {
               this.msgb1 = true
               this.msg1 = '恭喜您注册成功，请前往登录吧！！'

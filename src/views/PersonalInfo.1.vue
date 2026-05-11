@@ -210,7 +210,7 @@ export default {
         kind: this.kind,
         txt: this.txt
       }
-      this.axios.post(`http://192.168.43.224:3001/user/edit_info`,this.qs.stringify(obj))
+      this.axios.post(`http://192.168.10.17:3001/user/edit_info`,this.qs.stringify(obj))
       .then(res => {
         if(res.data.code === 200){
           this.dialog = false
@@ -235,7 +235,7 @@ export default {
         }
         console.log(logininfo)
         // 判断当前密码是否输入正确
-        this.axios.post(`http://192.168.43.224:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
+        this.axios.post(`http://192.168.10.17:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
           console.log(res.data.msg.us_id)
           if(res.data.code === 200){
             if(this.txt === this.password){

@@ -1,7 +1,7 @@
 import request from 'superagent'
 import axios from 'axios'
 import qs from 'qs'
-const baseurl = 'http://192.168.43.224:3001'
+const baseurl = 'http://192.168.10.17:3001'
 
 const state = {
   count: 0,
@@ -26,7 +26,7 @@ const mutations = {
 
 const actions = {
   getGonglue ({commit, state}) {
-    axios.get(`http://192.168.43.224:3001/gonglue/gonglue`)
+    axios.get(`http://192.168.10.17:3001/gonglue/gonglue`)
     .then(res => {
       console.log('res.data.data-----------')
       console.log(res.data.data)

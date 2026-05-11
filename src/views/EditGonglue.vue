@@ -87,7 +87,7 @@ export default {
         this.gl_main_img = temp_imgArr[1]
       }
       else{
-        this.gl_main_img = 'http://192.168.43.224:3001/public/images/estimate/11.jpg'
+        this.gl_main_img = 'http://192.168.10.17:3001/public/images/estimate/11.jpg'
       }
       
       var obj = {
@@ -108,7 +108,7 @@ export default {
         }, 1500)
       }
       else{
-        this.axios.post(`http://192.168.43.224:3001/gonglue/submit_gonglue`, this.qs.stringify(obj))
+        this.axios.post(`http://192.168.10.17:3001/gonglue/submit_gonglue`, this.qs.stringify(obj))
           .then(res => {
             // console.log(res.data)
             if(res.data.code === 200){

@@ -71,7 +71,7 @@ export default {
     return {
       show: false,
       txt: undefined,
-      baseurl: 'http://192.168.43.224:3001/',
+      baseurl: 'http://192.168.10.17:3001/',
       es_content: '',
       imgList: [],
       indeterminate: true,
