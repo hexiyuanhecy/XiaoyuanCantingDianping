@@ -28,8 +28,15 @@ import DishEsList from '../views/DishEsList'
 
 Vue.use(Router)
 
+console.log(111)
+console.log(111)
+
 export default new Router({
   routes: [
+    {
+      path: '/',
+      redirect: '/login'
+    },
     {
       path: '',
       redirect: '/login'

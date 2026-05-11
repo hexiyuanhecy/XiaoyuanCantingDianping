@@ -5,7 +5,7 @@
       flat
     >
       <v-img
-        src="http://192.168.43.224:3001/public/images/images/shousi2.jpg"
+        src="http://192.168.10.17:3001/public/images/images/shousi2.jpg"
         gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
         height='200'
       >
@@ -84,7 +84,7 @@ export default {
         loginname: this.loginname,
         password: this.password
       }
-      this.axios.post(`http://192.168.43.224:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
+      this.axios.post(`http://192.168.10.17:3001/user/login`, this.qs.stringify(logininfo)).then(res => {
         console.log(res.data.msg.us_id)
         if(res.data.code === 200){
           localStorage.setItem('flag',"1")

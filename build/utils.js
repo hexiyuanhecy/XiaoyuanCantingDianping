@@ -1,5 +1,7 @@
 var path = require('path')
 var config = require('../config')
+// 注意：extract-text-webpack-plugin 在 webpack 4+ 建议使用 mini-css-extract-plugin
+// 不过这里先保持原样，后续可按需替换
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.assetsPath = function (_path) {
@@ -27,7 +29,9 @@ exports.cssLoaders = function (options) {
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
+          sourceMap: options.sourceMap,
+          // 使用 Dart Sass
+          implementation: require('sass') 
         })
       })
     }
@@ -48,8 +52,11 @@ exports.cssLoaders = function (options) {
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
+    // 使用 Dart Sass 处理 less 文件
     less: generateLoaders('less'),
+    // 使用 Dart Sass 处理 sass 文件
     sass: generateLoaders('sass', { indentedSyntax: true }),
+    // 使用 Dart Sass 处理 scss 文件
     scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')

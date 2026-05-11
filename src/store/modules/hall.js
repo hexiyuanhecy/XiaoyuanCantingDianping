@@ -2,7 +2,7 @@ import request from 'superagent'
 import axios from 'axios'
 import qs from 'qs'
 // const baseurl = 'http://10.202.44.234:3001'
-const baseurl = 'http://192.168.43.224:3001'
+const baseurl = 'http://192.168.10.17:3001'
 const state = {
   obj: {
     0: [],
@@ -55,7 +55,7 @@ const actions = {
   getDiningHall ({ commit }) {
     return new Promise((resolve, reject) => {
     request
-      .get('http://192.168.43.224:3001/dining_hall/dining_hall')
+      .get('http://192.168.10.17:3001/dining_hall/dining_hall')
       .end((err, res) => {
         // console.log('在函数里')
         if (!err) {
@@ -98,7 +98,7 @@ const actions = {
       let obj = {
         id: payload.id
       }
-      axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall/item`, qs.stringify(obj))
+      axios.post(`http://192.168.10.17:3001/dining_hall/dining_hall/item`, qs.stringify(obj))
       .then(res => {
         // console.log('获得单个餐厅的信息'+obj.id)
         // console.log(res.data)
@@ -121,7 +121,7 @@ const actions = {
       id: payload.id
     }
     return new Promise((resolve, reject) => {
-      axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall/item_es`, qs.stringify(obj))
+      axios.post(`http://192.168.10.17:3001/dining_hall/dining_hall/item_es`, qs.stringify(obj))
       .then(res => {
         commit({
           type: 'getSingleHallEs',
@@ -141,7 +141,7 @@ const actions = {
       select: payload.select
     }
     return new Promise((resolve, reject) => {
-      axios.post(`http://192.168.43.224:3001/dining_hall/dining_hall_kind`, qs.stringify(obj))
+      axios.post(`http://192.168.10.17:3001/dining_hall/dining_hall_kind`, qs.stringify(obj))
       .then(res => {
         commit({
           type: 'getHall_kind',

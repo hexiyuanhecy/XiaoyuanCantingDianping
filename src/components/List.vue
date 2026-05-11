@@ -125,7 +125,7 @@ export default {
   data () {
     return {
       cards: [
-        { title: 'Favorite road trips', src: 'http://192.168.43.224:3001/public/images/school/zstu.jfif', flex: 6 }
+        { title: 'Favorite road trips', src: 'http://192.168.10.17:3001/public/images/school/zstu.jfif', flex: 6 }
       ],
       myitems: ['全部评价', '紫薇阁', '桂花园', '玫瑰园','无辣不欢', '清淡可口', '日韩料理', '杭帮菜品'],
       myitems2: ['收藏降序','最新发表','评分降序'],

@@ -4,7 +4,7 @@
     <return-bar title="评论详情"></return-bar>
       <!-- 图片 -->
       <div class="poster my-gallery" itemscope>
-        <figure itemprop="associatedMedia" itemscope v-for="(item, index) in images" :key="index" itemtype="http://192.168.43.224:3001">
+        <figure itemprop="associatedMedia" itemscope v-for="(item, index) in images" :key="index" itemtype="http://192.168.10.17:3001">
             <a :href="item" itemprop="contentUrl" data-size="0x0">
                 <div class="zoomImage"  :style="{backgroundImage:'url('+item+')'}" itemprop="thumbnail"></div>
             </a>

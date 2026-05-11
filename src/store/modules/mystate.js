@@ -1,7 +1,7 @@
 import request from 'superagent'
 import axios from 'axios'
 import qs from 'qs'
-const baseurl = 'http://192.168.43.224:3001'
+const baseurl = 'http://192.168.10.17:3001'
 
 const state = {
   count: 0,
@@ -26,7 +26,7 @@ const actions = {
     let obj = {
       usid: localStorage.getItem('us_id')
     }
-    axios.post(`http://192.168.43.224:3001/user/info`, qs.stringify(obj))
+    axios.post(`http://192.168.10.17:3001/user/info`, qs.stringify(obj))
     .then(res => {
       commit({
         type: 'getUserInfo',
@@ -47,7 +47,7 @@ const actions = {
   getUserInfoItem ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
       request
-        .get(`http://192.168.43.224:3001/user/allinfo`)
+        .get(`http://192.168.10.17:3001/user/allinfo`)
         .end((err, res) => {
           // var myid = payload
           // console.log('接收到的list传给detail的index' + payload.id)

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-const baseurl = 'http://192.168.43.224:3001'
+const baseurl = 'http://192.168.10.17:3001'
 
 const state = {
   count: 0,
@@ -28,7 +28,7 @@ const mutations = {
 const actions = {
   getDish ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`http://192.168.43.224:3001/dish/dish`, qs.stringify(payload))
+      axios.post(`http://192.168.10.17:3001/dish/dish`, qs.stringify(payload))
       .then(res => {
         commit({
           type: 'getDish',
@@ -44,7 +44,7 @@ const actions = {
 
   getDishAll ({commit, state}, payload) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://192.168.43.224:3001/dish/dish_all`,)
+      axios.get(`http://192.168.10.17:3001/dish/dish_all`,)
       .then(res => {
         commit({
           type: 'getDishAll',
@@ -63,7 +63,7 @@ const actions = {
       let obj = {
         id: payload.id
       }
-      axios.post(`http://192.168.43.224:3001/dish/dish_item`, qs.stringify(obj))
+      axios.post(`http://192.168.10.17:3001/dish/dish_item`, qs.stringify(obj))
       .then(res => {
         commit({
           type: 'getDishItem',
@@ -84,7 +84,7 @@ const actions = {
         select:payload.select
       }
       console.log(obj)
-      axios.post(`http://192.168.43.224:3001/dish/dish_item_es`, qs.stringify(obj))
+      axios.post(`http://192.168.10.17:3001/dish/dish_item_es`, qs.stringify(obj))
       .then(res => {
         commit({
           type: 'getDishItemEs',

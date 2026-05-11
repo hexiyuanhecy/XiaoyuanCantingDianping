@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-const baseurl = 'http://192.168.43.224:3001'
+const baseurl = 'http://192.168.10.17:3001'
 
 const state = {
   count: 0,
@@ -35,7 +35,7 @@ const actions = {
     let obj = {
       usid: localStorage.getItem('us_id')
     }
-    axios.post(`http://192.168.43.224:3001/star/star`, qs.stringify(obj))
+    axios.post(`http://192.168.10.17:3001/star/star`, qs.stringify(obj))
     .then(res => {
       let es_star = []
       let dh_star = []
@@ -82,7 +82,7 @@ const actions = {
       type:payload.kind
     }
     // console.log('未收藏')
-    axios.post(`http://192.168.43.224:3001/star/add_star`, qs.stringify(obj))
+    axios.post(`http://192.168.10.17:3001/star/add_star`, qs.stringify(obj))
     .then(res => {
     })
     .catch(err => {
@@ -96,7 +96,7 @@ const actions = {
       type:payload.kind
     }
     // console.log('未收藏')
-    axios.post(`http://192.168.43.224:3001/star/remove_star`, qs.stringify(obj))
+    axios.post(`http://192.168.10.17:3001/star/remove_star`, qs.stringify(obj))
     .then(res => {
     })
     .catch(err => {

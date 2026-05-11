@@ -36,7 +36,7 @@
               <div class="detail-img">
                 <ul>
                   <li><div v-for="i in selectimg(item)" :key="i" class="zoomImage"  :style="{backgroundImage:'url('+i+')'}"></div></li>
-                  <!-- <li><div class="zoomImage"  v-for="i in 3" :key="i" style="backgroundImage:url(http://192.168.43.224:3001/public/images/estimate_imgs/34.jpg)"></div></li> -->
+                  <!-- <li><div class="zoomImage"  v-for="i in 3" :key="i" style="backgroundImage:url(http://192.168.10.17:3001/public/images/estimate_imgs/34.jpg)"></div></li> -->
                 
                 </ul>
               </div>
